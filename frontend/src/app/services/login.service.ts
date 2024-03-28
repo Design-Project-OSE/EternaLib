@@ -4,8 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LoginService {
-
   isRegisterForm: boolean = false;
-
-  constructor() { }
+  isLoginPage: boolean = false;
 }

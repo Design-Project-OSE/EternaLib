@@ -5,6 +5,7 @@ import { LayoutsComponent } from './components/layouts/layouts.component';
 import { HomeComponent } from './components/home/home.component';
 import { ContentComponent } from './components/content/content.component';
 import { ContentDetailComponent } from './components/content/content-detail/content-detail.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
       {
         path: "detail",
         component: ContentDetailComponent
+      },
+      {
+        path: "profile",
+        component: ProfileComponent
       }
     ]
   }

@@ -3,13 +3,15 @@
   </div>
   <div class="container">
     <div class="content-center brand">
-      <img class="n-logo" src="/assets/img/aa.png" alt="" style="width: 99px;">
+      <div class="logo-container w-25 mx-auto">
+        <img src="/assets/img/aa.png" alt="">
+      </div>
       <h3>A Social Media Platform That You Can Share <br>The MOVIES, GAMES And BOOKS You Like</h3>
       <ul class="navbar-nav">
         <li class="nav-item">
-            <button href="javascript:void(0)" onclick="scrollToDownload()" class="btn btn-lg btn-primary btn-light rounded-pill" rel="tooltip" title="Şu anda popüler olan içerikleri gör" data-placement="bottom">
+            <button href="javascript:void(0)" onclick="scrollToDownload()" class="btn btn-lg btn-primary rounded-pill">
               <p class="mb-0"><b>Populer İçerikler</b></p>
-              <i class="now-ui-icons arrows-1_minimal-down"></i>
+              <i class="fa-solid fa-caret-down fa-2xl"></i>
             </button>
         </li>
       </ul>
@@ -27,22 +29,22 @@
 <div class="main section-download pt-1" id="#download-section">
   <div class="section container pb-1">
     <div> <!--text-center-->
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center mb-2">
         <span class="border rounded-circle p-3 mr-2" style="color:rgb(249, 99, 50)">
-          <i class="fa-solid fa-thumbs-up fa-2xl"></i>
+          <i class="fa-solid fa-film fa-2xl"></i>
         </span>
         <h3 class="my-auto"><b>En Çok Beğenilen Filmler</b></h3>
-        <button class="tumunu-goster ml-auto" rel="tooltip" title="Tüm Filmlere Git" data-placement="bottom">Tümünü Göster</button>
+        <button routerLink="/content" class="tumunu-goster ml-auto">Tümünü Göster</button>
       </div>
-      <div class="row justify-content-md-center">
-        <div class="col-sm-4 col-md-3 col-lg-2 mx-5">
+      <div class="row">
+        <div class="col-sm-4 col-md-3 col-lg-2 mr-5">
           <div class="card">
             <div class="poster">
               <img src="https://tr.web.img4.acsta.net/r_1280_720/pictures/19/03/28/15/19/3146737.jpg" alt="Location Unknown">
             </div>
-            <div class="details">
+            <div class="details p-3">
                 <a routerLink="/detail"><h1>Durante La Tormenta</h1></a>
-                <h2>2018 • PG • 2hr 08min</h2>
+                <h2><i class="fa fa-eye"></i> 1.6b views<span class="float-right"><i class="fa-solid fa-comment"></i> 5 comments</span></h2>
                 <div class="rating">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -59,6 +61,79 @@
             </div>
           </div>
         </div>
+        <div class="col-sm-4 col-md-3 col-lg-2 mx-5">
+          <div class="card">
+            <div class="poster">
+              <img src="https://tr.web.img2.acsta.net/pictures/17/10/03/16/07/0415042.jpg" alt="Location Unknown">
+            </div>
+            <div class="details p-3">
+                <a routerLink="/detail"><h1>Blade Runner: 2049</h1></a>
+                <h2><i class="fa fa-eye"></i> 7.3b views<span class="float-right"><i class="fa-solid fa-comment"></i> 7 comments</span></h2>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>4.2/5</span>
+                </div>
+                <div class="tags">
+                    <span class="tag">Amerikan</span>
+                    <span class="tag">Bilim Kurgu</span>
+                    <span class="tag">Indie</span>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-3 col-lg-2 mx-5">
+          <div class="card">
+            <div class="poster">
+              <img src="https://play-lh.googleusercontent.com/jK3vNyr94KEgyvdInqyHaOWym9MJCAsqqXqS_nbrwgU1bRvcx5XoSqvl-WhevEJVj4jIB374273fH6r89w" alt="Location Unknown">
+            </div>
+            <div class="details p-3">
+                <a routerLink="/detail"><h1>The Last Voyage of Demeter</h1></a>
+                <h2><i class="fa fa-eye"></i> 5.2b views<span class="float-right"><i class="fa-solid fa-comment"></i> 14 comments</span></h2>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>4.2/5</span>
+                </div>
+                <div class="tags">
+                    <span class="tag">Fransız</span>
+                    <span class="tag">Korku</span>
+                    <span class="tag">Indie</span>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-3 col-lg-2 mx-5">
+          <div class="card">
+            <div class="poster">
+              <img src="https://tr.web.img4.acsta.net/pictures/20/07/10/11/27/0867313.jpg" alt="Location Unknown">
+            </div>
+            <div class="details p-3">
+                <a routerLink="/detail"><h1>The Room</h1></a>
+                <h2><i class="fa fa-eye"></i> 5.2b views<span class="float-right"><i class="fa-solid fa-comment"></i> 14 comments</span></h2>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>4.2/5</span>
+                </div>
+                <div class="tags">
+                    <span class="tag">İngiliz</span>
+                    <span class="tag">Bilim Kurgu</span>
+                    <span class="tag">Indie</span>
+                </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -66,23 +141,23 @@
   <hr class="container">
 
   <div class="section container py-1">
-    <div> <!--text-center-->
-      <div class="d-flex align-items-center">
+    <div>
+      <div class="d-flex align-items-center mb-2">
         <span class="border rounded-circle p-3 mr-2" style="color:rgb(249, 99, 50)">
-          <i class="fa-solid fa-thumbs-up fa-2xl"></i>
+          <i class="fa-solid fa-gamepad fa-2xl"></i>
         </span>
         <h3 class="my-auto"><b>En Çok Beğenilen Oyunlar</b></h3>
-        <button class="tumunu-goster ml-auto" rel="tooltip" title="Tüm Oyunlara Git" data-placement="bottom">Tümünü Göster</button>
+        <button routerLink="/content" class="tumunu-goster ml-auto">Tümünü Göster</button>
       </div>
-      <div class="row justify-content-md-center">
-        <div class="col-sm-4 col-md-3 col-lg-2 mx-5">
+      <div class="row">
+        <div class="col-sm-4 col-md-3 col-lg-2 mr-5">
           <div class="card">
             <div class="poster">
               <img src="https://image.api.playstation.com/vulcan/img/rnd/202010/2821/KXv6VplN1r1bNPdfR4r29w0m.png" alt="Location Unknown">
             </div>
-            <div class="details">
+            <div class="details p-3">
                 <a routerLink="/detail"><h1>Infamous Second Son</h1></a>
-                <h2>2013 • PG • 2hr 08min</h2>
+                <h2><i class="fa fa-eye"></i> 1.6b views<span class="float-right"><i class="fa-solid fa-comment"></i> 5 comments</span></h2>
                 <div class="rating">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -92,9 +167,8 @@
                     <span>4.2/5</span>
                 </div>
                 <div class="tags">
-                    <span class="tag">İspanyol</span>
+                    <span class="tag">Sucker Punch</span>
                     <span class="tag">Bilim Kurgu</span>
-                    <span class="tag">Indie</span>
                 </div>
             </div>
           </div>
@@ -107,22 +181,22 @@
 
   <div class="section container py-1">
     <div> <!--text-center-->
-      <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center mb-2">
         <span class="border rounded-circle p-3 mr-2" style="color:rgb(249, 99, 50)">
-          <i class="fa-solid fa-thumbs-up fa-2xl"></i>
+          <i class="fa-solid fa-book fa-2xl"></i>
         </span>
         <h3 class="my-auto"><b>En Çok Beğenilen Kitaplar</b></h3>
-        <button class="tumunu-goster ml-auto" rel="tooltip" title="Tüm Kitaplara Git" data-placement="bottom">Tümünü Göster</button>
+        <button routerLink="/content" class="tumunu-goster ml-auto">Tümünü Göster</button>
       </div>
-      <div class="row justify-content-md-center">
-        <div class="col-sm-4 col-md-3 col-lg-2 mx-5">
+      <div class="row">
+        <div class="col-sm-4 col-md-3 col-lg-2 mr-5">
           <div class="card">
             <div class="poster">
               <img src="https://m.media-amazon.com/images/I/A1u+2fY5yTL._AC_UF1000,1000_QL80_.jpg" alt="Location Unknown">
             </div>
-            <div class="details">
+            <div class="details p-3">
               <a routerLink="/detail"><h1>Dune</h1></a>
-                <h2>2018 • PG • 2hr 08min</h2>
+              <h2><i class="fa fa-eye"></i> 1.6b views<span class="float-right"><i class="fa-solid fa-comment"></i> 5 comments</span></h2>
                 <div class="rating">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -132,7 +206,7 @@
                     <span>4.2/5</span>
                 </div>
                 <div class="tags">
-                    <span class="tag">İspanyol</span>
+                    <span class="tag">XdXd</span>
                     <span class="tag">Bilim Kurgu</span>
                     <span class="tag">Indie</span>
                 </div>

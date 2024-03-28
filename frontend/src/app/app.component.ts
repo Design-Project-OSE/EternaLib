@@ -1,17 +1,26 @@
 import { Component, HostListener } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   template: `
     <router-outlet></router-outlet>
-    <button *ngIf="isShow" (click)="gotoTop()">
-      <i class="backtotop fa-solid fa-circle-chevron-up"></i>
+    <button class="backtotop" *ngIf="isShow" (click)="gotoTop()">
+      <i class=" fa-solid fa-circle-chevron-up"></i>
     </button>
   `,
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = "frontend"
+
+  // Sayfanın en üstüne scroll yapmak için
+  // constructor(private router: Router) {
+  //   this.router.events.subscribe(event => {
+  //     if (event instanceof NavigationEnd) {
+  //       window.scrollTo(0, 0);
+  //     }
+  //   });
+  // }
 
   isShow: boolean = false;
   topPosToStartShowing = 100;

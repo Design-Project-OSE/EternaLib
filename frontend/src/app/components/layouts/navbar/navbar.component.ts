@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,11 +8,6 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
   constructor(
-    private _router: Router
+    public _s: LoginService
   ){}
-
-  goLogin(){
-    this._router.navigateByUrl("/login");
-  }
-
 }

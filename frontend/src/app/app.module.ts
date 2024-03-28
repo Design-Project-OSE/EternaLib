@@ -10,10 +10,9 @@ import { NavbarComponent } from './components/layouts/navbar/navbar.component';
 import { FooterComponent } from './components/layouts/footer/footer.component';
 import { LoginFormComponent } from './components/login/login-form/login-form.component';
 import { RegisterFormComponent } from './components/login/register-form/register-form.component';
-import { LoginNavbarComponent } from './components/login/login-navbar/login-navbar.component';
-import { LoginFooterComponent } from './components/login/login-footer/login-footer.component';
 import { ContentComponent } from './components/content/content.component';
 import { ContentDetailComponent } from './components/content/content-detail/content-detail.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -25,10 +24,9 @@ import { ContentDetailComponent } from './components/content/content-detail/cont
     FooterComponent,
     LoginFormComponent,
     RegisterFormComponent,
-    LoginNavbarComponent,
-    LoginFooterComponent,
     ContentComponent,
-    ContentDetailComponent
+    ContentDetailComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
