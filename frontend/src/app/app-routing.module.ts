@@ -26,11 +26,13 @@ const routes: Routes = [
       },
       {
         path: "content",
-        component: ContentComponent
-      },
-      {
-        path: "detail",
-        component: ContentDetailComponent
+        component: ContentComponent,
+        children: [
+          {
+            path: ":id",
+            component: ContentDetailComponent
+          }
+        ]
       },
       {
         path: "profile",

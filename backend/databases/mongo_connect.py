@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 import pymongo
+from mongo_process import operation_mongo
 
 class databases:
     def __init__(self,account) -> None:
@@ -56,19 +57,35 @@ print(liste)
 collec=db.getcol("mgb_data","movie",True)#collection (movie) içeriğini veriyor
 print(collec)
 
+print("------------------------------emre----------------------")
+mng = operation_mongo(accounts)
+
+
+#-------------------------------------------------------------------------------------
+h=mng.get_id("mgb_data","movie")
+d = [str(x) for x in h]
+print(mng.find_data("mgb_data","movie","_id",d[0]))
+
+#-------------------------------------------------------------------------------------
+
 head=db.gethead("mgb_data","movie","name")#herhangi bir içeriği çekmeni sağlıyor (sadece name'leri çekiyor)
 print(head)
 
 db.close()
 
-#-------------------------------------------------------------------------------------
-
 app = Flask(__name__)
 
 @app.route('/movies', methods=['GET'])
 def get_data():
-    data = collec
-    return jsonify(data)
+    return jsonify(collec)
+
+@app.route('/detail/<id>', methods=['GET'])
+def get_movie(id):
+    for x in d:
+        if(x) == str(id):
+            return jsonify(x)
+        
+        return "hello"
 
 
 if __name__ == '__main__':

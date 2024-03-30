@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginService } from '../../services/login.service';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
   selector: 'app-content',
@@ -8,13 +8,18 @@ import { LoginService } from '../../services/login.service';
 })
 export class ContentComponent {
 
+  index: number;
   movies: any[any];
 
   // api isteği deneme için
   constructor(
-    private loginService: LoginService
+    private _databaseService: DatabaseService
   ) {
-    this.loginService.getMovies().subscribe({
+    this.getMovies();
+  }
+
+  getMovies() {
+    this._databaseService.getMovies().subscribe({
       next: (data) => {
         this.movies = data;
         console.log(this.movies);
@@ -24,5 +29,4 @@ export class ContentComponent {
       }
     });
   }
-
 }
