@@ -10,9 +10,8 @@ accounto="mongodb+srv://onurkarakaya:rGc9zx2kOzLOtBM5@eternalib.06ijzom.mongodb.
 # process_mongo sınıfını kullanarak MongoDB işlemleri gerçekleştirme
 mng = operation_mongo(accounts)
 
-d={"arsa":"apollo"}
-r=mng.find_data("deneme","denme","arsa","apollo",filter="_id")
-print(r)
+h=mng.get_id("mgb_data","movie")
+print(h)
 
 # Bağlantıyı kapat
 mng.close()
