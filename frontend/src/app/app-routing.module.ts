@@ -29,7 +29,7 @@ const routes: Routes = [
         component: ContentComponent,
         children: [
           {
-            path: ":id", // detail
+            path: ":id",
             component: ContentDetailComponent
           }
         ]
