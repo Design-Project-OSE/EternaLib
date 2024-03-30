@@ -1,4 +1,5 @@
 from mongo_process import operation_mongo
+from bson import objectid
 
 #Sinan Uyğun hesabı
 accounts="mongodb+srv://sinanuygun:BnKJOKx7OTvSWLfD@eternalib.06ijzom.mongodb.net/?retryWrites=true&w=majority&appName=eternaLib"
@@ -12,6 +13,8 @@ mng = operation_mongo(accounts)
 
 h=mng.get_id("mgb_data","movie")
 print(h)
+t=mng.search_id("mgb_data","movie","660425841b5299643632ef48")
+print(t)
 
 # Bağlantıyı kapat
 mng.close()
