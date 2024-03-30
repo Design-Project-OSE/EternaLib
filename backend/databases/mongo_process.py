@@ -1,5 +1,6 @@
 import pymongo 
 from bson import objectid
+
         
 class operation_mongo:
     def __init__(self,account) -> None:
@@ -17,7 +18,7 @@ class operation_mongo:
         myclient= pymongo.MongoClient(account)
         return myclient
     
-    def get_collection(self, name_database: str,name_collection:str,no_id:bool) -> list:
+    def get_collection(self, name_database: str,name_collection:str,no_id=False) -> list:
         nclient=self.myclient[name_database]
         ncollection=nclient[name_collection]
         if no_id:    
@@ -98,6 +99,8 @@ class operation_mongo:
         [tr] Mongo ile olan bağlantıyı keser
         """
         self.myclient.close()
+        
+
     
         
         
