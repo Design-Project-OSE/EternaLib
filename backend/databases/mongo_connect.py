@@ -43,9 +43,9 @@ class databases:
 #Sinan Uyğun hesabı
 accounts="mongodb+srv://sinanuygun:BnKJOKx7OTvSWLfD@eternalib.06ijzom.mongodb.net/?retryWrites=true&w=majority&appName=eternaLib"
 #Emre Yörük Hesabı
-accounte="mongodb+srv://emreyoruk:Mipym9mZgEn3raJm@eternalib.06ijzom.mongodb.net/"
+accounte="mongodb+srv://emreyoruk:VD9qAxtJKPCrkPTq@eternalib.06ijzom.mongodb.net/"
 #Onur Karakaya hesabı
-accounto="mongodb+srv://onurkarakaya:tCPSdNsx6MQWOzOc@eternalib.06ijzom.mongodb.net/"
+accounto="mongodb+srv://onurkarakaya:rGc9zx2kOzLOtBM5@eternalib.06ijzom.mongodb.net/?retryWrites=true&w=majority&appName=eternaLib"
 
 db=databases(accounts) #accounts yerine kendi hesabınızı kullanabilirsiniz
 
