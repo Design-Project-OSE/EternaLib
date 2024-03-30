@@ -1,5 +1,6 @@
 import pymongo 
 from bson import objectid
+
         
 class operation_mongo:
     def __init__(self,account) -> None:
@@ -17,7 +18,7 @@ class operation_mongo:
         myclient= pymongo.MongoClient(account)
         return myclient
     
-    def pull_collection(self, name_database: str,name_collection:str,no_id:bool) -> list:
+    def get_collection(self, name_database: str,name_collection:str,no_id=False) -> list:
         nclient=self.myclient[name_database]
         ncollection=nclient[name_collection]
         if no_id:    
@@ -29,17 +30,21 @@ class operation_mongo:
             res_list.append(item)
         return res_list
     
-    def pull_database(self)->list:
+    def get_database(self)->list:
         cname=self.myclient.list_database_names()
         res_list=[]
         for item in cname:
             res_list.append(item)
         return res_list
     
-    def pull_head(self,name_database:str,name_collection:str,name_head:str)->list:
+    def get_head(self,name_database:str,name_collection:str,name_head:str)->list:
+        
         nbase=self.myclient[name_database]
         ncollection=nbase[name_collection]
-        nhead=ncollection.find({},{name_head:1,"_id":0})
+        if name_head=="_id":
+            nhead = ncollection.find({}, {"_id": 1})
+        else:
+            nhead=ncollection.find({},{name_head:1,"_id":0})
         result=[item[name_head] for item in nhead]
         return result
     
@@ -78,6 +83,15 @@ class operation_mongo:
         
         return result
     
+    def get_id(self,name_database,name_collection):
+        nbase = self.myclient[name_database]
+        ncollection = nbase[name_collection]
+        peaces=ncollection.find({}, {"_id": 1})
+        result=[]
+        for peace in peaces:
+            result.append(peace["_id"])
+        return result
+    
 
     def close(self):
         """
@@ -85,6 +99,8 @@ class operation_mongo:
         [tr] Mongo ile olan bağlantıyı keser
         """
         self.myclient.close()
+        
+
     
         
         
