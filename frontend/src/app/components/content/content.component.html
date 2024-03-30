@@ -42,21 +42,20 @@
           </div>
       </div>
       <div class="row">
-          <div class="col-sm-6 col-md-4 col-lg-2 mx-5" *ngFor="let m of movies.results">
+          <div class="col-sm-6 col-md-4 col-lg-2 mx-5" *ngFor="let movie of movies let i = index">
             <div class="card">
               <div class="poster">
-                <img src="https://image.tmdb.org/t/p/w500{{ m.poster_path }}" alt="Location Unknown">
+                <img src="{{ movie.poster }}" alt="Location Unknown">
               </div>
               <div class="details p-3">
-                  <a routerLink="/detail"><h1> {{ m.title }} </h1></a>
-                  <h2><i class="fa fa-eye"></i> {{ m.vote_average }} views
+                  <a routerLink="/content/{{i}}"><h1> {{ movie.name }} </h1></a>
+                  <h2><i class="fa fa-eye"></i> {{ movie.imdb }} views
                     <span class="float-right">
-                      <i class="fa-solid fa-comment"></i> {{ m.vote_count }} comments
+                      <i class="fa-solid fa-comment"></i> {{ movie.metascore }} comments
                     </span>
                   </h2>
                   <div class="tags">
-                      <span class="tag"> {{ m.release_date }} </span>
-                      <span class="tag"> {{ m.popularity }} </span>
+                      <span *ngFor="let m of movie.genres" class="tag p-1"> {{ m }} </span>
                   </div>
               </div>
             </div>

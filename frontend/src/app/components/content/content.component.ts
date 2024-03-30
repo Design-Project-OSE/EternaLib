@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../../services/login.service';
+import { DatabaseService } from '../../services/database.service';
+import { get } from 'http';
+import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-content',
@@ -12,9 +16,14 @@ export class ContentComponent {
 
   // api isteği deneme için
   constructor(
-    private loginService: LoginService
+    private _databaseService: DatabaseService,
+    private _router: Router
   ) {
-    this.loginService.getMovies().subscribe({
+    this.getMovies();
+  }
+
+  getMovies() {
+    this._databaseService.getMovies().subscribe({
       next: (data) => {
         this.movies = data;
         console.log(this.movies);
@@ -24,5 +33,7 @@ export class ContentComponent {
       }
     });
   }
+
+
 
 }
