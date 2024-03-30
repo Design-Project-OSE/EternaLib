@@ -13,6 +13,7 @@ import { RegisterFormComponent } from './components/login/register-form/register
 import { ContentComponent } from './components/content/content.component';
 import { ContentDetailComponent } from './components/content/content-detail/content-detail.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,10 +31,12 @@ import { ProfileComponent } from './components/profile/profile.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule // api istekleri için
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

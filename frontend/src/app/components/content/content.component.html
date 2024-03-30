@@ -42,26 +42,21 @@
           </div>
       </div>
       <div class="row">
-          <div class="col-sm-6 col-md-4 col-lg-2 mx-5">
+          <div class="col-sm-6 col-md-4 col-lg-2 mx-5" *ngFor="let m of movies.results">
             <div class="card">
               <div class="poster">
-                <img src="https://tr.web.img4.acsta.net/r_1280_720/pictures/19/03/28/15/19/3146737.jpg" alt="Location Unknown">
+                <img src="https://image.tmdb.org/t/p/w500{{ m.poster_path }}" alt="Location Unknown">
               </div>
               <div class="details p-3">
-                  <a routerLink="/detail"><h1>Durante La Tormenta</h1></a>
-                  <h2><i class="fa fa-eye"></i> 1.6b views<span class="float-right"><i class="fa-solid fa-comment"></i> 5 comments</span></h2>
-                  <div class="rating">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="far fa-star"></i>
-                      <span>4.2/5</span>
-                  </div>
+                  <a routerLink="/detail"><h1> {{ m.title }} </h1></a>
+                  <h2><i class="fa fa-eye"></i> {{ m.vote_average }} views
+                    <span class="float-right">
+                      <i class="fa-solid fa-comment"></i> {{ m.vote_count }} comments
+                    </span>
+                  </h2>
                   <div class="tags">
-                      <span class="tag">İspanyol</span>
-                      <span class="tag">Bilim Kurgu</span>
-                      <span class="tag">Indie</span>
+                      <span class="tag"> {{ m.release_date }} </span>
+                      <span class="tag"> {{ m.popularity }} </span>
                   </div>
               </div>
             </div>
