@@ -1,20 +1,19 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { GenericHttpService } from './generic-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
-
   constructor(
-    private _http: HttpClient
+    private _http: GenericHttpService
   ) { }
 
-  getMovies() {
-    return this._http.get('http://127.0.0.1:5000/movies');
+  getMovies(callBack: (res: any) => void) {
+   this._http.get<any[]>('movies', res => callBack(res));
   }
 
-  getMovie(id: number) {
-    return this._http.get('http://127.0.0.1:5000/detail/' + id.toString());
+  getMovie(id: number, callBack: (res: any) => void) {
+   this._http.get<any>('detail/' + id.toString(), res => callBack(res));
   }
 }

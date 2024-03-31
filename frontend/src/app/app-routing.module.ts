@@ -27,12 +27,10 @@ const routes: Routes = [
       {
         path: "content",
         component: ContentComponent,
-        children: [
-          {
-            path: ":id",
-            component: ContentDetailComponent
-          }
-        ]
+      },
+      {
+        path: "content/detail/:id",
+        component: ContentDetailComponent
       },
       {
         path: "profile",

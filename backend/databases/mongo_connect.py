@@ -64,7 +64,7 @@ mng = operation_mongo(accounts)
 #-------------------------------------------------------------------------------------
 h=mng.get_id("mgb_data","movie")
 d = [str(x) for x in h]
-print(mng.find_data("mgb_data","movie","_id",d[0]))
+print(mng.find_data("mgb_data","movie","_id",h[0]))
 
 #-------------------------------------------------------------------------------------
 
@@ -82,8 +82,9 @@ def get_data():
 @app.route('/detail/<id>', methods=['GET'])
 def get_movie(id):
     for x in d:
+        a = mng.find_data("mgb_data","movie","_id",h[x])
         if(x) == str(id):
-            return jsonify(x)
+            return jsonify(a)
         
         return "hello"
 

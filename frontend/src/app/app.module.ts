@@ -14,6 +14,9 @@ import { ContentComponent } from './components/content/content.component';
 import { ContentDetailComponent } from './components/content/content-detail/content-detail.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,13 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule // api istekleri için
+    HttpClientModule, // api istekleri için
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      progressBar: true,
+    }),
+    NgxSpinnerModule
   ],
   providers: [
     provideClientHydration(),

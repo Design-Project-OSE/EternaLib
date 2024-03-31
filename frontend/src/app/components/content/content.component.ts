@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../../services/database.service';
 
 @Component({
@@ -6,27 +6,25 @@ import { DatabaseService } from '../../services/database.service';
   templateUrl: './content.component.html',
   styleUrl: './content.component.scss'
 })
-export class ContentComponent {
+export class ContentComponent implements OnInit{
 
-  index: number;
-  movies: any[any];
+  public movies: any[any];
 
   // api isteği deneme için
   constructor(
-    private _databaseService: DatabaseService
-  ) {
+    private _dbService: DatabaseService
+  ) {}
+
+  ngOnInit(): void {
     this.getMovies();
   }
 
   getMovies() {
-    this._databaseService.getMovies().subscribe({
-      next: (data) => {
-        this.movies = data;
-        console.log(this.movies);
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
+    this._dbService.getMovies(res => this.movies = res);
+    console.log(this.movies);
+  }
+
+  getMovie(id: number) {
+    this._dbService.getMovie(id, res => this.movies = res);
   }
 }
