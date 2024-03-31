@@ -1,5 +1,5 @@
 import pymongo 
-from bson import objectid
+from bson.objectid import ObjectId
 
         
 class operation_mongo:
@@ -66,7 +66,7 @@ class operation_mongo:
     def delete_data(self,name_database:str,name_collection:str,_id:str)->None:
         nbase=self.myclient[name_database]
         ncollection=nbase[name_collection]
-        delete_data = {"_id": objectid(_id)}
+        delete_data = {"_id": ObjectId(_id)}
         n_id=ncollection.delete_one(delete_data)
         return n_id
         
@@ -92,6 +92,12 @@ class operation_mongo:
             result.append(peace["_id"])
         return result
     
+    def search_id(self,name_database,name_collection,id):
+        nbase = self.myclient[name_database]
+        ncollection = nbase[name_collection]
+        result=ncollection.find_one({"_id": ObjectId(id)})
+        return result
+    
 
     def close(self):
         """
@@ -99,6 +105,7 @@ class operation_mongo:
         [tr] Mongo ile olan bağlantıyı keser
         """
         self.myclient.close()
+        
         
 
     
