@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DatabaseService } from '../../../services/database.service';
-import { ContentComponent } from '../content.component';
 
 @Component({
   selector: 'app-content-detail',

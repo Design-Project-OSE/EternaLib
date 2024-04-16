@@ -48,7 +48,7 @@
                 <img src="{{ movie.poster }}" alt="Location Unknown">
               </div>
               <div class="details p-3">
-                  <a [routerLink]="['/content/detail', i]"><h1> {{ movie.name }} </h1></a>
+                  <a [routerLink]="['/content/movie', i]"><h1> {{ movie.name }} </h1></a>
                   <h2><i class="fa fa-eye"></i> {{ movie.like }} likes
                     <span class="float-right">
                       <i class="fa-solid fa-comment"></i> IMDb {{ movie.imdb }}
