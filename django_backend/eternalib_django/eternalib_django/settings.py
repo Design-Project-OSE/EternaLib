@@ -32,8 +32,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'games',
+    'movies',
+    'books',
     'pages.apps.PagesConfig',
-    'integrate_databases',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
