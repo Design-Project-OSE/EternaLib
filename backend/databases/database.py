@@ -1,10 +1,10 @@
 import pymongo 
 from bson.objectid import ObjectId
-
+from backend.databases.eternal_cry import cry_ptography
         
-class operation_mongo:
+class mongo_connect:
     def __init__(self,account) -> None:
-        self.myclient=operation_mongo.connect(account)
+        self.myclient=mongo_connect.connect(account)
        
     @staticmethod    
     def connect(account:str)->pymongo.MongoClient:
@@ -106,7 +106,14 @@ class operation_mongo:
         """
         self.myclient.close()
         
+    def create_user(self,username,password,email):
+        db = self.myclient.admin
+        hp=cry_ptography.hash_password(password)
+        db.command("createUser",)
         
+class sql_connect:
+    def __init__(self) -> None:
+        pass
 
     
         

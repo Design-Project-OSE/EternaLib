@@ -1,4 +1,4 @@
-from mongo_process import operation_mongo
+from backend.databases.database import operation_mongo
 from flask import Flask, jsonify
 
 #Sinan Uyğun hesabı
