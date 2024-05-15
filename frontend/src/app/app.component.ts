@@ -1,27 +1,22 @@
+import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, CommonModule, NgxSpinnerModule],
   template: `
     <router-outlet></router-outlet>
     <button class="backtotop" *ngIf="isShow" (click)="gotoTop()">
       <i class=" fa-solid fa-circle-chevron-up"></i>
     </button>
-    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Please wait... </p></ngx-spinner>
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white">Yükleniyor...</p></ngx-spinner>
   `,
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-
-  // Sayfanın en üstüne scroll yapmak için
-  // constructor(private router: Router) {
-  //   this.router.events.subscribe(event => {
-  //     if (event instanceof NavigationEnd) {
-  //       window.scrollTo(0, 0);
-  //     }
-  //   });
-  // }
-
   isShow: boolean = false;
   topPosToStartShowing = 100;
 
