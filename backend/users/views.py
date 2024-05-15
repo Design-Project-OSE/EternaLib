@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.status import status
 from .models import User,CustumUserManager,CustumUser,UserProfile,Users_BookComment,Users_BookLike,Users_GameComment,Users_GameLike,Users_MovieComment,Users_MovieLike
 from .serializers import Seri_users,Seri_userprofile,Seri_customuser,Seri_customusermanage,Seri_userbookcomment,Seri_usersbooklike,Seri_usersgamecomment,Seri_usersgamelike,Seri_usersmoviecomment,Seri_usersmovielike
 
@@ -65,3 +66,11 @@ def list_usersmovielike(request):
     obj=Users_MovieLike.objects.all()
     seri=Seri_usersmovielike(obj,many=True)
     return Response(seri.data)
+
+@api_view('POST')
+def list_register(request):
+    seri=Seri_users(data=request.data)
+    if seri.is_valid():
+        seri.save()
+        return Response(seri.data,status=status.HTTP_201_CREATED)
+    return Response(seri.errors, status=status.HTTP_400_BAD_REQUEST)

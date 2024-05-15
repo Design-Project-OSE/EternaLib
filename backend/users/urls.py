@@ -56,4 +56,6 @@ urlpatterns=[
     path('movie/like',views.list_usersmovielike),
     #Beğenilen film bilgileri
     
+    path('api/register/', views.list_register, name='register'),
+    #Kayıt olan kullanıcının bilgisini çeker
 ]
