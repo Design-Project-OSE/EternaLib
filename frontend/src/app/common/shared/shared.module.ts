@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IsValidDirective } from '../directives/is-valid.directive';
+import { CustomCardComponent } from '../components/custom-card/custom-card.component';
 
 
 
@@ -12,13 +13,15 @@ import { IsValidDirective } from '../directives/is-valid.directive';
     CommonModule,
     FormsModule,
     RouterModule,
-    IsValidDirective
+    IsValidDirective,
+    CustomCardComponent
   ],
   exports: [
     CommonModule,
     FormsModule,
     RouterModule,
-    IsValidDirective
+    IsValidDirective,
+    CustomCardComponent
   ]
 })
 export class SharedModule { }

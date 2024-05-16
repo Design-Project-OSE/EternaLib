@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ContentComponent } from '../../../../../common/components/content/content.component';
+import { SharedModule } from '../../../../../common/shared/shared.module';
 
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [RouterModule],
+  imports: [SharedModule, ContentComponent],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.scss'
 })

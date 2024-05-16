@@ -75,19 +75,14 @@
               <div class="col-md-10 mx-auto">
                 <div class="row collections">
                   <div class="col-md-6">
-                    <div class="card">
-                      <div class="poster">
-                        <img src="https://image.api.playstation.com/vulcan/img/rnd/202010/2821/KXv6VplN1r1bNPdfR4r29w0m.png" alt="Location Unknown">
-                      </div>
-                      <div class="details p-3">
-                          <a routerLink="/games/detail"><h1>Infamous Second Son</h1></a>
-                          <h2><i class="fa fa-eye"></i> 1.6b views<span class="float-right"><i class="fa-solid fa-comment"></i> 5 comments</span></h2>
-                          <div class="tags">
-                              <span class="tag">İspanyol</span>
-                              <span class="tag">Bilim Kurgu</span>
-                          </div>
-                      </div>
-                    </div>
+                      <app-custom-card
+                        name="Infamous Second Son"
+                        imageUrl="https://image.api.playstation.com/vulcan/img/rnd/202010/2821/KXv6VplN1r1bNPdfR4r29w0m.png"
+                        routerUrl="/games/detail"
+                        viewCount="1.6b"
+                        commentCount="5"
+                        [categories]="['Bilim kurgu', 'Aksiyon', 'Macera']">
+                      </app-custom-card>
                   </div>
                 </div>
               </div>
@@ -96,19 +91,14 @@
               <div class="col-md-10 mx-auto">
                 <div class="row collections">
                   <div class="col-md-6">
-                    <div class="card">
-                      <div class="poster">
-                        <img src="https://tr.web.img4.acsta.net/r_1280_720/pictures/19/03/28/15/19/3146737.jpg" alt="Location Unknown">
-                      </div>
-                      <div class="details p-3">
-                          <a routerLink="/movies/detail"><h1>Durante La Tormenta</h1></a>
-                          <h2><i class="fa fa-eye"></i> 1.6b views<span class="float-right"><i class="fa-solid fa-comment"></i> 5 comments</span></h2>
-                          <div class="tags">
-                              <span class="tag">İspanyol</span>
-                              <span class="tag">Bilim Kurgu</span>
-                          </div>
-                      </div>
-                    </div>
+                      <app-custom-card
+                        name="Durante La Tormenta"
+                        imageUrl="https://tr.web.img4.acsta.net/r_1280_720/pictures/19/03/28/15/19/3146737.jpg"
+                        routerUrl="/movies/detail"
+                        viewCount="3.6b"
+                        commentCount="15"
+                        [categories]="['Bilim kurgu', 'Gerilim', 'Macera']">
+                      </app-custom-card>
                   </div>
                 </div>
               </div>
@@ -117,19 +107,14 @@
               <div class="col-md-10 mx-auto">
                 <div class="row collections">
                   <div class="col-md-6">
-                    <div class="card">
-                      <div class="poster">
-                        <img src="https://m.media-amazon.com/images/I/A1u+2fY5yTL._AC_UF1000,1000_QL80_.jpg" alt="Location Unknown">
-                      </div>
-                      <div class="details p-3">
-                          <a routerLink="/books/detail"><h1>Dune</h1></a>
-                          <h2><i class="fa fa-eye"></i> 1.6b views<span class="float-right"><i class="fa-solid fa-comment"></i> 5 comments</span></h2>
-                          <div class="tags">
-                              <span class="tag">İspanyol</span>
-                              <span class="tag">Bilim Kurgu</span>
-                          </div>
-                      </div>
-                    </div>
+                      <app-custom-card
+                        name="Dune"
+                        imageUrl="https://m.media-amazon.com/images/I/A1u+2fY5yTL._AC_UF1000,1000_QL80_.jpg"
+                        routerUrl="/books/detail"
+                        viewCount="1.1b"
+                        commentCount="3"
+                        [categories]="['Bilim kurgu', 'Macera']">
+                      </app-custom-card>
                   </div>
                 </div>
               </div>

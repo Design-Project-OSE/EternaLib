@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { SharedModule } from '../../../../common/shared/shared.module';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [RouterModule],
+  imports: [SharedModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })

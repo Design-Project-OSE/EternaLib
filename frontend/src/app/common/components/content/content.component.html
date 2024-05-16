@@ -1,0 +1,68 @@
+<div class="landing-page sidebar-collapse">
+  <div class="wrapper">
+    <div class="page-header page-header-small clear-filter" filter-color="orange">
+      <div class="page-header-image" data-parallax="true" style="background-image: url('/assets/img/nlogin.jpg');"></div>
+      <div class="content-center mx-1 px-1">
+        <div class="row">
+          <div class="col-6 mt-5">
+            <h3 class="title">{{ question }} karar veremediniz mi?</h3>
+            <h3 class="mt-0">Öyleyse senin için biz önerelim</h3>
+            <button class="mt-1 btn btn-lg btn-primary rounded-pill">Şaşırt Beni</button>
+          </div>
+          <div class="col-6 ml-auto">
+            <div class="logo-container w-75">
+              <img src="/assets/img/aa.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid w-75 mt-3">
+      <h2 class="my-0">Tüm {{ contentTypee }}</h2>
+      <hr>
+
+      <div class="d-flex align-items-center">
+          <div class="input-group w-25 mb-3">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <label for="search" class="mb-0"><i class="fa-solid fa-magnifying-glass"></i>
+                </label>
+              </div>
+            </div>
+            <input type="text" class="form-control py-3" id="search" placeholder="Ara...">
+          </div>
+          <div class="ml-auto w-25 mb-3">
+            <select class="form-control form-control-lg py-3">
+              <option *ngFor="let category of categoriess">
+                {{ category }}
+              </option>
+            </select>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-sm-6 col-md-4 col-lg-2 mx-5">
+              <ng-content></ng-content>
+          </div>
+      </div>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Önceki</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Sonraki</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+</div>
+
+

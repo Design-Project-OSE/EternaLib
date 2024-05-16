@@ -1,0 +1,18 @@
+<div class="section container py-1">
+  <div class="d-flex align-items-center mb-2">
+    <span class="border rounded-pill p-3 mr-2" style="color:rgb(249, 99, 50)">
+      <i class="{{ iconClass }}"></i>
+    </span>
+    <h3 class="my-auto">
+      <b>En Çok Beğenilen {{ contentType }}</b>
+    </h3>
+    <button routerLink="{{ routerUrl }}" class="tumunu-goster ml-auto">
+      Tümünü Göster
+    </button>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-2 mr-5">
+        <ng-content></ng-content>
+    </div>
+  </div>
+</div>

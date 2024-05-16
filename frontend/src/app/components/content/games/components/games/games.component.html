@@ -1,83 +1,10 @@
-<div class="landing-page sidebar-collapse">
-
-  <div class="wrapper">
-
-    <div class="page-header page-header-small clear-filter" filter-color="orange">
-      <div class="page-header-image" data-parallax="true" style="background-image: url('/assets/img/nlogin.jpg');"></div>
-      <div class="content-center mx-1 px-1">
-        <div class="row">
-          <div class="col-6 mt-5">
-            <h3 class="title">Ne izleyeceğinize karar veremediniz mi?</h3>
-            <h3 class="mt-0">Öyleyse senin için biz önerelim</h3>
-            <button class="mt-1 btn btn-lg btn-primary rounded-pill">Şaşırt Beni</button>
-          </div>
-          <div class="col-6 ml-auto">
-            <div class="logo-container w-75">
-              <img src="/assets/img/aa.png" alt="">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container-fluid w-75 mt-3">
-      <h2 class="my-0">Tüm Filmler</h2>
-      <hr>
-      <div class="d-flex align-items-center">
-          <div class="input-group w-25 mb-3">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <label for="film-ara" class="mb-0"><i class="fa-solid fa-magnifying-glass"></i>
-                </label>
-              </div>
-            </div>
-            <input type="text" class="form-control py-3" id="film-ara" placeholder="Film Ara...">
-          </div>
-          <div class="ml-auto w-25 mb-3">
-            <select class="form-control form-control-lg py-3">
-              <option>Hepsi</option>
-              <option>Bilim Kurgu</option>
-              <option>Gerililm</option>
-              <option>Aksiyon</option>
-              <option>Romantik</option>
-            </select>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-sm-6 col-md-4 col-lg-2 mx-5">
-            <div class="card">
-              <div class="poster">
-                <img src="https://tr.web.img2.acsta.net/pictures/19/03/28/15/19/3146737.jpg" alt="Location Unknown">
-              </div>
-              <div class="details p-3">
-                  <a routerLink="/games/detail"><h1> Fırtına anı </h1></a>
-                  <h2><i class="fa fa-eye"></i> 53 likes
-                    <span class="float-right">
-                      <i class="fa-solid fa-comment"></i> IMDb 8.1
-                    </span>
-                  </h2>
-                  <div class="tags">
-                      <span class="tag p-1"> Bilim kurgu, gerilim </span>
-                  </div>
-              </div>
-            </div>
-          </div>
-      </div>
-      <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-end">
-          <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Önceki</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#">Sonraki</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</div>
-
-
+<app-content question="Ne oynayacağınıza" contentTypee="Oyunlar" [categoriess]="['Hepsi', 'Rol yapma', 'Moba', '2D', 'Korku']">
+  <app-custom-card
+      name="Infamous Second Son"
+      imageUrl="https://image.api.playstation.com/vulcan/img/rnd/202010/2821/KXv6VplN1r1bNPdfR4r29w0m.png"
+      routerUrl="/games/detail"
+      viewCount="2.6b"
+      commentCount="5"
+      [categories]="['Bilim kurgu','Aksiyon', 'Macera']">
+  </app-custom-card>
+</app-content>

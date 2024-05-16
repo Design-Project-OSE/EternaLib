@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="poster">
+    <img src="{{ imageUrl }}" alt="Location Unknown">
+  </div>
+  <div class="details p-3">
+      <a routerLink="{{ routerUrl }}">
+        <h1> {{ name }} </h1>
+      </a>
+      <h2>
+        <i class="fa fa-eye"></i> {{ viewCount }} views
+        <span class="float-right">
+          <i class="fa-solid fa-comment"></i> {{ commentCount}} comments
+        </span>
+      </h2>
+      <div class="tags">
+        <span *ngFor="let category of categories" class="tag">
+          {{ category }}
+        </span>
+      </div>
+  </div>
+</div>

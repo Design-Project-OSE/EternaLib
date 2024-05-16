@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ContentComponent } from '../../../../../common/components/content/content.component';
+import { SharedModule } from '../../../../../common/shared/shared.module';
 
 @Component({
   selector: 'app-games',
   standalone: true,
-  imports: [RouterModule],
+  imports: [SharedModule, ContentComponent],
   templateUrl: './games.component.html',
   styleUrl: './games.component.scss'
 })
