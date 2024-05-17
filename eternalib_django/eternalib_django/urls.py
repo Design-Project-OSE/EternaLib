@@ -23,7 +23,7 @@ from games.views import *
 from books.views import *
 
 urlpatterns = [
-    path('', include('rest_framework.urls')),
+    path('', include('movies.urls')),
     path('admin/', admin.site.urls),
 ]
 

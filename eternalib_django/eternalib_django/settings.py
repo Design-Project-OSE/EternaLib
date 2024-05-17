@@ -41,10 +41,7 @@ REST_FRAMEWORK = {
 
 INSTALLED_APPS = [
     'rest_framework',
-    'games',
     'movies',
-    'books',
-    'users',
     'pages.apps.PagesConfig',
     'django.contrib.admin',
     'django.contrib.auth',

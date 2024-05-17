@@ -1,21 +1,19 @@
-from django.shortcuts import render,HttpResponseRedirect
-from django.http import HttpResponse,JsonResponse
+from django.shortcuts import get_object_or_404
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import Movies_Genres_Table, Movies_Table
+from .serilaziers import Seri_Genres,Seri_Movie
 
-from movies.models import Movies_Table,Movies_Genres_Table
-from eternalib_django.serializers import Movies_TableSerializers,Movies_Genres_TableSerializers
 
-from django.views.decorators.csrf import csrf_exempt
+@api_view('GET')
+def list_movie(request):
+    movies=Movies_Table.objects.all()
+    seri_movies=Seri_Movie(movies,many=True)
+    return Response(seri_movies.data)
 
-@csrf_exempt
-def movie_get_data(request):
-    movie_data= Movies_Table.objects.all()
-    if request.method=='GET':
-        serializer=Movies_TableSerializers(movie_data,many=True)
-        return JsonResponse(serializer.data,safe=False)
-
-@csrf_exempt
-def genmovie_get_data(request):
-    genmovie_data= Movies_Genres_Table.objects.all()
-    if request.method=='GET':
-        serializer=Movies_Genres_TableSerializers(genmovie_data,many=True)
-        return JsonResponse(serializer.data,safe=False)
+#catmov=category_movie
+@api_view('GET')
+def list_categorymovie(request):
+    catmov=Movies_Genres_Table.objects.all()
+    seri_catmov=Seri_Genres(catmov,many=True)
+    return Response(seri_catmov.data)
