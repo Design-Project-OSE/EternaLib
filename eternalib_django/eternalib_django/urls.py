@@ -19,8 +19,7 @@ from django.urls import include,path
 
 from django.views.generic.base import TemplateView
 from movies.views import *
-from games.views import *
-from books.views import *
+
 
 urlpatterns = [
     path('', include('movies.urls')),
