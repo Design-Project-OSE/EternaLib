@@ -13,4 +13,8 @@ export class MovieService {
   getAll(callback: (res: any[]) => void){
     this._http.get<any[]>('movies/all', res => callback(res));
   }
+
+  getCategories(callback: (res: any[]) => void){
+    this._http.get<any[]>('movies/category', res => callback(res));
+  }
 }

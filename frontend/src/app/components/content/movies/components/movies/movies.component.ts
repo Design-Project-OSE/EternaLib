@@ -12,6 +12,7 @@ import { MovieService } from '../../services/movie.service';
 })
 export class MoviesComponent implements OnInit {
   movies: any[any] = [];
+  categories:any[any]=[];
 
   constructor(
     private _movieService: MovieService
@@ -19,6 +20,7 @@ export class MoviesComponent implements OnInit {
 
   ngOnInit(){
     this.getAll();
+    this.getCategories();
   }
 
   getAll(){
@@ -27,5 +29,13 @@ export class MoviesComponent implements OnInit {
       console.log(this.movies);
     });
   }
+
+  getCategories(){
+    this._movieService.getCategories(res => {
+      this.categories = res;
+      console.log(this.categories);
+    });
+  }
+
 
 }
