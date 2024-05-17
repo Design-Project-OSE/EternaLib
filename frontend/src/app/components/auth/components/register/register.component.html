@@ -1,13 +1,24 @@
 <app-auth loginOrRegister="Register" routeUrl="/login" leftText="Have an Account?">
 
-  <form class="card-body py-1">
+  <form #registerForm="ngForm" (ngSubmit)="register(registerForm)" class="card-body py-1">
     <div class="input-group no-border input-lg">
       <div class="input-group-prepend">
         <span class="input-group-text">
           <i class="now-ui-icons users_circle-08"></i>
         </span>
       </div>
-      <input type="text" class="form-control" placeholder="First and Last Name">
+      <input
+        type="text"
+        placeholder="First and Last Name"
+        class="form-control"
+        ngModel
+        name="name"
+        id="name"
+        #name
+        required
+        minlength="3"
+        [appIsValid]="name.validity.valid">
+      <span class="invalid-feedback">Name must be at least 3 characters!</span>
     </div>
     <div class="input-group no-border input-lg">
       <div class="input-group-prepend">
@@ -15,16 +26,38 @@
           <i class="now-ui-icons ui-1_email-85"></i>
         </span>
       </div>
-      <input type="email" placeholder="Email" class="form-control" />
+      <input
+        type="email"
+        placeholder="Email"
+        class="form-control"
+        ngModel
+        name="email"
+        id="email"
+        #email
+        required
+        [appIsValid]="email.validity.valid"/>
+      <span class="invalid-feedback">Please enter a valid e-mail address!</span>
     </div>
     <div class="input-group no-border input-lg mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text">
-          <i class="now-ui-icons text_caps-small"></i>
+          <i class="now-ui-icons objects_key-25"></i>
         </span>
       </div>
-      <input type="password" class="form-control" placeholder="Password">
+      <input
+        type="password"
+        placeholder="Password"
+        class="form-control"
+        ngModel
+        name="password"
+        id="password"
+        #password
+        required
+        minlength="6"
+        [appIsValid]="password.validity.valid">
+      <span class="invalid-feedback">Password must be at least 6 characters!</span>
     </div>
+    <button type="submit" [disabled]="!registerForm.valid" class="btn btn-primary btn-round btn-lg btn-block">Sign Up</button>
   </form>
-  
+
 </app-auth>

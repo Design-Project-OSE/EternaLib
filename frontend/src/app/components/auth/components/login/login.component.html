@@ -1,22 +1,45 @@
 <app-auth loginOrRegister="Log In" routeUrl="/register" leftText="Create Account">
 
-  <form class="card-body py-1">
+  <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" class="card-body py-1">
     <div class="input-group no-border input-lg">
       <div class="input-group-prepend">
         <span class="input-group-text">
           <i class="now-ui-icons ui-1_email-85"></i>
         </span>
       </div>
-      <input type="email" class="form-control" placeholder="Email">
+      <input
+        type="email"
+        class="form-control"
+        placeholder="Email"
+        ngModel
+        name="email"
+        id="email"
+        required
+        email
+        #email
+        [appIsValid]="email.validity.valid">
+        <span class="invalid-feedback">Please enter a valid e-mail address!</span>
     </div>
     <div class="input-group no-border input-lg mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text">
-          <i class="now-ui-icons text_caps-small"></i>
+          <i class="now-ui-icons objects_key-25"></i>
         </span>
       </div>
-      <input type="password" placeholder="Password" class="form-control"/>
+      <input
+        type="password"
+        placeholder="Password"
+        class="form-control"
+        ngModel
+        name="password"
+        id="password"
+        required
+        minlength="6"
+        #password
+        [appIsValid]="password.validity.valid"/>
+        <span class="invalid-feedback">Password must be at least 6 characters!</span>
     </div>
+    <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary btn-round btn-lg btn-block">Log In</button>
   </form>
-  
+
 </app-auth>

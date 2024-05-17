@@ -15,12 +15,20 @@
   userImage="/assets/img/emre.jpg"
   userComment="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis nesciunt earum rerum nemo possimus laborum aliquam rem, repellendus magni corporis maxime id, natus fugit aut deleniti tempore. Quae, quas facere. lo">
 
-    <form>
-      <label for="yorum"><b>Write Comment</b></label>
-      <div class="btn-group btn-group-toggle">
-        <textarea class="form-control" name="" id="yorum" cols="90" rows="2"></textarea>
-        <button class="yorum-btn">Send Comment</button>
-      </div>
-    </form>
+  <form #commentForm="ngForm" (ngSubmit)="sendComment(commentForm)">
+    <label for="comment"><b>Write Comment</b></label>
+    <i class="ml-2 now-ui-icons ui-2_chat-round fa-xl"></i>
+    <div class="btn-group btn-group-toggle">
+      <textarea
+        cols="90" rows="2"
+        class="form-control"
+        name="comment"
+        id="comment"
+        #comment
+        ngModel>
+      </textarea>
+      <button type="submit" class="btn-comment">Send Comment</button>
+    </div>
+  </form>
 
 </app-content-detail>

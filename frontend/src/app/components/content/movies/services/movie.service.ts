@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core';
+import { GenericHttpService } from '../../../../common/services/generic-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
 
-  constructor() { }
+  constructor(
+    private _http: GenericHttpService
+  ) { }
+
+  getAll(callback: (res: any[]) => void){
+    this._http.get<any[]>('movies/all', res => callback(res));
+  }
 }

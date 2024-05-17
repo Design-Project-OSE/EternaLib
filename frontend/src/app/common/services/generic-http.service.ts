@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class GenericHttpService {
-  apiUrl: string = 'http://localhost:5000';
+  apiUrl: string = 'http://127.0.0.1:8000';
 
   constructor(
     private _http: HttpClient,
