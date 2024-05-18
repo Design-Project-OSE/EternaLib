@@ -15,4 +15,4 @@ class CustomUserChangeForm(UserChangeForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['instagram', 'twitter', 'facebook', 'linkedin']
+        fields = ['profile_picture','instagram', 'twitter', 'facebook', 'linkedin']
