@@ -90,11 +90,19 @@ WSGI_APPLICATION = 'eternalib_django.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR / 'db.sqlite3'),
+        'ENGINE': 'mssql',
+        'NAME': 'SINAN\\SQLEXPRESS',  # Veritabanı adınızı buraya yazın
+        'USER': 'sinanadmin',  # Veritabanı kullanıcı adınızı buraya yazın
+        'PASSWORD': 'abc123',  # Veritabanı şifrenizi buraya yazın
+        'HOST': '169.254.129.101',  # Veritabanı sunucusunun adresini buraya yazın
+        'PORT': '',  # Varsayılan MSSQL portu
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',  # Kullandığınız ODBC sürücüsünü buraya yazın
+        },
     }
+    
 }
-
+DATABASE_CONNECTION_POOLING = False
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

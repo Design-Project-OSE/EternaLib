@@ -14,6 +14,8 @@ http://127.0.0.1:8000/book/id id:kitap ID verilen kitabı verir
 
 """
 urlpatterns=[
-    path('book/',views.list_booktable),
-    path('book/category/',views.list_categorybook),
+    path('book/',views.list_booktable,name='Kitap Anasayfa'),
+    path('book/category/',views.list_bookcategory,name='Kitap Kategorileri'),
+    path('book/comments/',views.list_bookcomment,name='Kitap Yorumları'),
+    path('book/like/',views.list_booklike,name='Kitap Beğenenler')
 ]

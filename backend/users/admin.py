@@ -1,30 +1,13 @@
 from django.contrib import admin
-from .models import Users_MovieComment,Users_BookComment,Users_GameComment
+from django.contrib.auth.admin import UserAdmin
+from .models import CustomUser, UserProfile
+from .forms import CustomUserCreationForm, CustomUserChangeForm
 
-class MoviesAdmin(admin.ModelAdmin):
-    list_display=('__all__')
-    list_display_links=('userID','movieID','savedate')
-    list_filter=['savedate']
-    list_editable=('isPublished',)
-    search_fields=('userID','movieID')
-    list_per_page=10
-    
-class GamesAdmin(admin.ModelAdmin):
-    list_display=('__all__')
-    list_display_links=('userID','bookID','savedate')
-    list_filter=['savedate']
-    list_editable=('isPublished',)
-    search_fields=('userID','movieID')
-    list_per_page=10
-    
-class BookAdmin(admin.ModelAdmin):
-    list_display=('__all__')
-    list_display_links=('userID','gameID','savedate')
-    list_filter=['savedate']
-    list_editable=('isPublished',)
-    search_fields=('userID','movieID')
-    list_per_page=10
-    
-admin.site.register(Users_MovieComment,MoviesAdmin)
-admin.site.register(Users_BookComment,GamesAdmin)
-admin.site.register(Users_GameComment,GamesAdmin)
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = CustomUser
+    list_display = ['email', 'username', 'first_name', 'last_name', 'is_staff',]
+
+admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(UserProfile)

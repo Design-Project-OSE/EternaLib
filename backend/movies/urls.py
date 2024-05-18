@@ -13,6 +13,8 @@ http://127.0.0.1:8000/movies/id id:film ID verilen filmi verir
 
 """
 urlpatterns=[
-    path('movies/',views.list_movie),
-    path('movie/category/',views.list_categorymovie),
+    path('movies/',views.list_movie,name="Filmler"),
+    path('movie/category/',views.list_moviecategory,name="Film Kategorileri"),
+    path('movies/comment/',views.list_moviecomment,name="Film Yorumları"),
+    path('movies/like/',views.list_movielike,name="Film Beğenileri"),
 ]
