@@ -1,14 +1,22 @@
 from rest_framework import serializers
-from .models import category_movie,Movies_Table
+from .models import Movies_Table,Movies_Comment,Movies_Category,Movies_Like
 
 class Seri_movietable(serializers.ModelSerializer):
-    class meta:
+    class Meta:
         model=Movies_Table
-        fields=('name','url_name','production','about','category_id','release','isPublished',
-                'imdb','metacritic','background','poster','trailer','savedate')
+        fields=('__all__')
         
-class Seri_categorymovie(serializers.ModelSerializer):
-    class meta:
-        model=category_movie
-        fields=('category_id','name','savedate')
+class Seri_moviecategory(serializers.ModelSerializer):
+    class Meta:
+        model=Movies_Category
+        fields=('__all__')
         
+class Seri_moviecomment(serializers.ModelSerializer):
+    class Meta:
+        model=Movies_Comment
+        fields=('__all__')
+        
+class Seri_movielike(serializers.ModelSerializer):
+    class Meta:
+        model=Movies_Comment
+        fields=('__all__')

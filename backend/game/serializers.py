@@ -1,13 +1,22 @@
 from rest_framework import serializers
-from .models import category_game,Games_Table
+from .models import Games_Table,Game_Like,Game_Category,Game_Comment
 
 class Seri_gamestable(serializers.ModelSerializer):
-    class meta:
+    class Meta:
         model=Games_Table
-        fields=('name','url_name','production','about','category_id','release','isPublished',
-                'imdb','metacritic','background','poster','trailer','savedate')
+        fields=('__all__')
         
-class Seri_category_games(serializers.ModelSerializer):
-    class meta:
-        model=category_game
-        fields=('category_id','name','savedate')
+class Seri_gamescategory(serializers.ModelSerializer):
+    class Meta:
+        model=Game_Category
+        fields=('__all__')
+        
+class Seri_gamescomment(serializers.ModelSerializer):
+    class Meta:
+        model=Game_Comment
+        fields=('__all__')
+        
+class Seri_gameslike(serializers.ModelSerializer):
+    class Meta:
+        model=Game_Like
+        fields=('__all__')

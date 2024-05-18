@@ -1,27 +1,71 @@
 from django.db import models
 
-class category_movie(models.Model):
-    name=models.CharField(max_length=25,verbose_name="Tür İsmi")
-    category_id=models.CharField(max_length=2,verbose_name="Tür Kısaltma")
-    savedate=models.DateTimeField(auto_now_add= True,verbose_name="Eklenme Tarihi")
+maxurl = 200
+maxtext = 100
+maxrich = 2000
+maxtag = 3
+
+class Movies_Comment(models.Model):
+    id = models.AutoField(primary_key=True, verbose_name="Film Yorum ID")
+    userID = models.CharField(max_length=maxtext, verbose_name="Kullanıcı ID")
+    movieID = models.CharField(max_length=maxtext, verbose_name="Film ID")
+    comment = models.TextField(verbose_name="Yorum", max_length=maxrich)
+    savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
+
+    class Meta:
+        verbose_name = "Film Yorum"
+        verbose_name_plural = "Film Yorumları"
+
+    def __str__(self):
+        return self.comment
+
+class Movies_Like(models.Model):
+    id = models.AutoField(primary_key=True, verbose_name="Film Beğeni ID")
+    userID = models.CharField(max_length=maxtext, verbose_name="Kullanıcı ID")
+    movieID = models.CharField(max_length=maxtext, verbose_name="Film ID")
+    savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
+
+    class Meta:
+        verbose_name = "Film Beğeni"
+        verbose_name_plural = "Film Beğenileri"
+
+    def __str__(self):
+        return f"Beğeni ID: {self.id}"
+
+class Movies_Category(models.Model):
+    id = models.AutoField(primary_key=True, verbose_name="Film Kategori ID")
+    name = models.CharField(max_length=maxtext, verbose_name="Tür İsmi")
+    catshort = models.CharField(max_length=maxtag, verbose_name="Tür Kısaltma")
+    savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
+
+    class Meta:
+        verbose_name = "Film Kategori"
+        verbose_name_plural = "Film Kategorileri"
+
     def __str__(self):
         return self.name
-    
-    
+
 class Movies_Table(models.Model):
-    movieID=models.CharField(max_length=100,verbose_name="ID",)
-    name=models.CharField(max_length=100,verbose_name="İsim")
-    url_name=models.CharField(max_length=100,verbose_name="Url İsmi")
-    production=models.CharField(max_length=100,verbose_name="Yapımcı")
-    about=models.TextField(verbose_name="Hakkında")
-    category_id = models.ManyToManyField(category_movie, verbose_name="Tür")
-    release=models.DateTimeField(verbose_name="Çıkış Tarihi")
-    imdb=models.IntegerField(verbose_name="IMDB")
-    metacritic=models.IntegerField(verbose_name="Metacritic")
-    background=models.CharField(max_length=500,verbose_name="Arkaplan")
-    poster=models.CharField(max_length=500,verbose_name="Poster")
-    trailer=models.CharField(max_length=500,verbose_name="Trailer")
-    savedate=models.DateTimeField(auto_now_add= True,verbose_name="Eklenme Tarihi")
-    isPublished=models.BooleanField(default=True,verbose_name="Yayın Durumu")
+    id = models.AutoField(primary_key=True, verbose_name="Film ID")
+    name = models.CharField(max_length=maxtext, verbose_name="İsim")
+    soldlink=models.URLField(max_length=maxurl, verbose_name="Satış Linki")
+    url_name = models.CharField(max_length=maxtext, verbose_name="Url İsmi")
+    production = models.CharField(max_length=maxtext, verbose_name="Yapımcı")
+    about = models.TextField(max_length=maxrich, verbose_name="Hakkında")
+    category = models.ManyToManyField(Movies_Category, verbose_name="Kategoriler")  # Alan adını "category" olarak değiştirdim
+    release = models.DateTimeField(verbose_name="Çıkış Tarihi")
+    imdb = models.FloatField(verbose_name="IMDB")
+    metacritic = models.FloatField(verbose_name="Metacritic")
+    background = models.URLField(max_length=maxurl, verbose_name="Arkaplan URL")
+    poster = models.URLField(max_length=maxurl, verbose_name="Poster URL")
+    trailer = models.URLField(max_length=maxurl, verbose_name="Trailer URL")
+    savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
+    isPublished = models.BooleanField(default=True, verbose_name="Yayın Durumu")
+    like = models.IntegerField(verbose_name="Beğeniler")  
+
+    class Meta:
+        verbose_name = "Film"
+        verbose_name_plural = "Filmler"
+
     def __str__(self):
         return self.name
