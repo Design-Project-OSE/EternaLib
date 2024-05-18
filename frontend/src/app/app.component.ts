@@ -12,7 +12,16 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     <button class="backtotop" *ngIf="isShow" (click)="gotoTop()">
       <i class="fa-solid fa-circle-chevron-up"></i>
     </button>
-    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white">Yükleniyor...</p></ngx-spinner>
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" type = "loading-screen" [fullScreen] = "true">
+      <div class="🤚">
+        <div class="👉"></div>
+        <div class="👉"></div>
+        <div class="👉"></div>
+        <div class="👉"></div>
+        <div class="🌴"></div>
+        <div class="👍"></div>
+    </div>
+    </ngx-spinner>
   `,
   styleUrl: './app.component.scss'
 })

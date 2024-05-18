@@ -26,34 +26,40 @@
 
     <div class="section section-team">
       <div class="container">
-        <div class="button-container">
-          <button class="border btn btn-lg btn-light rounded-pill bg-white text-dark">
-            <i class="fa-solid fa-thumbs-up"> {{ likeCount }}</i>
-          </button>
-          <button class="border btn btn-lg btn-light rounded-pill bg-white text-dark">
-            <i class="fa-solid fa-thumbs-down"> {{ dislikeCount }}</i>
-          </button>
+        <div class="button-container row w-25 mx-auto">
+          <div class="col-6">
+            <app-animated-button style="background-color: white;">
+              <i class="fa-solid fa-thumbs-up">
+                <span class="ml-2">{{ likeCount }}</span>
+              </i>
+            </app-animated-button>
+          </div>
+          <div class="col-6">
+            <app-animated-button style="background-color: white;">
+              <i class="fa-solid fa-thumbs-down">
+                <span class="ml-2">{{ dislikeCount }}</span>
+              </i>
+            </app-animated-button>
+          </div>
+
         </div>
           <div class="row mt-3">
             <div class="col-md-4 order-md-1 order-2">
                 <img class="bbb" src="{{ poster }}" alt="Location Unknown">
                 <div class="social-line text-center mt-3 bbb border bg-light">
                   <h4 class="my-2"><u>This Content is:</u> <br><b>{{ viewCount }}</b><br><h6>Times Viewed</h6></h4>
-
                 </div>
-                <div class="social-line text-center mt-3 bbb border bg-light">
+                <div class="social-line text-center mt-3">
                   <h4 class="my-2">Follow Us:</h4>
-                  <a href="#" class="btn btn-default btn-round btn-lg btn-icon" rel="tooltip" title="Follow me on Instagram">
-                    <i class="fab fa-instagram"></i>
-                  </a>
-                  <a href="#" class="btn btn-default btn-round btn-lg btn-icon" rel="tooltip" title="Follow me on Twitter">
-                    <i class="fab fa-x-twitter"></i>
-                  </a>
-                  <a href="#" class="btn btn-default btn-round btn-lg btn-icon" rel="tooltip" title="Follow me on Facebook">
-                    <i class="fab fa-facebook"></i>
-                  </a>
-                </div>
 
+                  <app-social-buttons
+                      instagram="https://www.instagram.com/emreyoruk0/"
+                      x="https://x.com/emrelyoruk"
+                      linkedin="https://www.linkedin.com/in/emreyorukk/"
+                      github="https://github.com/emreyoruk0">
+                  </app-social-buttons>
+
+                </div>
                 <div class="mt-5">
                   <h3>Similar Contents</h3>
                   <div class="row">
