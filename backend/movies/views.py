@@ -34,3 +34,17 @@ def list_movielike(request):
     obj=Movies_Like.objects.all()
     seri=Seri_movielike(obj,many=True)
     return Response(seri.data)
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def list_movieid(request,id):
+    obj=get_object_or_404(Movies_Table,id=id)
+    seri=Seri_movietable(obj)
+    return Response(seri.data)
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def list_movieurlname(request,urlname):
+    obj=get_object_or_404(Movies_Table,urlname=urlname)
+    seri=Seri_movietable(obj)
+    return Response(seri.data)

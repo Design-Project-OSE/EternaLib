@@ -17,5 +17,7 @@ urlpatterns=[
     path('book/',views.list_booktable,name='Kitap Anasayfa'),
     path('book/category/',views.list_bookcategory,name='Kitap Kategorileri'),
     path('book/comments/',views.list_bookcomment,name='Kitap Yorumları'),
-    path('book/like/',views.list_booklike,name='Kitap Beğenenler')
+    path('book/like/',views.list_booklike,name='Kitap Beğenenler'),
+    path('games/id/<int:id>/', views.list_bookid, name="Oyun ID Çekme"),
+    path('games/urlname/<str:urlname>/', views.list_bookurlname, name="Oyun URL Çekme"),
 ]

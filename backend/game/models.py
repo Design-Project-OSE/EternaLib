@@ -56,7 +56,7 @@ class Games_Table(models.Model):
     trailer=models.URLField(max_length=maxurl,verbose_name="Trailer URL")
     savedate=models.DateTimeField(auto_now_add= True,verbose_name="Eklenme Tarihi")
     isPublished=models.BooleanField(default=True,verbose_name="Yayın Durumu")
-    like=models.IntegerField(verbose_name="Beğeni sayısı")
+    like=models.IntegerField(default=0,verbose_name="Beğeni sayısı")
     class Meta:
         verbose_name = "Oyun"
         verbose_name_plural = "Oyunlar"

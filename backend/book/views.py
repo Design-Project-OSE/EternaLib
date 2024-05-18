@@ -37,3 +37,17 @@ def list_booklike(request):
     obj=Book_Like.objects.all()
     seri=Seri_booklike(obj,many=True)
     return Response(seri.data)
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def list_bookid(request,id):
+    obj=get_object_or_404(Book_Table,id=id)
+    seri=Seri_booktable(obj)
+    return Response(seri.data)
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def list_bookurlname(request,urlname):
+    obj=get_object_or_404(Book_Table,urlname=urlname)
+    seri=Seri_booktable(obj)
+    return Response(seri.data)

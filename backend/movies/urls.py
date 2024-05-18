@@ -17,4 +17,6 @@ urlpatterns=[
     path('movie/category/',views.list_moviecategory,name="Film Kategorileri"),
     path('movies/comment/',views.list_moviecomment,name="Film Yorumları"),
     path('movies/like/',views.list_movielike,name="Film Beğenileri"),
+    path('movies/id/<int:id>/',views.list_movieid,name="Film id sayfası"),
+    path('movies/id/<str:urlname>/',views.list_movieurlname,name="Film id sayfası"),
 ]

@@ -39,12 +39,12 @@ def list_gamelike(request):
 @permission_classes((permissions.AllowAny,))
 def list_gameid(request,id):
     obj=get_object_or_404(Games_Table,id=id)
-    seri=Seri_gameslike(obj)
+    seri=Seri_gamestable(obj)
     return Response(seri.data)
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def list_gameurlname(request,urlname):
     obj=get_object_or_404(Games_Table,urlname=urlname)
-    seri=Seri_gameslike(obj)
+    seri=Seri_gamestable(obj)
     return Response(seri.data)
