@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import permissions
+from rest_framework import permissions,status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
@@ -48,3 +48,33 @@ def list_gameurlname(request,urlname):
     obj=get_object_or_404(Games_Table,urlname=urlname)
     seri=Seri_gamestable(obj)
     return Response(seri.data)
+
+@api_view(['GET', 'POST'])
+@permission_classes((permissions.AllowAny,))
+def list_gamegetcomment(request):
+    if request.method == 'GET':
+        comments = Game_Comment.objects.all()
+        serializer = Seri_gamescomment(comments, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = Seri_gamescomment(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'POST'])
+@permission_classes([permissions.AllowAny])
+def list_gamegetlike(request):
+    if request.method == 'GET':
+        likes = Game_Like.objects.all()
+        serializer = Seri_gameslike(likes, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = Seri_gameslike(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
