@@ -54,8 +54,8 @@ class Movies_Table(models.Model):
     about = models.TextField(max_length=maxrich, verbose_name="Hakkında")
     category = models.ManyToManyField(Movies_Category, verbose_name="Kategoriler")  # Alan adını "category" olarak değiştirdim
     release = models.DateTimeField(verbose_name="Çıkış Tarihi")
-    imdb = models.IntegerField(verbose_name="IMDB")
-    metacritic = models.IntegerField(verbose_name="Metacritic")
+    imdb = models.FloatField(verbose_name="IMDB")
+    metacritic = models.FloatField(verbose_name="Metacritic")
     background = models.URLField(max_length=maxurl, verbose_name="Arkaplan URL")
     poster = models.URLField(max_length=maxurl, verbose_name="Poster URL")
     trailer = models.URLField(max_length=maxurl, verbose_name="Trailer URL")
