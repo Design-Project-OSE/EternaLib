@@ -32,6 +32,18 @@ export const routes: Routes = [
             .then(c => c.ProfileComponent)
       },
       {
+        path: 'about-us',
+        loadComponent:
+            () => import('./components/about-us/about-us.component')
+            .then(c => c.AboutUsComponent)
+      },
+      {
+        path: 'contact-us',
+        loadComponent:
+            () => import('./components/contact-us/contact-us.component')
+            .then(c => c.ContactUsComponent)
+      },
+      {
         path: 'profile/edit',
         loadComponent:
             () => import('./components/profile/components/profile-edit/profile-edit.component')

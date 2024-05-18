@@ -6,7 +6,7 @@
       </div>
       <div class="content-center mx-1 px-1">
           <div class="row justify-content-between mt-5 pt-5">
-            <div class="col-md-6 text-left">
+            <div class="col-lg-6 text-left">
               <h1 class="title mb-0 pt-1 text-left">{{ name }}</h1>
               <h5>{{ year }}</h5>
               <span *ngFor="let category of categories">
@@ -17,7 +17,7 @@
                   <h1 class="d-inline mb-0"><b>{{ imdb }}</b></h1>
                 </div>
             </div>
-            <div class="col-md-6 d-none d-md-block">
+            <div class="col-lg-6 d-lg-block d-none">
               <iframe width="560" class="rounded mb-3" height="315" [src]="trailer | safeUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
           </div>
@@ -44,7 +44,7 @@
 
         </div>
           <div class="row mt-3">
-            <div class="col-md-4 order-md-1 order-2">
+            <div class="col-lg-4">
                 <img class="bbb" src="{{ poster }}" alt="Location Unknown">
                 <div class="social-line text-center mt-3 bbb border bg-light">
                   <h4 class="my-2"><u>This Content is:</u> <br><b>{{ viewCount }}</b><br><h6>Times Viewed</h6></h4>
@@ -77,7 +77,7 @@
                 </div>
             </div>
 
-            <div class="col-md-8 order-md-2 order-1">
+            <div class="col-lg-8">
               <h1><b>About</b></h1>
               <p style="color: black;">
                 {{ description }}
@@ -93,7 +93,16 @@
                   </a>
                 </div>
                 <div class="col-10 p-2">
-                  <a routerLink="{{ userRouteUrl }}"><h4 class="my-0">{{ userName }}</h4></a>
+                  <div class="row">
+                    <div class="col-8">
+                      <a routerLink="{{ userRouteUrl }}">
+                        <h4 class="my-0">{{ userName }}</h4>
+                      </a>
+                    </div>
+                    <div class="col-4">
+                      <span class="description float-right">{{ userCommentDate }}</span>
+                    </div>
+                  </div>
                   <p class="display-5">{{ userComment }}</p>
                   <button class="btn btn-light rounded-pill bg-white text-dark"><i class="fa-solid fa-thumbs-up"></i></button>
                   <button class="btn btn-light rounded-pill bg-white text-dark"><i class="fa-solid fa-thumbs-down"></i></button>

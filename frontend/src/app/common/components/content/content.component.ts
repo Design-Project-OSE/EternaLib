@@ -9,7 +9,7 @@ import { SharedModule } from '../../shared/shared.module';
   styleUrl: './content.component.scss'
 })
 export class ContentComponent {
-  @Input() question: string = "";
+  @Input() which: string = "";
   @Input() contentTypee: string = "";
   @Input() categoriess: string[] = [];
 }

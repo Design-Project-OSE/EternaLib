@@ -1,13 +1,217 @@
 <div class="profile-page sidebar-collapse">
   <div class="wrapper">
     <div class="page-header clear-filter page-header-small" filter-color="orange">
-      <div class="page-header-image" data-parallax="true" style="background-image:url('/assets/img/header.jpg');">
+      <div class="page-header-image" data-parallax="true" style="background-image:url('/assets/img/bg4.jpg');">
+      </div>
+      <div class="container">
+        <div class="w-25 mx-auto position-relative">
+          <img src="/assets/img/emre.jpg" alt="" class="rounded-circle img-raised">
+          <span class="position-absolute top-0 start-100 ">
+              <app-animated-button>
+                <i class="fa fa-edit fa-xl"></i>
+              </app-animated-button>
+          </span>
+        </div>
+        <h2 class="title">Emre Yörük</h2>
+        <p class="category">Software Engineer</p>
       </div>
     </div>
-    <div class="section">
+    <div class="section pt-0">
+      <h2 class="title text-center mt-0">
+        <i class="now-ui-icons loader_gear spin"></i>
+        <b class="mx-2">My Informations</b>
+        <i class="now-ui-icons loader_gear spin"></i>
+      </h2>
       <div class="container">
+
+
+      <div class="nav-align-center">
+        <ul class="nav nav-pills nav-pills-primary nav-pills-just-icons" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#personalInformations" role="tablist" rel="tooltip" title="Personal Informations" data-placement="bottom">
+              <i class="now-ui-icons users_single-02"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#socialAccounts" role="tablist" rel="tooltip" title="Social Accounts" data-placement="bottom">
+              <i class="now-ui-icons emoticons_satisfied"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    <!-- Tab panes -->
+      <form #userForm="ngForm" (ngSubmit)="editProfile(userForm)">
+        <div class="tab-content gallery">
+          <div class="tab-pane active" id="personalInformations" role="tabpanel">
+            <div class="col-md-10 mx-auto">
+              <div class="row collections">
+                <div class="col-md-6 mx-auto">
+                    <div class="form-group row">
+                      <label for="name" class="col-3 my-auto">Name:</label>
+                      <div class="input-group col-9">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text"><i class="now-ui-icons users_circle-08"></i></div>
+                        </div>
+                        <input
+                          type="text"
+                          placeholder="Name and Surname"
+                          class="form-control"
+                          ngModel
+                          id="name"
+                          name="name"
+                          #name
+                          required
+                          minlength="3"
+                          [appIsValid]="name.validity.valid">
+                          <span class="text-right invalid-feedback">Name must be at least 3 characters!</span>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="currentPassword" class="col-3 my-auto">Current Password:</label>
+                      <div class="input-group col-9">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text"><i class="now-ui-icons objects_key-25"></i></div>
+                        </div>
+                        <input
+                          type="password"
+                          class="form-control"
+                          placeholder="Current Password"
+                          id="currentPassword"
+                          name="currentPassword"
+                          ngModel
+                          #currentPassword
+                          required
+                          minlength="6"
+                          [appIsValid]="currentPassword.validity.valid">
+                          <span class="text-right invalid-feedback">Password must be at least 6 characters!</span>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="newPassword" class="col-3 my-auto">New Password:</label>
+                      <div class="input-group col-9">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text"><i class="now-ui-icons objects_key-25"></i></div>
+                        </div>
+                        <input
+                          type="password"
+                          class="form-control"
+                          placeholder="New Password"
+                          id="newPassword"
+                          name="newPassword"
+                          ngModel
+                          #newPassword
+                          required
+                          minlength="6"
+                          [appIsValid]="newPassword.validity.valid">
+                          <span class="text-right invalid-feedback">New password must be at least 6 characters!</span>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="aboutMe" class="col-3 my-auto">About Me:</label>
+                      <div class="input-group col-9">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text"><i class="now-ui-icons objects_planet"></i></div>
+                        </div>
+                        <textarea
+                          rows="3"
+                          class="form-control"
+                          placeholder="About me"
+                          name="aboutMe"
+                          #aboutMe
+                          ngModel
+                          id="aboutMe">
+                        </textarea>
+                      </div>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="socialAccounts" role="tabpanel">
+            <div class="col-md-10 mx-auto">
+              <div class="row collections">
+                <div class="col-md-6 mx-auto">
+
+                  <div class="form-group row">
+                    <label for="instagram" class="col-3 my-auto">Instagram:</label>
+                    <div class="input-group col-9">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-instagram"></i></div>
+                      </div>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Your instagram account link"
+                        id="instagram"
+                        name="instagram"
+                        ngModel
+                        #instagram>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="xtwitter" class="col-3 my-auto">X (Twitter):</label>
+                    <div class="input-group col-9">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa-brands fa-x-twitter"></i></div>
+                      </div>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Your x(twitter) account link"
+                        id="xtwitter"
+                        name="xtwitter"
+                        #xtwitter
+                        ngModel>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="facebook" class="col-3 my-auto">Facebook:</label>
+                    <div class="input-group col-9">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-facebook"></i></div>
+                      </div>
+                      <input
+                      type="text"
+                      placeholder="Your facebook account link"
+                      class="form-control"
+                      id="facebook"
+                      name="facebook"
+                      #facebook
+                      ngModel>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="linkedin" class="col-3 my-auto">LinedIn:</label>
+                    <div class="input-group col-9">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-linkedin"></i></div>
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="Your linkedin account link"
+                        class="form-control"
+                        id="linkedin"
+                        name="linkedin"
+                        #linkedin
+                        ngModel>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <app-animated-button>
+            Save Changes
+            <i class="fa-solid fa-floppy-disk"></i>
+          </app-animated-button>
+        </div>
+      </form>
 
       </div>
     </div>
   </div>
 </div>
+

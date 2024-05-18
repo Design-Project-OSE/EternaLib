@@ -27,4 +27,5 @@ export class ContentDetailComponent {
   @Input() userName: string = "";
   @Input() userImage: string = "";
   @Input() userComment: string = "";
+  @Input() userCommentDate: string = "";
 }

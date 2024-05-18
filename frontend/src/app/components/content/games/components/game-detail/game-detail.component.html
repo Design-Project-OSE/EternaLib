@@ -14,19 +14,26 @@
   userRouteUrl="/profile"
   userName="Sinan Uyğun"
   userImage="/assets/img/sinan.jpg"
-  userComment="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis nesciunt earum rerum nemo possimus laborum aliquam rem, repellendus magni corporis maxime id, natus fugit aut deleniti tempore. Quae, quas facere. lo">
+  userComment="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis nesciunt earum rerum nemo possimus laborum aliquam rem, repellendus magni corporis maxime id, natus fugit aut deleniti tempore. Quae, quas facere. lo"
+  userCommentDate="21/12/2024">
 
   <form #commentForm="ngForm" (ngSubmit)="sendComment(commentForm)">
-    <label for="comment"><b>Write Comment</b></label>
-    <i class="ml-2 now-ui-icons ui-2_chat-round fa-xl"></i>
-    <div class="btn-group btn-group-toggle">
+    <label for="comment"><b>Write a Comment</b></label>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <label for="comment">
+            <i class="ml-2 now-ui-icons ui-2_chat-round"></i>
+          </label>
+        </div>
+      </div>
       <textarea
-        cols="90" rows="2"
+        rows="3"
         class="form-control"
         name="comment"
-        id="comment"
         #comment
-        ngModel>
+        ngModel
+        id="comment">
       </textarea>
       <button type="submit" class="btn-comment">Send Comment</button>
     </div>

@@ -8,5 +8,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './animated-button.component.scss'
 })
 export class AnimatedButtonComponent {
+ 
 
 }
