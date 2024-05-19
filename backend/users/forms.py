@@ -1,18 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import CustomUser, UserProfile
-
-class CustomUserCreationForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = CustomUser
-        fields = ('first_name', 'last_name', 'email',)
-
-class CustomUserChangeForm(UserChangeForm):
-    class Meta:
-        model = CustomUser
-        fields = ('first_name', 'last_name', 'email',)
+from .models import UserProfile
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['profile_picture','instagram', 'twitter', 'facebook', 'linkedin']
+        fields = ['full_name', 'favorite_movie', 'favorite_game', 'favorite_book', 'profile_picture', 'instagram_link', 'facebook_link', 'linkedin_link']

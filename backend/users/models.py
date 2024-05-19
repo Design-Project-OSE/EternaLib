@@ -1,23 +1,22 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.contrib.auth.models import User
 
-class CustomUser(AbstractUser):
-    email = models.EmailField(unique=True)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
-
-    def save(self, *args, **kwargs):
-        if not self.username:
-            self.username = f"{self.first_name}_{self.last_name}".lower().replace(" ", "_")
-        super().save(*args, **kwargs)
+class CustomUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.user.username
+    
 class UserProfile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
-    instagram = models.URLField(blank=True, null=True)
-    twitter = models.URLField(blank=True, null=True)
-    facebook = models.URLField(blank=True, null=True)
-    linkedin = models.URLField(blank=True, null=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kullanıcı ID")
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=100)
+    favorite_movie = models.CharField(max_length=100)
+    favorite_game = models.CharField(max_length=100)
+    favorite_book = models.CharField(max_length=100)
+    profile_picture = models.ImageField(upload_to='profile_pics/')
+    instagram_link = models.URLField(blank=True)
+    facebook_link = models.URLField(blank=True)
+    linkedin_link = models.URLField(blank=True)
 
     def __str__(self):
         return self.user.username
