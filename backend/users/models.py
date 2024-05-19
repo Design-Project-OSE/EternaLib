@@ -2,9 +2,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 import uuid
 
 class CustomUser(AbstractUser):
+    id=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kullanıcı ID")
     email = models.EmailField(_('email address'), unique=True)
 
     USERNAME_FIELD = 'email'
@@ -35,3 +38,15 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+# Kullanıcı oluşturulduğunda tetiklenecek sinyal dinleyicisi
+@receiver(post_save, sender=CustomUser)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        full_name = instance.first_name + ' ' + instance.last_name
+        UserProfile.objects.create(user=instance, full_name=full_name)
+
+# Kullanıcı profili güncellendiğinde tetiklenecek sinyal dinleyicisi
+@receiver(post_save, sender=CustomUser)
+def save_user_profile(sender, instance, **kwargs):
+    instance.userprofile.save()

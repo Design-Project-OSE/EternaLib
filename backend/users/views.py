@@ -11,17 +11,22 @@ from rest_framework.authtoken.models import Token
 from rest_framework import generics
 from .models import UserProfile
 from .serializers import UserProfileSerializer
-
+from django.contrib.auth import get_user_model
+from rest_framework.authtoken.models import Token
+import json
+from rest_framework import generics
 
 @csrf_exempt
 def register_user(request):
     if request.method == 'POST':
         try:
             # Angular'dan gelen verileri al
-            namesurname = request.POST.get('namesurname').replace(' ', '_')
-            email = request.POST.get('email')
-            password = request.POST.get('password')
+            data=json.loads(request.body.decode('utf-8'))
+            namesurname = data.get('namesurname').replace(' ', '_')
+            email = data.get('email')
+            password = data.get('password')
             
+            User = get_user_model()
             # Django kullanıcı nesnesini oluştur
             user = User.objects.create_user(username=namesurname, email=email, password=password)
             
@@ -29,40 +34,42 @@ def register_user(request):
             # custom_user = CustomUser.objects.create(user=user, isim_soyisim=namesurname)
 
             # Başarılı yanıtı döndür
-            return JsonResponse({'message': 'Kullanıcı başarıyla oluşturuldu.'}, status=201)
+            return JsonResponse({'message': 'User created successfully.'}, status=201)
         except Exception as e:
             # Hata durumunda yanıtı döndür
             return JsonResponse({'error': str(e)}, status=400)
     else:
-        return JsonResponse({'error': 'Yanlış istek methodu.'}, status=405)
+        return JsonResponse({'error': 'Wrong request method.'}, status=405)
     
 
 
 @csrf_exempt
 def user_login(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        data = json.loads(request.body.decode('utf-8'))
+        email = data.get('email')
+        password = data.get('password')
 
         # Kullanıcıyı doğrula
         user = authenticate(username=email, password=password)
 
         if user:
-            # Kullanıcı doğrulandıysa, bir token oluştur ve geri döndür
-            token, _ = Token.objects.get_or_create(user=user)
-            return JsonResponse({'token': token.key})
+            # Doğru bir şekilde UUID oluştur
+            token = Token.objects.create(user=user)
+            return JsonResponse({'token': token.key, 'user_id': user.id})
         else:
             # Kullanıcı doğrulanamadıysa hata mesajı döndür
-            return JsonResponse({'error': 'Geçersiz e-posta veya şifre'}, status=400)
+            return JsonResponse({'error': 'Invalid email or password'}, status=400)
 
     else:
-        return JsonResponse({'error': 'Sadece POST istekleri kabul edilir'}, status=405)
+        return JsonResponse({'error': 'Only POST requests are accepted'}, status=405)
     
 
 
 class UserProfileAPIView(generics.RetrieveAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
+    lookup_field = 'pk'
     
 class UserProfileUpdateAPIView(APIView):
     def put(self, request, *args, **kwargs):
@@ -77,7 +84,7 @@ class UserProfileUpdateAPIView(APIView):
         serializer = UserProfileSerializer(instance=profile, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response({'success': 'Profil başarıyla güncellendi'}, status=status.HTTP_200_OK)
+            return Response({'success': 'Profile successfully updated'}, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -89,7 +96,7 @@ def forgot_password(request):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            return JsonResponse({'status': 'error', 'message': 'Bu e-posta adresine sahip bir kullanıcı bulunamadı.'})
+            return JsonResponse({'status': 'error', 'message': 'No user with this e-mail address was found.'})
 
         # Yeni bir şifre oluştur ve kullanıcıya atayın
         new_password = User.objects.make_random_password()
@@ -105,9 +112,9 @@ def forgot_password(request):
             fail_silently=False,
         )
 
-        return JsonResponse({'status': 'success', 'message': 'Yeni şifreniz e-posta adresinize gönderilmiştir.'})
+        return JsonResponse({'status': 'success', 'message': 'Your new password has been sent to your e-mail address.'})
 
-    return JsonResponse({'status': 'error', 'message': 'Geçersiz istek methodu.'})
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
 
 def user_logout(request):
     logout(request)

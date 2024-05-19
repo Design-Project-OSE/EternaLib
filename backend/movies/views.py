@@ -80,3 +80,10 @@ def list_moviegetlike(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['POST'])
+def list_getidcomments(request):
+    movie_id = request.data.get('movie_id')
+    comments = Movies_Comment.objects.filter(movie_id=movie_id)
+    serializer = Seri_moviecomment(comments, many=True)
+    return Response(serializer.data)
