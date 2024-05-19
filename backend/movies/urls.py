@@ -21,5 +21,6 @@ urlpatterns=[
     path('movies/urlname/<str:urlname>/',views.list_movieurlname,name="Film id sayfası"),
     path('movies/get/comment',views.list_moviegetcomment,name="Yorum yapma"),
     path('movies/get/like',views.list_moviegetlike,name="Beğeni yapma"),
-    path('movies/id/comment',views.list_getidcomments,name="POST olarak girilen movieID ait tüm yorumları çekiyor")
+    path('movies/get/id/comment',views.list_getidcomments,name="POST olarak girilen movieID ait tüm yorumları çekiyor"),
+    path('movies/get/id/category/<uuid:id>',views.list_moviecategoryid,name="id girilen category bilgileri")
 ]

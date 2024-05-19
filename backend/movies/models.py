@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 
+
 maxurl = 200
 maxtext = 100
 maxrich = 2000

@@ -1,10 +1,13 @@
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import permissions,status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from .models import Movies_Table,Movies_Comment,Movies_Category,Movies_Like
 from .serializers import Seri_movietable,Seri_moviecategory,Seri_moviecomment,Seri_movielike
+import json
 
 
 @api_view(['GET'])
@@ -40,6 +43,14 @@ def list_movielike(request):
 def list_movieid(request,id):
     obj=get_object_or_404(Movies_Table,id=id)
     seri=Seri_movietable(obj)
+    return Response(seri.data)
+
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def list_moviecategoryid(request,id):
+    obj=get_object_or_404(Movies_Category,id=id)
+    seri=Seri_moviecategory(obj)
     return Response(seri.data)
 
 @api_view(['GET'])
@@ -81,9 +92,17 @@ def list_moviegetlike(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-@api_view(['POST'])
+@csrf_exempt
 def list_getidcomments(request):
-    movie_id = request.data.get('movie_id')
-    comments = Movies_Comment.objects.filter(movie_id=movie_id)
-    serializer = Seri_moviecomment(comments, many=True)
-    return Response(serializer.data)
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        movie_id = data.get('movieID')
+        if movie_id is not None:  # id değeri None değilse devam et
+            comments = Movies_Comment.objects.filter(movieID=movie_id)
+            serializer = Seri_moviecomment(comments, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return JsonResponse({'error': 'No movie ID provided.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+    
