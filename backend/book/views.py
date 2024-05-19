@@ -23,6 +23,12 @@ def list_booktable(request):
     obj=Book_Table.objects.all()
     seri=Seri_booktable(obj,many=True)
     return Response(seri.data)
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def list_bookcategoryid(request,id):
+    obj=get_object_or_404(Book_Category,id=id)
+    seri=Seri_bookcategory(obj)
+    return Response(seri.data)
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))

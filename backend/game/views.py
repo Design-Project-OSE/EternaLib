@@ -44,6 +44,13 @@ def list_gameid(request,id):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+def list_gamecategoryid(request,id):
+    obj=get_object_or_404(Game_Category,id=id)
+    seri=Seri_gamescategory(obj)
+    return Response(seri.data)
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
 def list_gameurlname(request,urlname):
     obj=get_object_or_404(Games_Table,urlname=urlname)
     seri=Seri_gamestable(obj)

@@ -22,4 +22,5 @@ urlpatterns=[
     path('book/urlname/<str:urlname>/', views.list_bookurlname, name="Oyun URL Çekme"),
     path('book/get/comment',views.list_bookgetcomment,name="Yorum yapma"),
     path('book/get/like/get',views.list_bookgetlike,name="Beğeni yapma"),
+    path('book/get/id/category/<uuid:id>',views.list_bookcategoryid,name="id girilen category bilgileri")
 ]

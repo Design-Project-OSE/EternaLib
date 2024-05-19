@@ -22,4 +22,5 @@ urlpatterns=[
     path('games/urlname/<str:urlname>/', views.list_gameurlname, name="Oyun URL Çekme"),
     path('games/get/comment',views.list_gamegetcomment,name="Yorum yapma"),
     path('games/get/like',views.list_gamegetlike,name="Beğeni yapma"),
+    path('games/get/id/category/<uuid:id>/', views.list_gamecategoryid, name="Oyun ID Çekme"),
 ]
