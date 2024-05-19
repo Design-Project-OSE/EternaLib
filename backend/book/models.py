@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 maxurl = 200
 maxtext = 100
@@ -6,7 +7,7 @@ maxrich = 2000
 maxtag = 3
 
 class Book_Comment(models.Model):
-    id = models.AutoField(primary_key=True, verbose_name="Kitap Yorum ID")
+    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap Yorum ID")
     userID = models.CharField(max_length=maxtext, verbose_name="Kullanıcı ID")
     bookID = models.CharField(max_length=maxtext, verbose_name="Kitap ID")
     comment = models.TextField(verbose_name="Yorum", max_length=maxrich)  # "Comment" alanını düzelttim
@@ -20,7 +21,7 @@ class Book_Comment(models.Model):
         return self.comment  # Yorumu döndürdüm
 
 class Book_Like(models.Model):
-    id = models.AutoField(primary_key=True, verbose_name="Kitap Beğeni ID")
+    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap Beğeni ID")
     userID = models.CharField(max_length=maxtext, verbose_name="Kullanıcı ID")
     bookID = models.CharField(max_length=maxtext, verbose_name="Kitap ID")
     savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
@@ -33,7 +34,7 @@ class Book_Like(models.Model):
         return f"Beğeni ID: {self.id}"  # Burada farklı bir çıktı döndürdüm
 
 class Book_Category(models.Model):
-    id = models.AutoField(primary_key=True, verbose_name="Kitap Kategori ID")
+    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap Kategori ID")
     name = models.CharField(max_length=maxtext, verbose_name="Tür İsmi")
     catshort = models.CharField(max_length=maxtag, verbose_name="Kitap Türü Kısaltması")
     savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
@@ -46,7 +47,7 @@ class Book_Category(models.Model):
         return self.name  # Kategori ismini döndürdüm
 
 class Book_Table(models.Model):
-    id = models.AutoField(primary_key=True, verbose_name="Kitap ID")
+    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap ID")
 
     name = models.CharField(max_length=maxtext, verbose_name="İsim")
     soldlink=models.URLField(max_length=maxurl, verbose_name="Satış Linki")

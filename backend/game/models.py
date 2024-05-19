@@ -1,11 +1,12 @@
 from django.db import models
+import uuid
 maxurl=200
 maxtext=100
 maxrich=2000
 maxtag=3
 
 class Game_Comment(models.Model):
-    id = models.AutoField(primary_key=True,verbose_name="Oyun Yorum ID")
+    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Oyun Yorum ID")
     userID=models.CharField(max_length=maxtext,verbose_name="Kullanıcı ID")
     gameID=models.CharField(max_length=maxtext,verbose_name="Oyun ID")
     comment=models.TextField(verbose_name="Yorum",max_length=maxrich)
@@ -18,7 +19,7 @@ class Game_Comment(models.Model):
         return str(self.id)
     
 class Game_Like(models.Model):
-    id=models.AutoField(primary_key=True,verbose_name="Oyun Beğeni ID")
+    id=models.id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Oyun Beğeni ID")
     userID=models.CharField(max_length=maxtext,verbose_name="Kullanıcı ID")
     gameID=models.CharField(max_length=maxtext,verbose_name="Oyun ID")
     savedate=models.DateTimeField(auto_now_add= True,verbose_name="Eklenme Tarihi")
@@ -29,7 +30,7 @@ class Game_Like(models.Model):
     def __str__(self):
         return str(self.id)
 class Game_Category(models.Model):
-    id=models.AutoField(primary_key=True,verbose_name="Oyun Kategori ID")
+    id=id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Oyun Kategori ID")
     name=models.CharField(max_length=maxtext,verbose_name="Tür İsmi")
     catshort=models.CharField(max_length=maxtag,verbose_name="Tür Kısaltma")
     savedate=models.DateTimeField(auto_now_add= True,verbose_name="Eklenme Tarihi")
@@ -41,7 +42,7 @@ class Game_Category(models.Model):
         return self.name
 
 class Games_Table(models.Model):
-    id=models.AutoField(primary_key=True,verbose_name="Oyun ID")
+    id=id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Oyun ID")
     name=models.CharField(max_length=maxtext,verbose_name="İsim")
     urlname=models.CharField(max_length=maxtext,verbose_name="URL İsmi")
     soldlink=models.URLField(max_length=maxurl,verbose_name="Satış Linki")
