@@ -49,11 +49,10 @@ class Movies_Category(models.Model):
 class Movies_Table(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Film ID")
     name = models.CharField(max_length=maxtext, verbose_name="İsim")
-    soldlink = models.URLField(max_length=maxurl, verbose_name="Satış Linki")
     urlname = models.CharField(max_length=maxtext, verbose_name="Url İsmi")
     production = models.CharField(max_length=maxtext, verbose_name="Yapımcı")
     about = models.TextField(max_length=maxrich, verbose_name="Hakkında")
-    category = models.ManyToManyField(Movies_Category, verbose_name="Kategoriler")  
+    categories = models.ManyToManyField(Movies_Category, verbose_name="Kategoriler")  
     release = models.DateTimeField(verbose_name="Çıkış Tarihi")
     imdb = models.FloatField(verbose_name="IMDB")
     metacritic = models.FloatField(verbose_name="Metacritic")

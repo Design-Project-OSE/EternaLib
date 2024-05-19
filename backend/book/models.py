@@ -50,11 +50,10 @@ class Book_Table(models.Model):
     id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap ID")
 
     name = models.CharField(max_length=maxtext, verbose_name="İsim")
-    soldlink=models.URLField(max_length=maxurl, verbose_name="Satış Linki")
     urlname = models.CharField(max_length=maxtext, verbose_name="URL İsmi")
     production = models.CharField(max_length=maxtext, verbose_name="Yapımcı")
     about = models.TextField(verbose_name="Hakkında", max_length=maxrich)
-    category = models.ManyToManyField(Book_Category, verbose_name="Tür")
+    categories = models.ManyToManyField(Book_Category, verbose_name="Tür")
     release = models.DateTimeField(verbose_name="Çıkış Tarihi")
     background = models.URLField(max_length=maxurl, verbose_name="Arkaplan URL")
     poster = models.URLField(max_length=maxurl, verbose_name="Poster URL")
