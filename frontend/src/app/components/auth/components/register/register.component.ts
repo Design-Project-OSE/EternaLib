@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import { SharedModule } from '../../../../common/shared/shared.module';
 import { AuthService } from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { RegisterModel } from '../../models/register.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -13,24 +15,29 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent implements OnInit {
+  model: RegisterModel = new RegisterModel();
 
   constructor(
     private _auth: AuthService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _router: Router
   ) { }
 
   ngOnInit() {
-    this._auth.isHomePage = false;
+    this._auth.isAuthPages = true;
   }
 
   register(form: NgForm){
     if(form.valid){
-      console.log(form.value);
-      console.log(form.controls["name"].value);
-      console.log(form.controls["email"].value);
-      console.log(form.controls["password"].value);
-    } else {
-      this._toastr.error('Please fill all the required fields');
+      console.log(this.model);
+      this._auth.register(this.model, res => {
+        this._toastr.success(`Welcome ${res.userfullname}`, "Registration Successful!");
+
+        localStorage.setItem("user", JSON.stringify(res));
+
+        this._router.navigateByUrl("/");
+        this._auth.isLoggedIn = true;
+      });
     }
   }
 }

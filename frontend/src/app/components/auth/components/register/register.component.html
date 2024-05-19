@@ -11,7 +11,7 @@
         type="text"
         placeholder="First and Last Name"
         class="form-control"
-        ngModel
+        [(ngModel)]="model.namesurname"
         name="name"
         id="name"
         #name
@@ -30,7 +30,7 @@
         type="email"
         placeholder="Email"
         class="form-control"
-        ngModel
+        [(ngModel)]="model.email"
         name="email"
         id="email"
         #email
@@ -48,7 +48,7 @@
         type="password"
         placeholder="Password"
         class="form-control"
-        ngModel
+        [(ngModel)]="model.password"
         name="password"
         id="password"
         #password

@@ -13,7 +13,6 @@ export class CustomCardComponent {
   @Input() name: string = "";
   @Input() imageUrl: string = "";
   @Input() routerUrl: string = "";
-  @Input() viewCount: string = "";
+  @Input() likeCount: string = "";
   @Input() commentCount: string = "";
-  @Input() categories: string[] = [];
 }

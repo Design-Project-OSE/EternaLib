@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AuthService } from './components/auth/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -25,9 +26,21 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   `,
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   isShow: boolean = false;
   topPosToStartShowing = 100;
+
+  constructor(
+    private _auth: AuthService
+  ){}
+
+  ngOnInit(): void {
+    if(localStorage.getItem("user")){
+      this._auth.isLoggedIn = true;
+    } else {
+      this._auth.isLoggedIn = false;
+    }
+  }
 
   @HostListener('window:scroll')
   checkScroll() {

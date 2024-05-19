@@ -1,10 +1,11 @@
-<app-content which="watch" contentTypee="Movies" [categoriess]="['Hepsi', 'Bilim Kurgu', 'Korku', 'Romantik', 'Komedi']">
-  <app-custom-card
-      name="Durante La Tormenta"
-      imageUrl="https://tr.web.img4.acsta.net/r_1280_720/pictures/19/03/28/15/19/3146737.jpg"
-      routerUrl="/movies/detail"
-      viewCount="1.6b"
-      commentCount="13"
-      [categories]="['Bilim kurgu', 'Gerilim']">
-  </app-custom-card>
+<app-content which="watch" contentTypee="Movies" [categoriess]=categories>
+    <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let movie of movies">
+        <app-custom-card
+          name= "{{ movie.name }}"
+          imageUrl="{{ movie.poster }}"
+          routerUrl="/movies/detail/{{ movie.urlname }}"
+          likeCount="{{ movie.like }}"
+          commentCount="13">
+        </app-custom-card>
+    </div>
 </app-content>

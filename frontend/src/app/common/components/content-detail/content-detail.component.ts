@@ -11,17 +11,15 @@ import { SafeUrlPipe } from '../../pipes/safe-url.pipe';
 })
 export class ContentDetailComponent {
   @Input() name: string = "";
-  @Input() year: string = "";
+  @Input() release: string = "";
   @Input() description: string = "";
   @Input() imdb: string = "";
+  @Input() metacritic: string = "";
   @Input() categories: string[] = [];
   @Input() trailer: string = "";
   @Input() bgImage: string = "";
   @Input() likeCount: string = "";
-  @Input() dislikeCount: string = "";
-  @Input() viewCount: string = ""
   @Input() poster: string = "";
-  @Input() contentRouteUrl: string = "";
 
   @Input() userRouteUrl: string = "";
   @Input() userName: string = "";

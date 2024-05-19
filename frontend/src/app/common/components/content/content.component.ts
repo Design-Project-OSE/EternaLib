@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
+import { CategoryModel } from '../../../components/content/models/category.model';
 
 @Component({
   selector: 'app-content',
@@ -11,5 +12,5 @@ import { SharedModule } from '../../shared/shared.module';
 export class ContentComponent {
   @Input() which: string = "";
   @Input() contentTypee: string = "";
-  @Input() categoriess: string[] = [];
+  @Input() categoriess: CategoryModel[] = [];
 }

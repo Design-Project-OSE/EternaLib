@@ -1,10 +1,11 @@
-<app-content which="play" contentTypee="Games" [categoriess]="['Hepsi', 'Rol yapma', 'Moba', '2D', 'Korku']">
-  <app-custom-card
-      name="Infamous Second Son"
-      imageUrl="https://image.api.playstation.com/vulcan/img/rnd/202010/2821/KXv6VplN1r1bNPdfR4r29w0m.png"
-      routerUrl="/games/detail"
-      viewCount="2.6b"
-      commentCount="5"
-      [categories]="['Bilim kurgu','Aksiyon', 'Macera']">
-  </app-custom-card>
+<app-content which="play" contentTypee="Games" [categoriess]=categories>
+    <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let game of games">
+        <app-custom-card
+          name= "{{ game.name }}"
+          imageUrl="{{ game.poster }}"
+          routerUrl="/games/detail/{{ game.urlname }}"
+          likeCount="{{ game.like }}"
+          commentCount="13">
+        </app-custom-card>
+    </div>
 </app-content>

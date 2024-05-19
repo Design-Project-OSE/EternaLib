@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedModule } from '../../../../../common/shared/shared.module';
 import { ContentComponent } from '../../../../../common/components/content/content.component';
+import { BookModel } from '../../models/book.model';
+import { CategoryModel } from '../../../models/category.model';
+import { BookService } from '../../services/book.service';
 
 @Component({
   selector: 'app-books',
@@ -9,6 +12,30 @@ import { ContentComponent } from '../../../../../common/components/content/conte
   templateUrl: './books.component.html',
   styleUrl: './books.component.scss'
 })
-export class BooksComponent {
+export class BooksComponent implements OnInit {
+  books: BookModel[] = [];
+  categories: CategoryModel[] = [];
 
+  constructor(
+    private _bookService: BookService
+  ){}
+
+  ngOnInit(): void{
+    this.getBooks();
+    this.getBookCategories();
+  }
+
+  getBooks(){
+    this._bookService.getBooks(res => {
+      this.books = res;
+      console.log(this.books);
+    });
+  }
+
+  getBookCategories(){
+    this._bookService.getBookCategories(res => {
+      this.categories = res;
+      console.log(this.categories);
+    });
+  }
 }

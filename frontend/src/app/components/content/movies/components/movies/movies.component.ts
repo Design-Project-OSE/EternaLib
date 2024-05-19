@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ContentComponent } from '../../../../../common/components/content/content.component';
 import { SharedModule } from '../../../../../common/shared/shared.module';
 import { MovieService } from '../../services/movie.service';
+import { MovieModel } from '../../models/movie.model';
+import { CategoryModel } from '../../../models/category.model';
 
 @Component({
   selector: 'app-movies',
@@ -11,30 +13,29 @@ import { MovieService } from '../../services/movie.service';
   styleUrl: './movies.component.scss'
 })
 export class MoviesComponent implements OnInit {
-  movies: any[any] = [];
-  categories:any[any]=[];
+  movies: MovieModel[] = [];
+  categories: CategoryModel[] = [];
 
   constructor(
     private _movieService: MovieService
   ){}
 
-  ngOnInit(){
-    
+  ngOnInit(): void{
+    this.getMovies();
+    this.getMovieCategories();
   }
 
-  getAll(){
-    this._movieService.getAll(res => {
+  getMovies(){
+    this._movieService.getMovies(res => {
       this.movies = res;
       console.log(this.movies);
     });
   }
 
-  getCategories(){
-    this._movieService.getCategories(res => {
+  getMovieCategories(){
+    this._movieService.getMovieCategories(res => {
       this.categories = res;
       console.log(this.categories);
     });
   }
-
-
 }

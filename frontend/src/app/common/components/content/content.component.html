@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <div class="container-fluid w-75 mt-3">
+    <div class="mx-auto w-75 mt-3">
       <h2 class="my-0"><b>All {{ contentTypee }}</b></h2>
       <hr>
 
@@ -41,17 +41,16 @@
           <div class="ml-auto w-25 mb-3 no-border input-group">
             <select class="form-control form-control-lg py-3">
               <option *ngFor="let category of categoriess">
-                {{ category }}
+                {{ category.name }}
               </option>
             </select>
           </div>
       </div>
 
-      <div class="row">
-          <div class="col-sm-6 col-md-4 col-lg-2 mx-5">
-              <ng-content></ng-content>
-          </div>
-      </div>
+        <div class="card-wrapper">
+          <ng-content></ng-content>
+        </div>
+          
 
       <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">

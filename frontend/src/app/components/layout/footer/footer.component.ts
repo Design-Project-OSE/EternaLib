@@ -16,7 +16,7 @@ export class FooterComponent {
   ){}
 
   isHomePage(){
-    if(this._auth.isHomePage){
+    if(!this._auth.isAuthPages){
       return "footer-default";
     } else {
       return "";

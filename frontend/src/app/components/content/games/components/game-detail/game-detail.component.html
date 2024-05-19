@@ -1,42 +1,40 @@
 <app-content-detail
-  name="Infamous Second Son"
-  year="2013"
-  description="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit laudantium dicta officiis perspiciatis officia voluptatibus soluta? Consequatur, amet officiis, ab quae neque dolorem illo ratione rerum eius possimus nulla distinctio."
-  imdb="8.1"
-  [categories]="['Bilim Kurgu', 'Aksiyon', 'Macera']"
-  trailer="https://www.youtube.com/embed/MlNfJvFnzc8?si=PHnZXiVAn1nc4Qiy"
-  bgImage="https://image.api.playstation.com/vulcan/img/rnd/202010/2821/Uaa2dGP7cIf8tDPn6borubcx.jpg"
-  likeCount="9"
-  dislikeCount="0"
-  viewCount="3.6B"
-  poster="https://image.api.playstation.com/vulcan/img/rnd/202010/2821/KXv6VplN1r1bNPdfR4r29w0m.png"
-  contentRouteUrl="/games/detail"
+  name="{{ game.name }}"
+  release="{{ game.release | date }}"
+  description="{{ game.about }}"
+  imdb="{{ game.imdb }}"
+  metacritic="{{ game.metascritic }}"
+  [categories]="['Bilim Kurgu', 'Gerilim', 'Drama']"
+  trailer="{{ game.trailer }}"
+  bgImage="{{ game.background }}"
+  likeCount="{{ game.like }}"
+  poster="{{ game.poster }}"
   userRouteUrl="/profile"
   userName="Sinan Uyğun"
-  userImage="/assets/img/sinan.jpg"
+  userImage="/assets/img/onur.jpg"
   userComment="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis nesciunt earum rerum nemo possimus laborum aliquam rem, repellendus magni corporis maxime id, natus fugit aut deleniti tempore. Quae, quas facere. lo"
-  userCommentDate="21/12/2024">
+  userCommentDate="01/10/2023">
 
-  <form #commentForm="ngForm" (ngSubmit)="sendComment(commentForm)">
-    <label for="comment"><b>Write a Comment</b></label>
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <div class="input-group-text">
-          <label for="comment">
-            <i class="ml-2 now-ui-icons ui-2_chat-round"></i>
-          </label>
+    <form #commentForm="ngForm" (ngSubmit)="sendComment(commentForm)">
+      <label for="comment"><b>Write a Comment</b></label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <label for="comment">
+              <i class="ml-2 now-ui-icons ui-2_chat-round"></i>
+            </label>
+          </div>
         </div>
+        <textarea
+          rows="3"
+          class="form-control"
+          name="comment"
+          #comment
+          ngModel
+          id="comment">
+        </textarea>
+        <button type="submit" class="btn-comment">Send Comment</button>
       </div>
-      <textarea
-        rows="3"
-        class="form-control"
-        name="comment"
-        #comment
-        ngModel
-        id="comment">
-      </textarea>
-      <button type="submit" class="btn-comment">Send Comment</button>
-    </div>
-  </form>
+    </form>
 
 </app-content-detail>

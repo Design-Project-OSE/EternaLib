@@ -1,12 +1,13 @@
-<app-content which="read" contentTypee="Books" [categoriess]="['Hepsi', 'Bilim Kurgu', 'Korku', 'Romantik', 'Komedi']">
-  <app-custom-card
-      name="Dune"
-      imageUrl="https://m.media-amazon.com/images/I/A1u+2fY5yTL._AC_UF1000,1000_QL80_.jpg"
-      routerUrl="/books/detail"
-      viewCount="1.1b"
-      commentCount="3"
-      [categories]="['Bilim kurgu', 'Macera']">
-  </app-custom-card>
+<app-content which="read" contentTypee="Books" [categoriess]=categories>
+    <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let book of books">
+        <app-custom-card
+          name= "{{ book.name }}"
+          imageUrl="{{ book.poster }}"
+          routerUrl="/books/detail/{{ book.urlname }}"
+          likeCount="{{ book.like }}"
+          commentCount="13">
+        </app-custom-card>
+   </div>
 </app-content>
 
 
