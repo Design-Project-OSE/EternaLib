@@ -5,8 +5,8 @@
       </div>
       <div class="container">
         <div class="w-25 mx-auto position-relative">
-          <img src="/assets/img/emre.jpg" alt="" class="rounded-circle img-raised">
-          <span class="position-absolute top-0 start-100 ">
+          <img src="/assets/img/emre.jpg" class="rounded-circle img-raised">
+          <span class="position-absolute top-0 start-100">
               <app-animated-button>
                 <i class="fa fa-edit fa-xl"></i>
               </app-animated-button>
@@ -19,7 +19,7 @@
     <div class="section pt-0">
       <h2 class="title text-center mt-0">
         <i class="now-ui-icons loader_gear spin"></i>
-        <b class="mx-2">My Informations</b>
+        <b class="mx-2">Edit Profile Informations</b>
         <i class="now-ui-icons loader_gear spin"></i>
       </h2>
       <div class="container">
@@ -44,9 +44,11 @@
       <form #userForm="ngForm" (ngSubmit)="editProfile(userForm)">
         <div class="tab-content gallery">
           <div class="tab-pane active" id="personalInformations" role="tabpanel">
-            <div class="col-md-10 mx-auto">
+            <div class="col-lg-10 mx-auto">
+              <h3 class="text-center"><b>Personal Informations</b></h3>
               <div class="row collections">
-                <div class="col-md-6 mx-auto">
+
+                <div class="col-lg-6 mx-auto">
                     <div class="form-group row">
                       <label for="name" class="col-3 my-auto">Name:</label>
                       <div class="input-group col-9">
@@ -130,9 +132,10 @@
             </div>
           </div>
           <div class="tab-pane" id="socialAccounts" role="tabpanel">
-            <div class="col-md-10 mx-auto">
+            <div class="col-lg-10 mx-auto">
+              <h3 class="text-center"><b>My Social Accounts</b></h3>
               <div class="row collections">
-                <div class="col-md-6 mx-auto">
+                <div class="col-lg-6 mx-auto">
 
                   <div class="form-group row">
                     <label for="instagram" class="col-3 my-auto">Instagram:</label>
