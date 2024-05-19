@@ -9,12 +9,14 @@ import uuid
 class CustomUser(AbstractUser):
     id=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kullanıcı ID")
     email = models.EmailField(_('email address'), unique=True)
-
+    namesurname = models.CharField(max_length=255, verbose_name="Name Surname")
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
-
+    def get_full_name(self):
+       
+        return self.first_name+' '+self.last_name
     def save(self, *args, **kwargs):
-        # Kullanıcı adını otomatik olarak oluştur
+        
         if not self.username:
             self.username = self.first_name + '_' + self.last_name.replace(' ', '_')
         super().save(*args, **kwargs)

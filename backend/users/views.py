@@ -15,33 +15,44 @@ from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
 import json
 from rest_framework import generics
+from django.core.serializers import serialize
+from django.db import IntegrityError
 
 @csrf_exempt
 def register_user(request):
     if request.method == 'POST':
         try:
             # Angular'dan gelen verileri al
-            data=json.loads(request.body.decode('utf-8'))
-            namesurname = data.get('namesurname').replace(' ', '_')
+            data = json.loads(request.body.decode('utf-8'))
+            namesurname = data.get('namesurname')
+            username = namesurname.replace(' ', '_')
             email = data.get('email')
             password = data.get('password')
             
             User = get_user_model()
             # Django kullanıcı nesnesini oluştur
-            user = User.objects.create_user(username=namesurname, email=email, password=password)
-            
-            # Ekstra bilgileri kaydetmek istiyorsanız CustomUser modelini kullanabilirsiniz
-            # custom_user = CustomUser.objects.create(user=user, isim_soyisim=namesurname)
-
+            user = User.objects.create_user(namesurname=namesurname,username=username, email=email, password=password)
+            try:
+                # Kullanıcının var olan bir tokeni yoksa yeni bir token oluştur
+                token = Token.objects.create(user=user)
+            except IntegrityError:
+                # Kullanıcının zaten bir tokeni varsa, mevcut tokeni al
+                token = Token.objects.get(user=user)
+            user_data = {
+                'userid': user.id,
+                'userfullname':user.namesurname,
+                'username': user.username,
+                'usermail': user.email,
+                'userpassword': user.password
+            }
             # Başarılı yanıtı döndür
-            return JsonResponse({'message': 'User created successfully.'}, status=201)
+            return JsonResponse({'token':token.key,**user_data}, status=201)
         except Exception as e:
             # Hata durumunda yanıtı döndür
             return JsonResponse({'error': str(e)}, status=400)
     else:
         return JsonResponse({'error': 'Wrong request method.'}, status=405)
     
-
 
 @csrf_exempt
 def user_login(request):
@@ -54,9 +65,22 @@ def user_login(request):
         user = authenticate(username=email, password=password)
 
         if user:
-            # Doğru bir şekilde UUID oluştur
-            token = Token.objects.create(user=user)
-            return JsonResponse({'token': token.key, 'user_id': user.id})
+            try:
+                # Kullanıcının var olan bir tokeni yoksa yeni bir token oluştur
+                token = Token.objects.create(user=user)
+            except IntegrityError:
+                # Kullanıcının zaten bir tokeni varsa, mevcut tokeni al
+                token = Token.objects.get(user=user)
+            
+            # Kullanıcı bilgilerini al
+            user_data = {
+                'userid': user.id,
+                'userfullname':user.namesurname,
+                'username': user.username,
+                'usermail': user.email,
+                'userpassword': user.password
+            }
+            return JsonResponse({'token': token.key, **user_data})
         else:
             # Kullanıcı doğrulanamadıysa hata mesajı döndür
             return JsonResponse({'error': 'Invalid email or password'}, status=400)
