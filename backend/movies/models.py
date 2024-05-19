@@ -7,7 +7,7 @@ maxrich = 2000
 maxtag = 3
 
 class Movies_Comment(models.Model):
-    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Film Yorum ID")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Film Yorum ID")
     userID = models.CharField(max_length=maxtext, verbose_name="Kullanıcı ID")
     movieID = models.CharField(max_length=maxtext, verbose_name="Film ID")
     comment = models.TextField(verbose_name="Yorum", max_length=maxrich)
@@ -21,7 +21,7 @@ class Movies_Comment(models.Model):
         return self.comment
 
 class Movies_Like(models.Model):
-    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Film Beğeni ID")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Film Beğeni ID")
     userID = models.CharField(max_length=maxtext, verbose_name="Kullanıcı ID")
     movieID = models.CharField(max_length=maxtext, verbose_name="Film ID")
     savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
@@ -31,10 +31,10 @@ class Movies_Like(models.Model):
         verbose_name_plural = "Film Beğenileri"
 
     def __str__(self):
-        return f"Beğeni ID: {self.id}"
+        return f"Beğeni ID: {self.movieID}"
 
 class Movies_Category(models.Model):
-    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Film Kategori ID")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Film Kategori ID")
     name = models.CharField(max_length=maxtext, verbose_name="Tür İsmi")
     catshort = models.CharField(max_length=maxtag, verbose_name="Tür Kısaltma")
     savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
@@ -47,10 +47,10 @@ class Movies_Category(models.Model):
         return self.name
 
 class Movies_Table(models.Model):
-    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Film ID")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Film ID")
     name = models.CharField(max_length=maxtext, verbose_name="İsim")
-    soldlink=models.URLField(max_length=maxurl, verbose_name="Satış Linki")
-    url_name = models.CharField(max_length=maxtext, verbose_name="Url İsmi")
+    soldlink = models.URLField(max_length=maxurl, verbose_name="Satış Linki")
+    urlname = models.CharField(max_length=maxtext, verbose_name="Url İsmi")
     production = models.CharField(max_length=maxtext, verbose_name="Yapımcı")
     about = models.TextField(max_length=maxrich, verbose_name="Hakkında")
     category = models.ManyToManyField(Movies_Category, verbose_name="Kategoriler")  
