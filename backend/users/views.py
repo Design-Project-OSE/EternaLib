@@ -140,6 +140,3 @@ def forgot_password(request):
 
     return JsonResponse({'status': 'error', 'message': 'Invalid request method.'})
 
-def user_logout(request):
-    logout(request)
-    return redirect('anasayfa')

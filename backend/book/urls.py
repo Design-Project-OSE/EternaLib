@@ -14,13 +14,13 @@ http://127.0.0.1:8000/book/id id:kitap ID verilen kitabı verir
 
 """
 urlpatterns=[
-    path('book',views.list_booktable,name='Kitap Anasayfa'),
-    path('book/category',views.list_bookcategory,name='Kitap Kategorileri'),
-    path('book/comments',views.list_bookcomment,name='Kitap Yorumları'),
-    path('book/like',views.list_booklike,name='Kitap Beğenenler'),
-    path('book/id/<uuid:id>', views.list_bookid, name="Oyun ID Çekme"),
-    path('book/urlname/<str:urlname>', views.list_bookurlname, name="Oyun URL Çekme"),
-    path('book/get/comment',views.list_bookgetcomment,name="Yorum yapma"),
-    path('book/get/like/get',views.list_bookgetlike,name="Beğeni yapma"),
-    path('book/get/id/category/<uuid:id>',views.list_bookcategoryid,name="id girilen category bilgileri")
+    path('books',views.list_booktable,name='Kitap Anasayfa'),
+    path('books/category',views.list_bookcategory,name='Kitap Kategorileri'),
+    path('books/comments',views.list_bookcomment,name='Kitap Yorumları'),
+    path('books/like',views.list_booklike,name='Kitap Beğenenler'),
+    path('books/id/<uuid:id>', views.list_bookid, name="Oyun ID Çekme"),
+    path('books/urlname/<str:urlname>', views.list_bookurlname, name="Oyun URL Çekme"),
+    path('books/get/comment',views.list_bookgetcomment,name="Yorum yapma"),
+    path('books/get/like/get',views.list_bookgetlike,name="Beğeni yapma"),
+    path('books/get/id/category/<uuid:id>',views.list_bookcategoryid,name="id girilen category bilgileri")
 ]
