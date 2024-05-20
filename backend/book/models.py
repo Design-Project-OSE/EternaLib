@@ -59,7 +59,8 @@ class Book_Table(models.Model):
     poster = models.URLField(max_length=maxurl, verbose_name="Poster URL")
     savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
     isPublished = models.BooleanField(default=True, verbose_name="Yayın Durumu")
-    like = models.IntegerField(verbose_name="Beğeni Sayısı")  # Alan adını "like" olarak değiştirdim
+    like = models.IntegerField(verbose_name="Beğeni Sayısı")  
+    dislike=models.IntegerField(verbose_name="Beğenilmeyen")  
 
     class Meta:
         verbose_name = "Kitap"

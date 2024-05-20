@@ -50,13 +50,14 @@ class Games_Table(models.Model):
     categories = models.ManyToManyField(Game_Category, verbose_name="Tür")
     release=models.DateTimeField(verbose_name="Çıkış Tarihi")
     imdb=models.FloatField(verbose_name="IMDB")
-    metascritic=models.FloatField(verbose_name="Metacritic")
+    metacritic=models.FloatField(verbose_name="Metacritic")
     background=models.URLField(max_length=maxurl,verbose_name="Arkaplan URL")
     poster=models.URLField(max_length=maxurl,verbose_name="Poster URL")
     trailer=models.URLField(max_length=maxurl,verbose_name="Trailer URL")
     savedate=models.DateTimeField(auto_now_add= True,verbose_name="Eklenme Tarihi")
     isPublished=models.BooleanField(default=True,verbose_name="Yayın Durumu")
     like=models.IntegerField(default=0,verbose_name="Beğeni sayısı")
+    dislike=models.IntegerField(default=0,verbose_name="Beğenilmeyen")
     class Meta:
         verbose_name = "Oyun"
         verbose_name_plural = "Oyunlar"

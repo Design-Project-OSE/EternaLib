@@ -12,6 +12,7 @@ import json
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_movie(request):
     obj=Movies_Table.objects.all()
     seri=Seri_movietable(obj,many=True)
@@ -19,6 +20,7 @@ def list_movie(request):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_moviecategory(request):
     obj=Movies_Category.objects.all()
     seri=Seri_moviecategory(obj,many=True)
@@ -26,6 +28,7 @@ def list_moviecategory(request):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_moviecomment(request):
     obj=Movies_Comment.objects.all()
     seri=Seri_moviecomment(obj,many=True)
@@ -33,6 +36,7 @@ def list_moviecomment(request):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_movielike(request):
     obj=Movies_Like.objects.all()
     seri=Seri_movielike(obj,many=True)
@@ -40,6 +44,7 @@ def list_movielike(request):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_movieid(request,id):
     obj=get_object_or_404(Movies_Table,id=id)
     seri=Seri_movietable(obj)
@@ -48,6 +53,7 @@ def list_movieid(request,id):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_moviecategoryid(request,id):
     obj=get_object_or_404(Movies_Category,id=id)
     seri=Seri_moviecategory(obj)
@@ -55,6 +61,7 @@ def list_moviecategoryid(request,id):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_movieurlname(request,urlname):
     obj=get_object_or_404(Movies_Table,urlname=urlname)
     seri=Seri_movietable(obj)
@@ -64,6 +71,7 @@ def list_movieurlname(request,urlname):
 
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_moviegetcomment(request):
     if request.method == 'GET':
         comments = Movies_Comment.objects.all()
@@ -71,7 +79,8 @@ def list_moviegetcomment(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = Seri_moviecomment(data=request.data)
+        data = json.loads(request.body.decode('utf-8'))
+        serializer = Seri_moviecomment(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -79,6 +88,7 @@ def list_moviegetcomment(request):
 
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAny])
+@csrf_exempt
 def list_moviegetlike(request):
     if request.method == 'GET':
         likes = Movies_Like.objects.all()
@@ -86,7 +96,8 @@ def list_moviegetlike(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = Seri_movielike(data=request.data)
+        data = json.loads(request.body.decode('utf-8'))
+        serializer = Seri_movielike(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -97,7 +108,7 @@ def list_getidcomments(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         movie_id = data.get('movieID')
-        if movie_id is not None:  # id değeri None değilse devam et
+        if movie_id is not None:  
             comments = Movies_Comment.objects.filter(movieID=movie_id)
             serializer = Seri_moviecomment(comments, many=True)
             return JsonResponse(serializer.data, safe=False)
