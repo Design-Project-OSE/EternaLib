@@ -91,6 +91,7 @@ def list_moviegetcomment(request):
 
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAny])
+@csrf_exempt
 def list_moviegetlike(request):
     if request.method == 'GET':
         likes = Movies_Like.objects.all()
@@ -170,7 +171,7 @@ def list_getidlikes(request):
             return JsonResponse({'error': 'No movie ID provided.'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
-    
+@csrf_exempt
 def list_getidlikeusers(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))

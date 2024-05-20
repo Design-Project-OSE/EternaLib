@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
       model.password = form.controls["password"].value;
 
       this._auth.login(model, res => {
-        this._toastr.success(`Welcome ${res.userfullname}`, "Login Successful!");
+        console.log(res);
+
+        this._toastr.success(`Welcome ${res.full_name}`, "Login Successful!");
 
         localStorage.setItem("user", JSON.stringify(res));
 

@@ -29,9 +29,9 @@ export class RegisterComponent implements OnInit {
 
   register(form: NgForm){
     if(form.valid){
-      console.log(this.model);
       this._auth.register(this.model, res => {
-        this._toastr.success(`Welcome ${res.userfullname}`, "Registration Successful!");
+        console.log(res);
+        this._toastr.success(`Welcome ${res.full_name}`, "Registration Successful!");
 
         localStorage.setItem("user", JSON.stringify(res));
 

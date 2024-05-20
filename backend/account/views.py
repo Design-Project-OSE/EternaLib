@@ -138,6 +138,10 @@ def user_register(request):
         user.full_name = full_name
         user.username=full_name.lower().replace(' ','_').replace('ş','s').replace('ğ','g').replace('ç','c').replace('ı','i').replace('ö','o').replace('ü','u')
         user.save()
+        try:
+                token = Token.objects.create(user=user)
+        except IntegrityError:
+                token = Token.objects.get(user=user)
         user_data = {
             'id': user.id,
             'full_name': user.full_name,
@@ -151,7 +155,7 @@ def user_register(request):
             'savedate': user.savedate
         }
 
-        return JsonResponse({'success': 'User registered successfully', 'user': user_data})
+        return JsonResponse({'success': 'User registered successfully','token':token.key, **user_data})
     else:
         return JsonResponse({'error': 'POST method is required'}, status=405)
 

@@ -1,9 +1,15 @@
 
 export class LoginResponseModel{
+    succes: string = "";
     token: string = "";
-    userid: string = "";
-    userfullname: string = "";
+    id: string = "";
+    full_name: string = "";
+    email: string = "";
     username: string = "";
-    usermail: string = "";
-    userpassword: string = "";
+    profil_picture: string = "";
+    x_link: string = "";
+    instagram_link: string = "";
+    facebook_link: string = "";
+    linkedin_link: string = "";
+    savedate: string = "";
 }
