@@ -20,7 +20,7 @@ export class GameService {
   ) { }
 
   getGames(callback: (res: GameModel[]) => void) {
-    this._http.get<GameModel[]>(`games/`, res => callback(res));
+    this._http.get<GameModel[]>(`games`, res => callback(res));
   }
 
   getAllCategoriesForGames(callback: (res: CategoryModel[]) => void){

@@ -8,6 +8,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True,verbose_name="E-Mail")
     username = models.CharField(max_length=150, unique=True,blank=True, null=True,verbose_name="Kullanıcı Adı")
     password = models.CharField(max_length=128,verbose_name="Şifre")
+    profil_picture=models.ImageField(blank=True, null=True,verbose_name="Profil Resmi")
     x_link = models.URLField(blank=True, null=True,verbose_name="X URL")
     instagram_link = models.URLField(blank=True, null=True,verbose_name="İnstegram URL")
     facebook_link = models.URLField(blank=True, null=True,verbose_name="Facebook URL")

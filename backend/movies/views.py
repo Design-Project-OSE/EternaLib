@@ -106,23 +106,31 @@ def list_moviegetlike(request):
             movie_id = serializer.validated_data['movieID']
             like = serializer.validated_data['like']
             dislike = serializer.validated_data['dislike']
-            existing_like = Movies_Like.objects.filter(userID=user_id, movie_id=movie_id).first()
+            existing_like = Movies_Like.objects.filter(userID=user_id, movieID=movie_id).first()
             
             if existing_like:
+                movie = Movies_Table.objects.get(id=movie_id)
                 if existing_like.like and not like:
-                    existing_like.movieID.like -= 1
+                    movie.like -= 1
                 if existing_like.dislike and not dislike:
-                    existing_like.movieID.dislike -= 1
+                    movie.dislike -= 1
                 if not existing_like.like and like:
-                    existing_like.movieID.like += 1
+                    movie.like += 1
                 if not existing_like.dislike and dislike:
-                    existing_like.movieID.dislike += 1
+                    movie.dislike += 1
                 existing_like.like = like
                 existing_like.dislike = dislike
                 existing_like.save()
-                existing_like.movieID.save()
+                movie.save()
+                data = {
+                'movieID':movie.id,
+                'userID':user_id,
+                'like':movie.like,
+                'dislike':movie.dislike
+            }
                 
-                return JsonResponse({"data": serializer.data, "like": existing_like.movieID.like, "dislike": existing_like.movieID.dislike}, status=status.HTTP_200_OK)
+                return Response({**data}, status=status.HTTP_200_OK)
+            
             movie_like = serializer.save()
             movie = get_object_or_404(Movies_Table, id=movie_id)
             if movie_like.like:
@@ -131,7 +139,7 @@ def list_moviegetlike(request):
                 movie.dislike += 1
             movie.save()
             
-            return JsonResponse({"data": serializer.data, "like": movie.like, "dislike": movie.dislike}, status=status.HTTP_201_CREATED)
+            return Response({"data": serializer.data, "like": movie.like, "dislike": movie.dislike}, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

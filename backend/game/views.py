@@ -89,26 +89,34 @@ def list_gamegetlike(request):
         serializer = Seri_gameslike(data=data)
         if serializer.is_valid():
             user_id = serializer.validated_data['userID']
-            game_id = serializer.validated_data['game'].id
+            game_id = serializer.validated_data['gameID']
             like = serializer.validated_data['like']
             dislike = serializer.validated_data['dislike']
-            existing_like = Game_Like.objects.filter(userID=user_id, game_id=game_id).first()
+            existing_like = Game_Like.objects.filter(userID=user_id, gameID=game_id).first()
             
             if existing_like:
+                game = Games_Table.objects.get(id=game_id)
                 if existing_like.like and not like:
-                    existing_like.gameID.like -= 1
+                    game.like -= 1
                 if existing_like.dislike and not dislike:
-                    existing_like.gameID.dislike -= 1
+                    game.dislike -= 1
                 if not existing_like.like and like:
-                    existing_like.gameID.like += 1
+                    game.like += 1
                 if not existing_like.dislike and dislike:
-                    existing_like.gameID.dislike += 1
+                    game.dislike += 1
                 existing_like.like = like
                 existing_like.dislike = dislike
                 existing_like.save()
-                existing_like.gameID.save()
+                game.save()
+                data = {
+                'gameID':game.id,
+                'userID':user_id,
+                'like':game.like,
+                'dislike':game.dislike
+            }
                 
-                return JsonResponse({"data": serializer.data, "like": existing_like.gameID.like, "dislike": existing_like.gameID.dislike}, status=status.HTTP_200_OK)
+                return Response({**data}, status=status.HTTP_200_OK)
+            
             game_like = serializer.save()
             game = get_object_or_404(Games_Table, id=game_id)
             if game_like.like:
@@ -117,7 +125,7 @@ def list_gamegetlike(request):
                 game.dislike += 1
             game.save()
             
-            return JsonResponse({"data": serializer.data, "like": game.like, "dislike": game.dislike}, status=status.HTTP_201_CREATED)
+            return Response({"data": serializer.data, "like": game.like, "dislike": game.dislike}, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

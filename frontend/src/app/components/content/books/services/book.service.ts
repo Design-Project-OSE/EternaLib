@@ -20,7 +20,7 @@ export class BookService {
   ) { }
 
   getBooks(callback: (res: BookModel[]) => void){
-    this._http.get<BookModel[]>('books/', res => callback(res));
+    this._http.get<BookModel[]>('books', res => callback(res));
   }
 
   getAllCategoriesForBooks(callback: (res: CategoryModel[]) => void){

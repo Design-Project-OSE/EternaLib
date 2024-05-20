@@ -12,8 +12,8 @@ class Game_Comment(models.Model):
     comment=models.TextField(verbose_name="Yorum",max_length=maxrich)
     savedate=models.DateTimeField(auto_now_add= True,verbose_name="Eklenme Tarihi")
     class Meta:
-        verbose_name = "Oyun Beğeni"
-        verbose_name_plural = "Oyun Beğenileri"
+        verbose_name = "Oyun Yorumu"
+        verbose_name_plural = "Oyun Yorumları"
         unique_together = ('userID', 'gameID')
 
     def __str__(self):

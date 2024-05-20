@@ -5,7 +5,7 @@ from django.http import JsonResponse
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
-    list_display = ('email', 'full_name', 'is_staff', 'is_active',)
+    list_display = ('id','email', 'full_name', 'is_staff', 'is_active',)
     list_filter = ('email', 'is_staff', 'is_active',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
