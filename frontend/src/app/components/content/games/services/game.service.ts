@@ -37,8 +37,8 @@ export class GameService {
 
 
 
-  getGameComments(gameId: string, callback: (res: GameCommentsModel[]) => void){
-    this._http.post<GameCommentsModel[]>('games/get/id/comment', gameId, res => callback(res));
+  getGameComments(model: any, callback: (res: GameCommentsModel[]) => void){
+    this._http.post<GameCommentsModel[]>('games/get/id/comment', model, res => callback(res));
   }
 
   // getGameLikesAndDislikes(gameId: string, callback: (res: GameLikesAndDislikesModel) => void){

@@ -83,6 +83,8 @@ export class MovieDetailComponent {
     });
   }
 
+
+  
   addComment(form: NgForm){
     let model = new MovieAddCommentModel();
     model.movieID = this.movieId;

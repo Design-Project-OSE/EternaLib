@@ -6,6 +6,10 @@ import { GameModel } from '../../models/game.model';
 import { GameService } from '../../services/game.service';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryModel } from '../../../models/category.model';
+import { GameCommentsModel } from '../../models/game-comments.model';
+import { ToastrService } from 'ngx-toastr';
+import { GameAddLikeOrDislikeModel } from '../../models/game-add-like-or-dislike.model';
+import { GameAddCommentModel } from '../../models/game-add-comment.model';
 
 @Component({
   selector: 'app-game-detail',
@@ -21,14 +25,18 @@ export class GameDetailComponent {
 
   gameCategories: CategoryModel[] = []; // tıklanan oyunun kategorilerini tutacak
 
+  comments: GameCommentsModel[] = []; // tıklanan oyunun yorumlarını tutacak
+
   constructor(
     private _gameService: GameService,
+    private _toastr: ToastrService,
     private _activated: ActivatedRoute
   ){
     this._activated.params.subscribe(res => {
       this.gameUrl = res["url"];
       this.gameId = res["id"];
       this.getGameByUrl();
+      this.getGameComments();
     });
   }
 
@@ -48,11 +56,39 @@ export class GameDetailComponent {
     });
   }
 
+  addLikeOrDislike(likeOrDislike: boolean){
+    let model = new GameAddLikeOrDislikeModel();
+    model.gameID = this.gameId;
 
+    if(likeOrDislike){
+      model.like = true;
+      model.dislike = false;
+    } else {
+      model.dislike = true;
+      model.like = false;
+    }
 
+    this._gameService.addLikeOrDislike(model, res => {
+      this.getGameByUrl();
+    });
+  }
+
+  getGameComments(){
+    let model = { gameID: this.gameId }
+    this._gameService.getGameComments(model, res => {
+      this.comments = res;
+    });
+  }
 
   addComment(form: NgForm){
-    console.log(form.value);
-    console.log(form.controls["comment"].value);
+    let model = new GameAddCommentModel();
+    model.gameID = this.gameId;
+    model.comment = form.controls["comment"].value;
+
+    this._gameService.addComment(model, res => {
+      this._toastr.success("Your comment added succesfully.");
+      this.getGameComments();
+      form.reset();
+    });
   }
 }

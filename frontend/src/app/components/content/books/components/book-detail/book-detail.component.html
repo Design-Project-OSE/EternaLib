@@ -6,27 +6,28 @@
   bgImage="/assets/img/bg1.jpg"
   poster="{{ book.poster }}">
 
-  <div class="row w-50 mx-auto">
-    <div class="col-6">
-      <app-animated-button>
-        <span> Like </span>
-        <i class="fa-solid fa-thumbs-up">
-          <span class="ml-2">{{ book.like }}</span>
-        </i>
-      </app-animated-button>
-    </div>
-    <div class="col-6">
-      <app-animated-button>
-        <span>Dislike </span>
-        <i class="fa-solid fa-thumbs-down">
-          <span class="ml-2">{{ book.dislike }}</span>
-        </i>
-      </app-animated-button>
+    <div class="row w-50 mx-auto">
+      <div class="col-6 float-right">
+        <app-animated-button (click)="addLikeOrDislike(true);">
+          <span> Like </span>
+          <i class="fa-solid fa-thumbs-up">
+            <i class="fa-regular fa-thumbs-up" *ngIf="false"></i>
+            <span class="ml-2">{{ book.like }}</span>
+          </i>
+        </app-animated-button>
+      </div>
+      <div class="col-6">
+        <app-animated-button (click)="addLikeOrDislike(false)">
+          <span>Dislike </span>
+          <i class="fa-solid fa-thumbs-down">
+          <i class="fa-regular fa-thumbs-down" *ngIf="false"></i>
+            <span class="ml-2">{{ book.dislike }}</span>
+          </i>
+        </app-animated-button>
+      </div>
     </div>
 
-  </div>
-
-    <form #commentForm="ngForm" (ngSubmit)="sendComment(commentForm)">
+    <form #commentForm="ngForm" (ngSubmit)="addComment(commentForm)">
       <label for="comment"><b>Write a Comment</b></label>
       <div class="input-group">
         <div class="input-group-prepend">
@@ -47,5 +48,28 @@
         <button type="submit" class="btn-comment">Send Comment</button>
       </div>
     </form>
+
+    <div class="row mt-3 bg-light" *ngFor="let comment of comments">
+      <div class="col-2 p-2">
+        <a routerLink="/profile">
+          <img src="/assets/img/onur.jpg" alt="Thumbnail Image" class="rounded-circle img-raised">
+        </a>
+      </div>
+      <div class="col-10 p-2">
+        <div class="row">
+          <div class="col-8">
+            <a routerLink="/profile">
+              <h4 class="my-0">{{ comment.userID }}</h4>
+            </a>
+          </div>
+          <div class="col-4">
+            <span class="description float-right">{{ comment.savedate | date : "dd.MM.yyyy HH:mm"}}</span>
+          </div>
+        </div>
+        <p class="display-5">{{ comment.comment }}</p>
+        <button class="btn btn-light rounded-pill bg-white text-dark"><i class="fa-solid fa-thumbs-up"></i></button>
+        <button class="btn btn-light rounded-pill bg-white text-dark"><i class="fa-solid fa-thumbs-down"></i></button>
+      </div>
+    </div>
 
 </app-content-detail>

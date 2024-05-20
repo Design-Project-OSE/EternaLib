@@ -9,27 +9,26 @@
   bgImage="{{ movie.background }}"
   poster="{{ movie.poster }}">
 
-  <div class="row w-50 mx-auto">
-    <div class="col-6 float-right">
-      <app-animated-button (click)="addLikeOrDislike(true);">
-        <span> Like </span>
-        <i class="fa-solid fa-thumbs-up">
-          <i class="fa-regular fa-thumbs-up" *ngIf="false"></i>
-          <span class="ml-2">{{ movie.like }}</span>
-        </i>
-      </app-animated-button>
+    <div class="row w-50 mx-auto">
+      <div class="col-6 float-right">
+        <app-animated-button (click)="addLikeOrDislike(true);">
+          <span> Like </span>
+          <i class="fa-solid fa-thumbs-up">
+            <i class="fa-regular fa-thumbs-up" *ngIf="false"></i>
+            <span class="ml-2">{{ movie.like }}</span>
+          </i>
+        </app-animated-button>
+      </div>
+      <div class="col-6">
+        <app-animated-button (click)="addLikeOrDislike(false)">
+          <span>Dislike </span>
+          <i class="fa-solid fa-thumbs-down">
+          <i class="fa-regular fa-thumbs-down" *ngIf="false"></i>
+            <span class="ml-2">{{ movie.dislike }}</span>
+          </i>
+        </app-animated-button>
+      </div>
     </div>
-    <div class="col-6">
-      <app-animated-button (click)="addLikeOrDislike(false)">
-        <span>Dislike </span>
-        <i class="fa-solid fa-thumbs-down">
-        <i class="fa-regular fa-thumbs-down" *ngIf="false"></i>
-          <span class="ml-2">{{ movie.dislike }}</span>
-        </i>
-      </app-animated-button>
-    </div>
-
-  </div>
 
     <form #commentForm="ngForm" (ngSubmit)="addComment(commentForm)">
       <label for="comment"><b>Write a Comment</b></label>

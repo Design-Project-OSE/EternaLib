@@ -38,8 +38,8 @@ export class BookService {
 
 
 
-  getBookComments(bookId: string, callback: (res: BookCommentsModel[]) => void){
-    this._http.post<BookCommentsModel[]>('books/get/id/comment', bookId, res => callback(res));
+  getBookComments(model: any, callback: (res: BookCommentsModel[]) => void){
+    this._http.post<BookCommentsModel[]>('books/get/id/comment', model, res => callback(res));
   }
 
   // getBookLikesAndDislikes(bookId: string, callback: (res: BookLikesAndDislikesModel) => void){
@@ -55,7 +55,7 @@ export class BookService {
     this._http.post<BookCommentsModel>('books/add/comment', comment, res => callback(res));
   }
 
-  addLikeOrdDislike(likeOrDislike: BookAddLikeOrDislikeModel, callback: (res: BookLikesAndDislikesModel) => void){
+  addLikeOrDislike(likeOrDislike: BookAddLikeOrDislikeModel, callback: (res: BookLikesAndDislikesModel) => void){
     likeOrDislike.userID = this.currentUser.userid;
     this._http.post<BookLikesAndDislikesModel>('books/add/like', likeOrDislike, res => callback(res));
   }
