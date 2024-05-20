@@ -82,10 +82,20 @@ def list_gamegetlike(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = Seri_gameslike(data=request.data)
+        data = json.loads(request.body.decode('utf-8'))
+        serializer = Seri_gameslike(data=data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            game_like = serializer.save()
+            
+            # İlgili film tablosunu güncelle
+            game = get_object_or_404(Game_Like, id=game_like.gameID)
+            if game_like.like:
+                game.like+= 1
+            if game_like.dislike:
+                game.dislike+= 1
+            game.save()
+            
+            return JsonResponse({"data": serializer.data, "like": game.like,"dislike":game.dislike}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @csrf_exempt

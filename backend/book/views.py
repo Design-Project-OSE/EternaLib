@@ -85,10 +85,20 @@ def list_bookgetlike(request):
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        serializer = Seri_booklike(data=request.data)
+        data = json.loads(request.body.decode('utf-8'))
+        serializer = Seri_booklike(data=data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            book_like = serializer.save()
+            
+            # İlgili film tablosunu güncelle
+            book = get_object_or_404(Book_Like, id=book_like.bookID)
+            if book_like.like:
+                book.like+= 1
+            if book_like.dislike:
+                book.dislike+= 1
+            book.save()
+            
+            return JsonResponse({"data": serializer.data, "like": book.like,"dislike":book.dislike}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @csrf_exempt
