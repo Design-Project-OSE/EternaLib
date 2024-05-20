@@ -38,7 +38,4 @@ export class GamesComponent implements OnInit {
       console.log(this.categories);
     });
   }
-
-
-
 }
