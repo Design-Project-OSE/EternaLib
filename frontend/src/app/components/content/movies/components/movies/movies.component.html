@@ -3,9 +3,9 @@
         <app-custom-card
           name= "{{ movie.name }}"
           imageUrl="{{ movie.poster }}"
-          routerUrl="/movies/detail/{{ movie.urlname }}"
+          routerUrl="/movies/{{ movie.urlname }}/{{ movie.id}}"
           likeCount="{{ movie.like }}"
-          commentCount="13">
+          commentCount="{{ movie.dislike }}">
         </app-custom-card>
     </div>
 </app-content>

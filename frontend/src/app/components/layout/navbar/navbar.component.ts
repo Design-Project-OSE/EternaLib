@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
 import { AnimatedButtonComponent } from '../../../common/components/animated-button/animated-button.component';
 import { UserModel } from '../../auth/models/user.model';
+import { LoginResponseModel } from '../../auth/models/login-response.model';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,7 @@ import { UserModel } from '../../auth/models/user.model';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit{
-  currentUserFullName: string = "";
+  currentUser: LoginResponseModel = new LoginResponseModel();
 
   constructor(
     public _auth: AuthService
@@ -24,7 +25,7 @@ export class NavbarComponent implements OnInit{
   }
 
   getCurrentUser(){
-    this.currentUserFullName = this._auth.getCurrentUser().userfullname;
+    this.currentUser = this._auth.getCurrentUser();
+    console.log(this.currentUser);
  }
-
 }

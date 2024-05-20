@@ -2,15 +2,29 @@
   name="{{ book.name }}"
   release="{{ book.release | date }}"
   description="{{ book.about }}"
-  [categories]="['Bilim Kurgu', 'Aksiyon', 'Macera']"
+  [categories]=bookCategories
   bgImage="/assets/img/bg1.jpg"
-  likeCount="{{ book.like }}"
-  poster="{{ book.poster }}"
-  userRouteUrl="/profile"
-  userName="Emre Yörük"
-  userImage="/assets/img/emre.jpg"
-  userComment="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis nesciunt earum rerum nemo possimus laborum aliquam rem, repellendus magni corporis maxime id, natus fugit aut deleniti tempore. Quae, quas facere. lo"
-  userCommentDate="14/05/2021">
+  poster="{{ book.poster }}">
+
+  <div class="row w-50 mx-auto">
+    <div class="col-6">
+      <app-animated-button>
+        <span> Like </span>
+        <i class="fa-solid fa-thumbs-up">
+          <span class="ml-2">{{ book.like }}</span>
+        </i>
+      </app-animated-button>
+    </div>
+    <div class="col-6">
+      <app-animated-button>
+        <span>Dislike </span>
+        <i class="fa-solid fa-thumbs-down">
+          <span class="ml-2">{{ book.dislike }}</span>
+        </i>
+      </app-animated-button>
+    </div>
+
+  </div>
 
     <form #commentForm="ngForm" (ngSubmit)="sendComment(commentForm)">
       <label for="comment"><b>Write a Comment</b></label>

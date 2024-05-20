@@ -22,7 +22,7 @@ export class BooksComponent implements OnInit {
 
   ngOnInit(): void{
     this.getBooks();
-    this.getBookCategories();
+    this.getAllCategoriesForBooks();
   }
 
   getBooks(){
@@ -32,8 +32,8 @@ export class BooksComponent implements OnInit {
     });
   }
 
-  getBookCategories(){
-    this._bookService.getBookCategories(res => {
+  getAllCategoriesForBooks(){
+    this._bookService.getAllCategoriesForBooks(res => {
       this.categories = res;
       console.log(this.categories);
     });

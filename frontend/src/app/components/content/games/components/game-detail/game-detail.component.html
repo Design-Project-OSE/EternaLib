@@ -3,19 +3,33 @@
   release="{{ game.release | date }}"
   description="{{ game.about }}"
   imdb="{{ game.imdb }}"
-  metacritic="{{ game.metascritic }}"
-  [categories]="['Bilim Kurgu', 'Gerilim', 'Drama']"
+  metacritic="{{ game.metacritic }}"
+  [categories]=gameCategories
   trailer="{{ game.trailer }}"
   bgImage="{{ game.background }}"
-  likeCount="{{ game.like }}"
-  poster="{{ game.poster }}"
-  userRouteUrl="/profile"
-  userName="Sinan Uyğun"
-  userImage="/assets/img/onur.jpg"
-  userComment="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis nesciunt earum rerum nemo possimus laborum aliquam rem, repellendus magni corporis maxime id, natus fugit aut deleniti tempore. Quae, quas facere. lo"
-  userCommentDate="01/10/2023">
+  poster="{{ game.poster }}">
 
-    <form #commentForm="ngForm" (ngSubmit)="sendComment(commentForm)">
+  <div class="row w-50 mx-auto">
+    <div class="col-6">
+      <app-animated-button>
+        <span> Like </span>
+        <i class="fa-solid fa-thumbs-up">
+          <span class="ml-2">{{ game.like }}</span>
+        </i>
+      </app-animated-button>
+    </div>
+    <div class="col-6">
+      <app-animated-button>
+        <span>Dislike </span>
+        <i class="fa-solid fa-thumbs-down">
+          <span class="ml-2">{{ game.dislike }}</span>
+        </i>
+      </app-animated-button>
+    </div>
+
+  </div>
+
+    <form #commentForm="ngForm" (ngSubmit)="addComment(commentForm)">
       <label for="comment"><b>Write a Comment</b></label>
       <div class="input-group">
         <div class="input-group-prepend">

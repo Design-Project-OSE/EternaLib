@@ -20,7 +20,7 @@ export class AuthService {
   ) { }
 
   login(model: LoginModel, callback: (res: LoginResponseModel) => void){
-    this._http.post<LoginResponseModel>('api/login', model, res => callback(res));
+    this._http.post<LoginResponseModel>('login', model, res => callback(res));
   }
 
   register(model: RegisterModel, callback: (res: LoginResponseModel) => void){
@@ -28,10 +28,13 @@ export class AuthService {
   }
 
 
+  // LoginResponseModel tipinde döndürür
   getCurrentUser(){
-    let userString = localStorage.getItem("user");
-    let user = JSON.parse(userString);
-    return user;
+    if(typeof localStorage != 'undefined'){
+      let userString = localStorage.getItem("user");
+      let user = JSON.parse(userString);
+      return user;
+    }
   }
 
   logOut(){
@@ -42,6 +45,4 @@ export class AuthService {
     localStorage.removeItem("user");
     this.isLoggedIn = false;
   }
-
-
 }

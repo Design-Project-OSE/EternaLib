@@ -22,7 +22,7 @@ export class MoviesComponent implements OnInit {
 
   ngOnInit(): void{
     this.getMovies();
-    this.getMovieCategories();
+    this.getAllCategoriesForMovies();
   }
 
   getMovies(){
@@ -32,8 +32,8 @@ export class MoviesComponent implements OnInit {
     });
   }
 
-  getMovieCategories(){
-    this._movieService.getMovieCategories(res => {
+  getAllCategoriesForMovies(){
+    this._movieService.getAllCategoriesForMovies(res => {
       this.categories = res;
       console.log(this.categories);
     });

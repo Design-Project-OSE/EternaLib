@@ -56,7 +56,7 @@ export const routes: Routes = [
             .then(c => c.MoviesComponent)
       },
       {
-        path: 'movies/detail/:value',
+        path: 'movies/:url/:id',
         loadComponent:
             () => import('./components/content/movies/components/movie-detail/movie-detail.component')
             .then(c => c.MovieDetailComponent)
@@ -68,7 +68,7 @@ export const routes: Routes = [
             .then(c => c.GamesComponent)
       },
       {
-        path: 'games/detail/:value',
+        path: 'games/:url/:id',
         loadComponent:
             () => import('./components/content/games/components/game-detail/game-detail.component')
             .then(c => c.GameDetailComponent)
@@ -80,7 +80,7 @@ export const routes: Routes = [
             .then(c => c.BooksComponent)
       },
       {
-        path: 'books/detail/:value',
+        path: 'books/:url/:id',
         loadComponent:
             () => import('./components/content/books/components/book-detail/book-detail.component')
             .then(c => c.BookDetailComponent)

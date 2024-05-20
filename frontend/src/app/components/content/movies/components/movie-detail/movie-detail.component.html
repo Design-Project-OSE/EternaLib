@@ -4,18 +4,34 @@
   description="{{ movie.about }}"
   imdb="{{ movie.imdb }}"
   metacritic="{{ movie.metacritic }}"
-  [categories]="['Bilim Kurgu', 'Gerilim', 'Drama']"
+  [categories]=movieCategories
   trailer="{{ movie.trailer }}"
   bgImage="{{ movie.background }}"
-  likeCount="{{ movie.like }}"
-  poster="{{ movie.poster }}"
-  userRouteUrl="/profile"
-  userName="Onur Karakaya"
-  userImage="/assets/img/onur.jpg"
-  userComment="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Omnis nesciunt earum rerum nemo possimus laborum aliquam rem, repellendus magni corporis maxime id, natus fugit aut deleniti tempore. Quae, quas facere. lo"
-  userCommentDate="01/10/2023">
+  poster="{{ movie.poster }}">
 
-    <form #commentForm="ngForm" (ngSubmit)="sendComment(commentForm)">
+  <div class="row w-50 mx-auto">
+    <div class="col-6 float-right">
+      <app-animated-button (click)="addLikeOrDislike(true);">
+        <span> Like </span>
+        <i class="fa-solid fa-thumbs-up">
+          <i class="fa-regular fa-thumbs-up" *ngIf="false"></i>
+          <span class="ml-2">{{ movie.like }}</span>
+        </i>
+      </app-animated-button>
+    </div>
+    <div class="col-6">
+      <app-animated-button (click)="addLikeOrDislike(false)">
+        <span>Dislike </span>
+        <i class="fa-solid fa-thumbs-down">
+        <i class="fa-regular fa-thumbs-down" *ngIf="false"></i>
+          <span class="ml-2">{{ movie.dislike }}</span>
+        </i>
+      </app-animated-button>
+    </div>
+
+  </div>
+
+    <form #commentForm="ngForm" (ngSubmit)="addComment(commentForm)">
       <label for="comment"><b>Write a Comment</b></label>
       <div class="input-group">
         <div class="input-group-prepend">
@@ -36,5 +52,28 @@
         <button type="submit" class="btn-comment">Send Comment</button>
       </div>
     </form>
+
+    <div class="row mt-3 bg-light" *ngFor="let comment of comments">
+      <div class="col-2 p-2">
+        <a routerLink="/profile">
+          <img src="/assets/img/onur.jpg" alt="Thumbnail Image" class="rounded-circle img-raised">
+        </a>
+      </div>
+      <div class="col-10 p-2">
+        <div class="row">
+          <div class="col-8">
+            <a routerLink="/profile">
+              <h4 class="my-0">{{ comment.userID }}</h4>
+            </a>
+          </div>
+          <div class="col-4">
+            <span class="description float-right">{{ comment.savedate | date : "dd.MM.yyyy HH:mm"}}</span>
+          </div>
+        </div>
+        <p class="display-5">{{ comment.comment }}</p>
+        <button class="btn btn-light rounded-pill bg-white text-dark"><i class="fa-solid fa-thumbs-up"></i></button>
+        <button class="btn btn-light rounded-pill bg-white text-dark"><i class="fa-solid fa-thumbs-down"></i></button>
+      </div>
+    </div>
 
 </app-content-detail>

@@ -22,7 +22,7 @@ export class GamesComponent implements OnInit {
 
   ngOnInit(): void{
     this.getGames();
-    this.getGameCategories();
+    this.getAllCategoriesForGames();
   }
 
   getGames(){
@@ -32,13 +32,13 @@ export class GamesComponent implements OnInit {
     });
   }
 
-  getGameCategories(){
-    this._gameService.getGameCategories(res => {
+  getAllCategoriesForGames(){
+    this._gameService.getAllCategoriesForGames(res => {
       this.categories = res;
       console.log(this.categories);
     });
   }
 
-  
+
 
 }

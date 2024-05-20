@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 import { SafeUrlPipe } from '../../pipes/safe-url.pipe';
+import { CategoryModel } from '../../../components/content/models/category.model';
 
 @Component({
   selector: 'app-content-detail',
@@ -15,15 +16,8 @@ export class ContentDetailComponent {
   @Input() description: string = "";
   @Input() imdb: string = "";
   @Input() metacritic: string = "";
-  @Input() categories: string[] = [];
+  @Input() categories: CategoryModel[] = [];
   @Input() trailer: string = "";
   @Input() bgImage: string = "";
-  @Input() likeCount: string = "";
   @Input() poster: string = "";
-
-  @Input() userRouteUrl: string = "";
-  @Input() userName: string = "";
-  @Input() userImage: string = "";
-  @Input() userComment: string = "";
-  @Input() userCommentDate: string = "";
 }

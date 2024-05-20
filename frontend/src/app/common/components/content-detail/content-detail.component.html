@@ -7,11 +7,11 @@
       <div class="content-center mx-1 px-1">
           <div class="row justify-content-between mt-5 pt-5">
             <div class="col-lg-6 text-left">
-              <h1 class="text-left text-primary"><b>{{ name }}</b></h1>
-              <h5><b><u>Release date</u>: </b><b class="badge">{{ release }}</b></h5>
+              <h1 class="text-left text-primary mb-1"><b>{{ name }}</b></h1>
+              <h5 class="mb-0"><b><u>Release date</u>: </b><b class="badge">{{ release }}</b></h5>
               <span class="h5"><b><u>Categories</u>: </b></span>
               <span *ngFor="let category of categories">
-                <b class="badge mr-1">{{ category }}</b>
+                <b class="badge mr-1">{{ category.name }}</b>
               </span>
               <div *ngIf="imdb!='' && metacritic!=''">
                 <h4 class="my-0"><b><u>Ratings</u>:</b></h4>
@@ -40,24 +40,10 @@
       </div>
     </div>
 
-    <div class="section section-team">
-      <div class="container">
-        <div class="button-container row w-25 mx-auto">
-          <div class="col-6">
-            <app-animated-button style="background-color: white;">
-              <i class="fa-solid fa-thumbs-up">
-                <span class="ml-2">{{ likeCount }}</span>
-              </i>
-            </app-animated-button>
-          </div>
-          <div class="col-6">
-            <app-animated-button style="background-color: white;">
-              <i class="fa-solid fa-thumbs-down">
-              </i>
-            </app-animated-button>
-          </div>
 
-        </div>
+
+    <div class="section section-team pt-3">
+      <div class="container">
           <div class="row mt-3">
             <div class="col-lg-4">
                 <img class="bbb" src="{{ poster }}" alt="Location Unknown">
@@ -80,29 +66,6 @@
               <hr>
 
               <ng-content></ng-content>
-
-              <div class="row mt-3 bg-light">
-                <div class="col-2 p-2">
-                  <a routerLink="{{ userRouteUrl }}">
-                    <img src="{{ userImage }}" alt="Thumbnail Image" class="rounded-circle img-raised">
-                  </a>
-                </div>
-                <div class="col-10 p-2">
-                  <div class="row">
-                    <div class="col-8">
-                      <a routerLink="{{ userRouteUrl }}">
-                        <h4 class="my-0">{{ userName }}</h4>
-                      </a>
-                    </div>
-                    <div class="col-4">
-                      <span class="description float-right">{{ userCommentDate }}</span>
-                    </div>
-                  </div>
-                  <p class="display-5">{{ userComment }}</p>
-                  <button class="btn btn-light rounded-pill bg-white text-dark"><i class="fa-solid fa-thumbs-up"></i></button>
-                  <button class="btn btn-light rounded-pill bg-white text-dark"><i class="fa-solid fa-thumbs-down"></i></button>
-                </div>
-              </div>
 
             </div>
           </div>

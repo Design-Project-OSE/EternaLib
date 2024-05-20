@@ -35,10 +35,12 @@ export class AppComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    if(localStorage.getItem("user")){
-      this._auth.isLoggedIn = true;
-    } else {
-      this._auth.isLoggedIn = false;
+    if(typeof localStorage != 'undefined'){
+      if(localStorage.getItem("user")){
+        this._auth.isLoggedIn = true;
+      } else {
+        this._auth.isLoggedIn = false;
+      }
     }
   }
 
