@@ -5,6 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from .models import CustomUser
+from rest_framework.authtoken.models import Token
+from django.db import IntegrityError
 
 @csrf_exempt
 def get_all_users(request):
@@ -25,6 +27,7 @@ def get_user_info(request):
                     'full_name': user.full_name,
                     'email': user.email,
                     'username': user.username,
+                    'profil_picture': user.profil_picture.url if user.profil_picture else None,
                     'x_link': user.x_link,
                     'instagram_link': user.instagram_link,
                     'facebook_link': user.facebook_link,
@@ -50,7 +53,7 @@ def update_user_info(request):
                 full_name = data.get('full_name')
                 email = data.get('email')
                 username = data.get('username')
-                profil_picture=data.get('profile_picture'),
+                profil_picture = data.get('profil_picture')
                 x_link = data.get('x_link')
                 instagram_link = data.get('instagram_link')
                 facebook_link = data.get('facebook_link')
@@ -59,26 +62,26 @@ def update_user_info(request):
                 user.full_name = full_name
                 user.email = email
                 user.username = username
-                user.profil_picture=profil_picture
+                user.profil_picture = profil_picture
                 user.x_link = x_link
                 user.instagram_link = instagram_link
                 user.facebook_link = facebook_link
                 user.linkedin_link = linkedin_link
                 user.save()
                 user_data = {
-                'id': user.id,
-                'full_name': user.full_name,
-                'email': user.email,
-                'username': user.username,
-                'profil_picture':user.profile_picture,
-                'x_link': user.x_link,
-                'instagram_link': user.instagram_link,
-                'facebook_link': user.facebook_link,
-                'linkedin_link': user.linkedin_link,
-                'savedate':user.savedate
+                    'id': user.id,
+                    'full_name': user.full_name,
+                    'email': user.email,
+                    'username': user.username,
+                    'profil_picture': user.profil_picture.url if user.profil_picture else None,
+                    'x_link': user.x_link,
+                    'instagram_link': user.instagram_link,
+                    'facebook_link': user.facebook_link,
+                    'linkedin_link': user.linkedin_link,
+                    'savedate': user.savedate
                 }
 
-                return JsonResponse({'success': 'User information updated successfully','user': user_data})
+                return JsonResponse({'success': 'User information updated successfully', 'user': user_data})
             except CustomUser.DoesNotExist:
                 return JsonResponse({'error': 'User does not exist'}, status=404)
         else:
@@ -96,27 +99,30 @@ def user_login(request):
         user = authenticate(request, email=email, password=password)
 
         if user is not None:
+            try:
+                token = Token.objects.create(user=user)
+            except IntegrityError:
+                token = Token.objects.get(user=user)
             login(request, user)
             user_data = {
                 'id': user.id,
                 'full_name': user.full_name,
                 'email': user.email,
                 'username': user.username,
-                'profil_picture':user.profile_picture,
+                'profil_picture': user.profil_picture.url if user.profil_picture else None,
                 'x_link': user.x_link,
                 'instagram_link': user.instagram_link,
                 'facebook_link': user.facebook_link,
                 'linkedin_link': user.linkedin_link,
                 'savedate': user.savedate
             }
-            return JsonResponse({'success': 'Login successful', 'user': user_data})
+            return JsonResponse({'success': 'Login successful', 'token': token.key, 'user': user_data})
         else:
             return JsonResponse({'error': 'Invalid email or password'}, status=401)
     else:
         return JsonResponse({'error': 'POST method is required'}, status=405)
 
-
-@csrf_exempt    
+@csrf_exempt
 def user_register(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -124,10 +130,9 @@ def user_register(request):
         email = data.get('email')
         password = data.get('password')
 
-        if not (full_name and email and password):
+        if not (full_name, email, password):
             return JsonResponse({'error': 'Full name, email, and password are required'}, status=400)
 
-        # CustomUser modelini kullanarak yeni bir kullanıcı oluştur
         user = CustomUser.objects.create_user(username=email, email=email, password=password)
         user.full_name = full_name
         user.save()
@@ -136,18 +141,17 @@ def user_register(request):
             'full_name': user.full_name,
             'email': user.email,
             'username': user.username,
-            'profil_picture':user.profile_picture,
+            'profil_picture': user.profil_picture.url if user.profil_picture else None,
             'x_link': user.x_link,
             'instagram_link': user.instagram_link,
             'facebook_link': user.facebook_link,
             'linkedin_link': user.linkedin_link,
-            'savedate':user.savedate
+            'savedate': user.savedate
         }
 
         return JsonResponse({'success': 'User registered successfully', 'user': user_data})
     else:
         return JsonResponse({'error': 'POST method is required'}, status=405)
-
 
 @csrf_exempt
 def user_logout(request):
