@@ -82,10 +82,9 @@ def list_moviegetcomment(request):
         data = json.loads(request.body.decode('utf-8'))
         serializer = Seri_moviecomment(data=data)
         if serializer.is_valid():
-            movie_comment=serializer.save()
+            movie_comment = serializer.save()
             movie = get_object_or_404(Movies_Table, id=movie_comment.movieID)
-            if movie_comment.commentscount:
-                movie.commentscount+= 1
+            movie.commentscount += 1  # Yorum sayısını artır
             movie.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

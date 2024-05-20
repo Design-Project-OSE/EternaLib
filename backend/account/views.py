@@ -50,6 +50,7 @@ def update_user_info(request):
                 full_name = data.get('full_name')
                 email = data.get('email')
                 username = data.get('username')
+                profil_picture=data.get('profile_picture'),
                 x_link = data.get('x_link')
                 instagram_link = data.get('instagram_link')
                 facebook_link = data.get('facebook_link')
@@ -58,6 +59,7 @@ def update_user_info(request):
                 user.full_name = full_name
                 user.email = email
                 user.username = username
+                user.profil_picture=profil_picture
                 user.x_link = x_link
                 user.instagram_link = instagram_link
                 user.facebook_link = facebook_link
@@ -68,6 +70,7 @@ def update_user_info(request):
                 'full_name': user.full_name,
                 'email': user.email,
                 'username': user.username,
+                'profil_picture':user.profile_picture,
                 'x_link': user.x_link,
                 'instagram_link': user.instagram_link,
                 'facebook_link': user.facebook_link,
@@ -99,6 +102,7 @@ def user_login(request):
                 'full_name': user.full_name,
                 'email': user.email,
                 'username': user.username,
+                'profil_picture':user.profile_picture,
                 'x_link': user.x_link,
                 'instagram_link': user.instagram_link,
                 'facebook_link': user.facebook_link,
@@ -132,6 +136,7 @@ def user_register(request):
             'full_name': user.full_name,
             'email': user.email,
             'username': user.username,
+            'profil_picture':user.profile_picture,
             'x_link': user.x_link,
             'instagram_link': user.instagram_link,
             'facebook_link': user.facebook_link,
