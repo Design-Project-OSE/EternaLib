@@ -116,7 +116,7 @@ def user_login(request):
                 'linkedin_link': user.linkedin_link,
                 'savedate': user.savedate
             }
-            return JsonResponse({'success': 'Login successful', 'token': token.key, 'user': user_data})
+            return JsonResponse({'success': 'Login successful', 'token': token.key, **user_data})
         else:
             return JsonResponse({'error': 'Invalid email or password'}, status=401)
     else:
@@ -127,6 +127,7 @@ def user_register(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         full_name = data.get('full_name')
+    
         email = data.get('email')
         password = data.get('password')
 
@@ -135,6 +136,7 @@ def user_register(request):
 
         user = CustomUser.objects.create_user(username=email, email=email, password=password)
         user.full_name = full_name
+        user.username=full_name.lower().replace(' ','_').replace('ş','s').replace('ğ','g').replace('ç','c').replace('ı','i').replace('ö','o').replace('ü','u')
         user.save()
         user_data = {
             'id': user.id,
