@@ -22,5 +22,8 @@ urlpatterns=[
     path('books/urlname/<str:urlname>', views.list_bookurlname, name="Oyun URL Çekme"),
     path('books/get/comment',views.list_bookgetcomment,name="Yorum yapma"),
     path('books/get/like/get',views.list_bookgetlike,name="Beğeni yapma"),
-    path('books/get/id/category/<uuid:id>',views.list_bookcategoryid,name="id girilen category bilgileri")
+    path('books/get/id/comment',views.list_getidcomments,name="POST olarak girilen bookID ait tüm yorumları çekiyor"),
+    path('books/get/id/category/<uuid:id>',views.list_bookcategoryid,name="id girilen category bilgileri"),
+    path('books/get/gid/like',views.list_getidlikes,name="POST olarak girilen bookID ait tüm like çekiyor"),
+    path('books/get/sid/like',views.list_getidlikeusers,name="POST olarak girilen userID ait tüm like çekiyor"),
 ]

@@ -24,6 +24,8 @@ class Book_Like(models.Model):
     id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap Beğeni ID")
     userID = models.CharField(max_length=maxtext, verbose_name="Kullanıcı ID")
     bookID = models.CharField(max_length=maxtext, verbose_name="Kitap ID")
+    like=models.BooleanField(verbose_name="beğeni")
+    dislike=models.BooleanField(verbose_name="beğenmeme")
     savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
 
     class Meta:

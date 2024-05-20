@@ -5,6 +5,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from .models import Book_Table,Book_Category,Book_Like,Book_Comment
 from .serializers import Seri_booktable,Seri_bookcategory,Seri_bookcomment,Seri_booklike
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import JsonResponse
 
 #obj= tüm objectleri tutar
 #seri=obj response için seriliazer uygular
@@ -87,3 +90,45 @@ def list_bookgetlike(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@csrf_exempt
+def list_getidcomments(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        book_id = data.get('bookID')
+        if book_id is not None:  
+            comments = Book_Comment.objects.filter(bookID=book_id)
+            serializer = Seri_bookcomment(comments, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return JsonResponse({'error': 'No book ID provided.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+    
+@csrf_exempt
+def list_getidlikes(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        book_id = data.get('bookID')
+        if book_id is not None:  
+            comments = Book_Like.objects.filter(bookID=book_id)
+            serializer = Seri_booklike(comments, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return JsonResponse({'error': 'No book ID provided.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+    
+def list_getidlikeusers(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        user_id = data.get('userID')
+        if user_id is not None:  
+            likes = Book_Like.objects.filter(user_id=user_id)
+            serializer = Seri_booklike(likes, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return JsonResponse({'error': 'No user ID provided.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+    

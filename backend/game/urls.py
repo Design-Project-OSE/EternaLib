@@ -20,7 +20,11 @@ urlpatterns=[
     path('games/like',views.list_gamelike,name="Oyun Beğenileri"),
     path('games/id/<uuid:id>', views.list_gameid, name="Oyun ID Çekme"),
     path('games/urlname/<str:urlname>', views.list_gameurlname, name="Oyun URL Çekme"),
-    path('games/get/comment',views.list_gamegetcomment,name="Yorum yapma"),
-    path('games/get/like',views.list_gamegetlike,name="Beğeni yapma"),
-    path('games/get/id/category/<uuid:id>', views.list_gamecategoryid, name="Oyun ID Çekme"),
+    path('games/add/comment',views.list_gamegetcomment,name="Yorum yapma"),
+    path('games/add/like',views.list_gamegetlike,name="Beğeni yapma"),
+    path('games/get/id/category/<uuid:id>', views.list_gamecategoryid, name="id girilen category bilgileri"),
+    path('games/get/id/comment',views.list_getidcomments,name="POST olarak girilen gameID ait tüm yorumları çekiyor"),
+    path('games/get/gid/like',views.list_getidlikes,name="POST olarak girilen gameID ait tüm like çekiyor"),
+    path('games/get/sid/like',views.list_getidlikeusers,name="POST olarak girilen userID ait tüm like çekiyor"),
+    path('movies/get/id/category/<uuid:id>',views.list_gamecategoryid,name="id girilen category bilgileri")
 ]

@@ -5,7 +5,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from .models import Games_Table,Game_Like,Game_Comment,Game_Category
 from .serializers import Seri_gamestable,Seri_gamescategory,Seri_gamescomment,Seri_gameslike
-
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
@@ -85,3 +87,44 @@ def list_gamegetlike(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@csrf_exempt
+def list_getidcomments(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        game_id = data.get('gameID')
+        if game_id is not None:  
+            comments = Game_Comment.objects.filter(gameID=game_id)
+            serializer = Seri_gamescomment(comments, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return JsonResponse({'error': 'No game ID provided.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+    
+@csrf_exempt
+def list_getidlikes(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        game_id = data.get('gameID')
+        if game_id is not None:  
+            comments = Game_Like.objects.filter(gameID=game_id)
+            serializer = Seri_gameslike(comments, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return JsonResponse({'error': 'No game ID provided.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+    
+def list_getidlikeusers(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        user_id = data.get('userID')
+        if user_id is not None:  
+            likes = Game_Like.objects.filter(user_id=user_id)
+            serializer = Seri_gameslike(likes, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return JsonResponse({'error': 'No user ID provided.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)

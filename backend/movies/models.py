@@ -26,7 +26,7 @@ class Movies_Like(models.Model):
     userID = models.CharField(max_length=maxtext, verbose_name="Kullanıcı ID")
     movieID = models.CharField(max_length=maxtext, verbose_name="Film ID")
     like=models.BooleanField(verbose_name="beğeni")
-    dislike=models.BooleanField(verbose_name="beğeni")
+    dislike=models.BooleanField(verbose_name="beğenmeme")
     savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
 
     class Meta:
