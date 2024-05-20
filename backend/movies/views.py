@@ -99,8 +99,17 @@ def list_moviegetlike(request):
         data = json.loads(request.body.decode('utf-8'))
         serializer = Seri_movielike(data=data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            movie_like = serializer.save()
+            
+            # İlgili film tablosunu güncelle
+            movie = get_object_or_404(Movies_Table, id=movie_like.movieID)
+            if movie_like.like:
+                movie.like+= 1
+            if movie_like.dislike:
+                movie.dislike+= 1
+            movie.save()
+            
+            return JsonResponse({"data": serializer.data, "like": movie.like,"dislike":movie.dislike}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @csrf_exempt
@@ -114,6 +123,33 @@ def list_getidcomments(request):
             return JsonResponse(serializer.data, safe=False)
         else:
             return JsonResponse({'error': 'No movie ID provided.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+    
+@csrf_exempt
+def list_getidlikes(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        movie_id = data.get('movieID')
+        if movie_id is not None:  
+            comments = Movies_Like.objects.filter(movieID=movie_id)
+            serializer = Seri_movielike(comments, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return JsonResponse({'error': 'No movie ID provided.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+    
+def list_getidlikeusers(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        user_id = data.get('userID')
+        if user_id is not None:  
+            likes = Movies_Like.objects.filter(user_id=user_id)
+            serializer = Seri_movielike(likes, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return JsonResponse({'error': 'No user ID provided.'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
     

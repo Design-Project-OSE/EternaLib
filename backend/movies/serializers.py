@@ -18,5 +18,5 @@ class Seri_moviecomment(serializers.ModelSerializer):
         
 class Seri_movielike(serializers.ModelSerializer):
     class Meta:
-        model=Movies_Comment
+        model=Movies_Like
         fields=('__all__')
