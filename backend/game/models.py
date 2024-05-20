@@ -6,14 +6,15 @@ maxrich=2000
 maxtag=3
 
 class Game_Comment(models.Model):
-    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Oyun Yorum ID")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="Oyun Yorum ID")
     userID=models.CharField(max_length=maxtext,verbose_name="Kullanıcı ID")
     gameID=models.CharField(max_length=maxtext,verbose_name="Oyun ID")
     comment=models.TextField(verbose_name="Yorum",max_length=maxrich)
     savedate=models.DateTimeField(auto_now_add= True,verbose_name="Eklenme Tarihi")
     class Meta:
-        verbose_name = "Oyun Yorum"
-        verbose_name_plural = "Oyun Yorum"
+        verbose_name = "Oyun Beğeni"
+        verbose_name_plural = "Oyun Beğenileri"
+        unique_together = ('userID', 'gameID')
 
     def __str__(self):
         return str(self.id)
@@ -60,6 +61,7 @@ class Games_Table(models.Model):
     isPublished=models.BooleanField(default=True,verbose_name="Yayın Durumu")
     like=models.IntegerField(default=0,verbose_name="Beğeni sayısı")
     dislike=models.IntegerField(default=0,verbose_name="Beğenilmeyen")
+    commentscount=models.IntegerField(verbose_name="Yorum sayısı")  
     class Meta:
         verbose_name = "Oyun"
         verbose_name_plural = "Oyunlar"

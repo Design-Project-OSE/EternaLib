@@ -27,10 +27,11 @@ SECRET_KEY = 'django-insecure-c(dq7+jd@t+20q977ssevh6$e0+fveu_ekjho%&@f@xpg=5cy$
 DEBUG = True
 
 ALLOWED_HOSTS = []
-AUTH_USER_MODEL = 'users.CustomUser'
+AUTH_USER_MODEL = 'account.CustomUser'
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',  
+    'backend.auth_backend.EmailBackend',
 )
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -38,13 +39,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Application definition
 
 INSTALLED_APPS = [
+    'account',
+    'movies',
+    'book',
+    'game',
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'movies',
-    'users',
-    'book',
-    'game',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

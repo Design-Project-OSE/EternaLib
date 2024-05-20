@@ -66,6 +66,7 @@ class Movies_Table(models.Model):
     isPublished = models.BooleanField(default=True, verbose_name="Yayın Durumu")
     like = models.IntegerField(verbose_name="Beğeniler")  
     dislike= models.IntegerField(verbose_name="Beğenilmeyenler")  
+    commentscount=models.IntegerField(verbose_name="Yorum sayısı")  
     class Meta:
         verbose_name = "Film"
         verbose_name_plural = "Filmler"

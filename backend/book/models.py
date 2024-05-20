@@ -10,7 +10,7 @@ class Book_Comment(models.Model):
     id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap Yorum ID")
     userID = models.CharField(max_length=maxtext, verbose_name="Kullanıcı ID")
     bookID = models.CharField(max_length=maxtext, verbose_name="Kitap ID")
-    comment = models.TextField(verbose_name="Yorum", max_length=maxrich)  # "Comment" alanını düzelttim
+    comment = models.TextField(verbose_name="Yorum", max_length=maxrich)  
     savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
 
     class Meta:
@@ -18,10 +18,10 @@ class Book_Comment(models.Model):
         verbose_name_plural = "Kitap Yorumları"
 
     def __str__(self):
-        return self.comment  # Yorumu döndürdüm
+        return self.comment 
 
 class Book_Like(models.Model):
-    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap Beğeni ID")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap Beğeni ID")
     userID = models.CharField(max_length=maxtext, verbose_name="Kullanıcı ID")
     bookID = models.CharField(max_length=maxtext, verbose_name="Kitap ID")
     like=models.BooleanField(verbose_name="beğeni")
@@ -31,9 +31,10 @@ class Book_Like(models.Model):
     class Meta:
         verbose_name = "Kitap Beğeni"
         verbose_name_plural = "Kitap Beğenileri"
+        unique_together = ('userID', 'bookID')
 
     def __str__(self):
-        return f"Beğeni ID: {self.id}"  # Burada farklı bir çıktı döndürdüm
+        return f"Beğeni ID: {self.id}"  
 
 class Book_Category(models.Model):
     id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap Kategori ID")
@@ -46,7 +47,7 @@ class Book_Category(models.Model):
         verbose_name_plural = "Kitap Kategorileri"
 
     def __str__(self):
-        return self.name  # Kategori ismini döndürdüm
+        return self.name  
 
 class Book_Table(models.Model):
     id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap ID")
@@ -63,10 +64,12 @@ class Book_Table(models.Model):
     isPublished = models.BooleanField(default=True, verbose_name="Yayın Durumu")
     like = models.IntegerField(verbose_name="Beğeni Sayısı")  
     dislike=models.IntegerField(verbose_name="Beğenilmeyen")  
+    commentscount=models.IntegerField(verbose_name="Yorum sayısı")  
 
     class Meta:
         verbose_name = "Kitap"
         verbose_name_plural = "Kitaplar"
+        
 
     def __str__(self):
-        return self.name  # Kitap adını döndürdüm
+        return self.name  

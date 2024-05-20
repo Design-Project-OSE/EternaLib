@@ -11,6 +11,7 @@ from django.http import JsonResponse
 
 #obj= tüm objectleri tutar
 #seri=obj response için seriliazer uygular
+
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def list_bookcategory(request):
@@ -18,8 +19,6 @@ def list_bookcategory(request):
     seri=Seri_bookcategory(obj,many=True)
     return Response(seri.data)
 
-#obj= tüm objectleri tutar
-#seri=obj response için seriliazer uygular
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def list_booktable(request):
@@ -72,7 +71,10 @@ def list_bookgetcomment(request):
     elif request.method == 'POST':
         serializer = Seri_bookcomment(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            book_comment=serializer.save()
+            book = get_object_or_404(Book_Table, id=book_comment.bookID)
+            if book_comment.commentscount:
+                book.commentscount+=1
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -88,18 +90,39 @@ def list_bookgetlike(request):
         data = json.loads(request.body.decode('utf-8'))
         serializer = Seri_booklike(data=data)
         if serializer.is_valid():
-            book_like = serializer.save()
+            user_id = serializer.validated_data['userID']
+            book_id = serializer.validated_data['book']
+            like = serializer.validated_data['like']
+            dislike = serializer.validated_data['dislike']
+            existing_like = Book_Like.objects.filter(userID=user_id, book_id=book_id).first()
             
-            # İlgili film tablosunu güncelle
-            book = get_object_or_404(Book_Like, id=book_like.bookID)
+            if existing_like:
+                if existing_like.like and not like:
+                    existing_like.bookID.like -= 1
+                if existing_like.dislike and not dislike:
+                    existing_like.bookID.dislike -= 1
+                if not existing_like.like and like:
+                    existing_like.bookID.like += 1
+                if not existing_like.dislike and dislike:
+                    existing_like.bookID.dislike += 1
+                existing_like.like = like
+                existing_like.dislike = dislike
+                existing_like.save()
+                existing_like.bookID.save()
+                
+                return JsonResponse({"data": serializer.data, "like": existing_like.bookID.like, "dislike": existing_like.bookID.dislike}, status=status.HTTP_200_OK)
+            book_like = serializer.save()
+            book = get_object_or_404(Book_Table, id=book_id)
             if book_like.like:
-                book.like+= 1
+                book.like += 1
             if book_like.dislike:
-                book.dislike+= 1
+                book.dislike += 1
             book.save()
             
-            return JsonResponse({"data": serializer.data, "like": book.like,"dislike":book.dislike}, status=status.HTTP_201_CREATED)
+            return JsonResponse({"data": serializer.data, "like": book.like, "dislike": book.dislike}, status=status.HTTP_201_CREATED)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
     
 @csrf_exempt
 def list_getidcomments(request):

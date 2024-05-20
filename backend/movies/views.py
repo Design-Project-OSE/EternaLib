@@ -82,13 +82,16 @@ def list_moviegetcomment(request):
         data = json.loads(request.body.decode('utf-8'))
         serializer = Seri_moviecomment(data=data)
         if serializer.is_valid():
-            serializer.save()
+            movie_comment=serializer.save()
+            movie = get_object_or_404(Movies_Table, id=movie_comment.movieID)
+            if movie_comment.commentscount:
+                movie.commentscount+= 1
+            movie.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAny])
-@csrf_exempt
 def list_moviegetlike(request):
     if request.method == 'GET':
         likes = Movies_Like.objects.all()
@@ -99,18 +102,39 @@ def list_moviegetlike(request):
         data = json.loads(request.body.decode('utf-8'))
         serializer = Seri_movielike(data=data)
         if serializer.is_valid():
-            movie_like = serializer.save()
+            user_id = serializer.validated_data['userID']
+            movie_id = serializer.validated_data['movieID']
+            like = serializer.validated_data['like']
+            dislike = serializer.validated_data['dislike']
+            existing_like = Movies_Like.objects.filter(userID=user_id, movie_id=movie_id).first()
             
-            # İlgili film tablosunu güncelle
-            movie = get_object_or_404(Movies_Table, id=movie_like.movieID)
+            if existing_like:
+                if existing_like.like and not like:
+                    existing_like.movieID.like -= 1
+                if existing_like.dislike and not dislike:
+                    existing_like.movieID.dislike -= 1
+                if not existing_like.like and like:
+                    existing_like.movieID.like += 1
+                if not existing_like.dislike and dislike:
+                    existing_like.movieID.dislike += 1
+                existing_like.like = like
+                existing_like.dislike = dislike
+                existing_like.save()
+                existing_like.movieID.save()
+                
+                return JsonResponse({"data": serializer.data, "like": existing_like.movieID.like, "dislike": existing_like.movieID.dislike}, status=status.HTTP_200_OK)
+            movie_like = serializer.save()
+            movie = get_object_or_404(Movies_Table, id=movie_id)
             if movie_like.like:
-                movie.like+= 1
+                movie.like += 1
             if movie_like.dislike:
-                movie.dislike+= 1
+                movie.dislike += 1
             movie.save()
             
-            return JsonResponse({"data": serializer.data, "like": movie.like,"dislike":movie.dislike}, status=status.HTTP_201_CREATED)
+            return JsonResponse({"data": serializer.data, "like": movie.like, "dislike": movie.dislike}, status=status.HTTP_201_CREATED)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
     
 @csrf_exempt
 def list_getidcomments(request):
