@@ -15,6 +15,7 @@ def get_all_users(request):
                     'full_name': user.full_name,
                     'email': user.email,
                     'username': user.username,
+                    'about':user.about,
                     'profil_picture': user.profil_picture.url if user.profil_picture else None,
                     'x_link': user.x_link,
                     'instagram_link': user.instagram_link,
@@ -35,6 +36,7 @@ def get_user_info(request):
                     'full_name': user.full_name,
                     'email': user.email,
                     'username': user.username,
+                    'about':user.about,
                     'profil_picture': user.profil_picture.url if user.profil_picture else None,
                     'x_link': user.x_link,
                     'instagram_link': user.instagram_link,
@@ -61,6 +63,7 @@ def update_user_info(request):
                 full_name = data.get('full_name')
                 email = data.get('email')
                 username = data.get('username')
+                about=data.get('about')
                 profil_picture = data.get('profil_picture')
                 x_link = data.get('x_link')
                 instagram_link = data.get('instagram_link')
@@ -70,6 +73,7 @@ def update_user_info(request):
                 user.full_name = full_name
                 user.email = email
                 user.username = username
+                user.about=about
                 user.profil_picture = profil_picture
                 user.x_link = x_link
                 user.instagram_link = instagram_link
@@ -81,6 +85,7 @@ def update_user_info(request):
                     'full_name': user.full_name,
                     'email': user.email,
                     'username': user.username,
+                    'about':user.about,
                     'profil_picture': user.profil_picture.url if user.profil_picture else None,
                     'x_link': user.x_link,
                     'instagram_link': user.instagram_link,
