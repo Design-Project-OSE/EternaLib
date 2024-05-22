@@ -6,6 +6,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from .models import Movies_Table,Movies_Comment,Movies_Category,Movies_Like
+from account.models import CustomUser
+from account.serializers import Seri_users
 from .serializers import Seri_movietable,Seri_moviecategory,Seri_moviecomment,Seri_movielike
 import json
 
@@ -140,14 +142,38 @@ def list_moviegetlike(request):
 @csrf_exempt
 def list_getidcomments(request):
     if request.method == 'POST':
-        data = json.loads(request.body.decode('utf-8'))
-        movie_id = data.get('movieID')
-        if movie_id is not None:  
-            comments = Movies_Comment.objects.filter(movieID=movie_id)
-            serializer = Seri_moviecomment(comments, many=True)
-            return JsonResponse(serializer.data, safe=False)
-        else:
-            return JsonResponse({'error': 'No movie ID provided.'}, status=400)
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            movie_id = data.get('movieID')
+
+            if movie_id is not None:
+                comments = Movies_Comment.objects.filter(movieID=movie_id)
+                comment_serializer = Seri_moviecomment(comments, many=True)
+
+                if comments.exists():
+                    # Yorumların içine kullanıcı bilgilerini birleştir
+                    comments_with_user_info = []
+                    for comment in comments:
+                        user = get_object_or_404(CustomUser, id=comment.userID)
+                        comment_data = {
+                            **Seri_moviecomment(comment).data,
+                            'user': {
+                                'full_name': user.full_name,
+                                'username': user.username,
+                                'profil_picture': user.profil_picture.url if user.profil_picture else None
+                            }
+                        }
+                        comments_with_user_info.append(comment_data)
+
+                    return JsonResponse({
+                        'comments': comments_with_user_info
+                    }, safe=False)
+                else:
+                    return JsonResponse({'error': 'No comments found for the provided movie ID.'}, status=404)
+            else:
+                return JsonResponse({'error': 'No movie ID provided.'}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
     
@@ -170,7 +196,7 @@ def list_getidlikeusers(request):
         data = json.loads(request.body.decode('utf-8'))
         user_id = data.get('userID')
         if user_id is not None:  
-            likes = Movies_Like.objects.filter(user_id=user_id)
+            likes = Movies_Like.objects.filter(userID=user_id)
             serializer = Seri_movielike(likes, many=True)
             return JsonResponse(serializer.data, safe=False)
         else:

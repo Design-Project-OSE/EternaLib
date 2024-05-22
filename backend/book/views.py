@@ -8,6 +8,8 @@ from .serializers import Seri_booktable,Seri_bookcategory,Seri_bookcomment,Seri_
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.http import JsonResponse
+from account.models import CustomUser
+from account.serializers import Seri_users
 
 #obj= tüm objectleri tutar
 #seri=obj response için seriliazer uygular
@@ -130,14 +132,39 @@ def list_bookgetlike(request):
 @csrf_exempt
 def list_getidcomments(request):
     if request.method == 'POST':
-        data = json.loads(request.body.decode('utf-8'))
-        book_id = data.get('bookID')
-        if book_id is not None:  
-            comments = Book_Comment.objects.filter(bookID=book_id)
-            serializer = Seri_bookcomment(comments, many=True)
-            return JsonResponse(serializer.data, safe=False)
-        else:
-            return JsonResponse({'error': 'No book ID provided.'}, status=400)
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            book_id = data.get('bookID')
+
+            if book_id is not None:
+                # bookID ile ilgili yorumları çek
+                comments = Book_Comment.objects.filter(bookID=book_id)
+                comment_serializer = Seri_bookcomment(comments, many=True)
+
+                if comments.exists():
+                    # Yorumların içine kullanıcı bilgilerini birleştir
+                    comments_with_user_info = []
+                    for comment in comments:
+                        user = get_object_or_404(CustomUser, id=comment.userID)
+                        comment_data = {
+                            **Seri_bookcomment(comment).data,
+                            'user': {
+                                'full_name': user.full_name,
+                                'username': user.username,
+                                'profil_picture': user.profil_picture.url if user.profil_picture else None
+                            }
+                        }
+                        comments_with_user_info.append(comment_data)
+
+                    return JsonResponse({
+                        'comments': comments_with_user_info
+                    }, safe=False)
+                else:
+                    return JsonResponse({'error': 'No comments found for the provided book ID.'}, status=404)
+            else:
+                return JsonResponse({'error': 'No book ID provided.'}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
     
