@@ -159,9 +159,7 @@ def list_getidcomments(request):
                         comments_with_user_info.append(comment_data)
 
 
-                    return JsonResponse({
-                        'comments': comments_with_user_info
-                    }, safe=False)
+                    return JsonResponse(comments_with_user_info, safe=False)
                 else:
                     return JsonResponse({'error': 'No comments found for the provided book ID.'}, status=404)
             else:
