@@ -147,14 +147,17 @@ def list_getidcomments(request):
                     for comment in comments:
                         user = get_object_or_404(CustomUser, id=comment.userID)
                         comment_data = {
-                            **Seri_bookcomment(comment).data,
-                            'user': {
-                                'full_name': user.full_name,
-                                'username': user.username,
-                                'profil_picture': user.profil_picture.url if user.profil_picture else None
-                            }
+                            'id': comment.id,
+                            'userID': comment.userID,
+                            'movieID': comment.bookID,
+                            'comment': comment.comment,
+                            'savedate': comment.savedate,
+                            'full_name': user.full_name,
+                            'username': user.username,
+                            'profil_picture': user.profil_picture.url if user.profil_picture else None
                         }
                         comments_with_user_info.append(comment_data)
+
 
                     return JsonResponse({
                         'comments': comments_with_user_info

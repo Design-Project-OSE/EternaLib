@@ -156,18 +156,18 @@ def list_getidcomments(request):
                     for comment in comments:
                         user = get_object_or_404(CustomUser, id=comment.userID)
                         comment_data = {
-                            **Seri_moviecomment(comment).data,
-                            'user': {
-                                'full_name': user.full_name,
-                                'username': user.username,
-                                'profil_picture': user.profil_picture.url if user.profil_picture else None
-                            }
+                            'id': comment.id,
+                            'userID': comment.userID,
+                            'movieID': comment.movieID,
+                            'comment': comment.comment,
+                            'savedate': comment.savedate,
+                            'full_name': user.full_name,
+                            'username': user.username,
+                            'profil_picture': user.profil_picture.url if user.profil_picture else None
                         }
                         comments_with_user_info.append(comment_data)
 
-                    return JsonResponse({
-                        'comments': comments_with_user_info
-                    }, safe=False)
+                    return JsonResponse(comments_with_user_info, safe=False)
                 else:
                     return JsonResponse({'error': 'No comments found for the provided movie ID.'}, status=404)
             else:
@@ -190,6 +190,8 @@ def list_getidlikes(request):
             return JsonResponse({'error': 'No movie ID provided.'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+    
+# [POST] HAKKINDA=[alınan kullanıcı id ait like bilgilerini toplar] INPUTS=[userID]
 @csrf_exempt
 def list_getidlikeusers(request):
     if request.method == 'POST':
