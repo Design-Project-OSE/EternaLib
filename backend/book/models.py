@@ -31,7 +31,7 @@ class Book_Like(models.Model):
     class Meta:
         verbose_name = "Kitap Beğeni"
         verbose_name_plural = "Kitap Beğenileri"
-        unique_together = ('userID', 'bookID')
+
 
     def __str__(self):
         return f"Beğeni ID: {self.id}"  

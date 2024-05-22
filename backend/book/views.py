@@ -91,35 +91,38 @@ def list_bookgetlike(request):
         serializer = Seri_booklike(data=data)
         if serializer.is_valid():
             user_id = serializer.validated_data['userID']
-            book_id = serializer.validated_data['book']
+            book_id = serializer.validated_data['bookID']
+            book = get_object_or_404(Book_Table, id=book_id)
             like = serializer.validated_data['like']
             dislike = serializer.validated_data['dislike']
-            existing_like = Book_Like.objects.filter(userID=user_id, book_id=book_id).first()
+            existing_like = Book_Like.objects.filter(userID=user_id, bookID=book_id).first()
             
             if existing_like:
+                book = get_object_or_404(Book_Table, id=book_id)
                 if existing_like.like and not like:
-                    existing_like.bookID.like -= 1
+                    book.like -= 1
                 if existing_like.dislike and not dislike:
-                    existing_like.bookID.dislike -= 1
+                    book.dislike -= 1
                 if not existing_like.like and like:
-                    existing_like.bookID.like += 1
+                    book.like += 1
                 if not existing_like.dislike and dislike:
-                    existing_like.bookID.dislike += 1
+                    book.dislike += 1
                 existing_like.like = like
                 existing_like.dislike = dislike
                 existing_like.save()
-                existing_like.bookID.save()
+                book.save()
                 
-                return JsonResponse({"data": serializer.data, "like": existing_like.bookID.like, "dislike": existing_like.bookID.dislike}, status=status.HTTP_200_OK)
+                return JsonResponse({**data,  "likecount": book.like, "dislikecount": book.dislike,'like':like,'dislike':dislike}, status=status.HTTP_200_OK)
+
             book_like = serializer.save()
-            book = get_object_or_404(Book_Table, id=book_id)
+            
             if book_like.like:
                 book.like += 1
             if book_like.dislike:
                 book.dislike += 1
             book.save()
             
-            return JsonResponse({"data": serializer.data, "like": book.like, "dislike": book.dislike}, status=status.HTTP_201_CREATED)
+            return JsonResponse({**data, "likecount": book.like, "dislikecount": book.dislike,'like':like,'dislike':dislike}, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
