@@ -64,9 +64,9 @@ class Movies_Table(models.Model):
     trailer = models.URLField(max_length=maxurl, verbose_name="Trailer URL")
     savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")
     isPublished = models.BooleanField(default=True, verbose_name="Yayın Durumu")
-    like = models.IntegerField(verbose_name="Beğeniler")  
-    dislike= models.IntegerField(verbose_name="Beğenilmeyenler")  
-    commentscount=models.IntegerField(verbose_name="Yorum sayısı")  
+    like = models.IntegerField(default=0,verbose_name="Beğeniler")  
+    dislike= models.IntegerField(default=0,verbose_name="Beğenilmeyenler")  
+    commentscount=models.IntegerField(default=0,verbose_name="Yorum sayısı")  
     class Meta:
         verbose_name = "Film"
         verbose_name_plural = "Filmler"

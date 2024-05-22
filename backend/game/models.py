@@ -61,7 +61,7 @@ class Games_Table(models.Model):
     isPublished=models.BooleanField(default=True,verbose_name="Yayın Durumu")
     like=models.IntegerField(default=0,verbose_name="Beğeni sayısı")
     dislike=models.IntegerField(default=0,verbose_name="Beğenilmeyen")
-    commentscount=models.IntegerField(verbose_name="Yorum sayısı")  
+    commentscount=models.IntegerField(default=0,verbose_name="Yorum sayısı")  
     class Meta:
         verbose_name = "Oyun"
         verbose_name_plural = "Oyunlar"
