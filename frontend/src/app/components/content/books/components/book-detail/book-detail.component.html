@@ -8,19 +8,23 @@
 
     <div class="row w-50 mx-auto">
       <div class="col-6 float-right">
-        <app-animated-button (click)="addLikeOrDislike(true);">
+        <app-animated-button (click)="addLike()" [ngClass]="{'bg-secondary': isLiked}">
           <span> Like </span>
-          <i class="fa-solid fa-thumbs-up">
-            <i class="fa-regular fa-thumbs-up" *ngIf="false"></i>
+          <i class="fa-solid fa-thumbs-up" *ngIf="isLiked">
+            <span class="ml-2">{{ book.like }}</span>
+          </i>
+          <i class="fa-regular fa-thumbs-up" *ngIf="!isLiked">
             <span class="ml-2">{{ book.like }}</span>
           </i>
         </app-animated-button>
       </div>
       <div class="col-6">
-        <app-animated-button (click)="addLikeOrDislike(false)">
+        <app-animated-button (click)="addDislike()" [ngClass]="{'bg-secondary': isDisliked}">
           <span>Dislike </span>
-          <i class="fa-solid fa-thumbs-down">
-          <i class="fa-regular fa-thumbs-down" *ngIf="false"></i>
+          <i class="fa-solid fa-thumbs-down" *ngIf="isDisliked">
+            <span class="ml-2">{{ book.dislike }}</span>
+          </i>
+          <i class="fa-regular fa-thumbs-down" *ngIf="!isDisliked">
             <span class="ml-2">{{ book.dislike }}</span>
           </i>
         </app-animated-button>
@@ -59,7 +63,7 @@
         <div class="row">
           <div class="col-8">
             <a routerLink="/profile">
-              <h4 class="my-0">{{ comment.userID }}</h4>
+              <h4 class="my-0"> {{ comment.full_name }} </h4>
             </a>
           </div>
           <div class="col-4">
@@ -73,3 +77,5 @@
     </div>
 
 </app-content-detail>
+
+

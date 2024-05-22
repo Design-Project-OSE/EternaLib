@@ -1,8 +1,8 @@
 export class BookAddLikeOrDislikeModel{
   userID: string = "";
   bookID: string = "";
-  like: boolean = false;
-  dislike: boolean = false;
+  like: boolean;
+  dislike: boolean;
 }
 
 // like butonuna basıldığında like=true

@@ -50,13 +50,13 @@ export class MovieService {
 
   //------------------------------------------------
   addComment(comment: MovieAddCommentModel, callback: (res: MovieCommentsModel) => void){
-    comment.userID = this.currentUser.userid;
+    comment.userID = this.currentUser.id;
     this._http.post<MovieCommentsModel>('movies/add/comment', comment, res => callback(res));
   }
 
 
   addLikeOrDislike(likeOrDislike: MovieAddLikeOrDislikeModel, callback: (res: MovieLikesAndDislikesModel) => void){
-    likeOrDislike.userID = this.currentUser.userid;
+    likeOrDislike.userID = this.currentUser.id;
     this._http.post<MovieLikesAndDislikesModel>('movies/add/like', likeOrDislike, res => callback(res));
   }
 }

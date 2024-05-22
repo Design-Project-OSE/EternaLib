@@ -1,6 +1,10 @@
 export class GameLikesAndDislikesModel{
   userID: string = "";
   gameID: string = "";
-  like: number = 0;
-  dislike: number = 0;
+  like: boolean;
+  dislike: boolean;
+  likecount: number;
+  dislikecount: number;
 }
+
+//like, dislike mevcut içeriğin beğenilip beğenilmediğini kontrol etmek için kullanılır

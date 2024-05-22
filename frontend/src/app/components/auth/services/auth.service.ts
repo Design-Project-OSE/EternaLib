@@ -5,6 +5,8 @@ import { LoginModel } from '../models/login.model';
 import { RegisterModel } from '../models/register.model';
 import { ToastrService } from 'ngx-toastr';
 import { LoginResponseModel } from '../models/login-response.model';
+import { UserModel } from '../models/user.model';
+import { MessageResponseModel } from '../../../common/models/message.response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,12 @@ export class AuthService {
     this._http.post<LoginResponseModel>('register', model, res => callback(res))
   }
 
+  getUserById(model: any, callback: (res: UserModel) => void){
+    this._http.post<UserModel>('account', model, res => callback(res));
+  }
+
+
+
 
   // LoginResponseModel tipinde döndürür
   getCurrentUser(){
@@ -38,11 +46,11 @@ export class AuthService {
   }
 
   logOut(){
-    let userString = localStorage.getItem("user");
-    let user = JSON.parse(userString);
-
-    this._toastr.info(`Good Bye! ${user.userfullname}` ,"Çıkış Yapıldı");
-    localStorage.removeItem("user");
-    this.isLoggedIn = false;
+    this._http.post<any>('logout', null, res => {
+      this.isLoggedIn = false;
+      let user = this.getCurrentUser();
+      this._toastr.info(`Good Bye! ${user.userfullname}` ,"Çıkış Yapıldı");
+      localStorage.removeItem("user");
+    });
   }
 }

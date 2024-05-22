@@ -1,9 +1,11 @@
 export class MovieLikesAndDislikesModel{
   movieID: string = "";
   userID: string = "";
-  like: number = 0;
-  dislike: number = 0;
+  like: boolean;
+  dislike: boolean;
+  likecount: number;
+  dislikecount: number;
 }
 
-// true olan buton = 1
-// false olan buton = 0
+//like, dislike mevcut içeriğin beğenilip beğenilmediğini kontrol etmek için kullanılır
+

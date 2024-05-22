@@ -41,19 +41,18 @@ export class GameService {
     this._http.post<GameCommentsModel[]>('games/get/id/comment', model, res => callback(res));
   }
 
-  // getGameLikesAndDislikes(gameId: string, callback: (res: GameLikesAndDislikesModel) => void){
-  //   this._http.post<GameLikesAndDislikesModel>('games/get/like', gameId, res => callback(res));
-  // }
 
-
-  //---------------------------------------------
   addComment(comment: GameAddCommentModel, callback: (res: GameCommentsModel) => void){
-    comment.userID = this.currentUser.userid;
+    comment.userID = this.currentUser.id;
     this._http.post<GameCommentsModel>('games/add/comment', comment, res => callback(res));
   }
 
   addLikeOrDislike(likeOrDislike: GameAddLikeOrDislikeModel, callback: (res: GameLikesAndDislikesModel) => void){
-    likeOrDislike.userID = this.currentUser.userid;
+    likeOrDislike.userID = this.currentUser.id;
     this._http.post<GameLikesAndDislikesModel>('games/add/like', likeOrDislike, res => callback(res));
   }
+
+  getGameLikesAndDislikes(callback: (res: GameAddLikeOrDislikeModel[]) => void){
+    this._http.get<GameAddLikeOrDislikeModel[]>('games/like', res => callback(res));
+  } // oyunu beğenenleri/beğenmeyenleri getirir
 }
