@@ -12,8 +12,7 @@
               </app-animated-button>
           </span>
         </div>
-        <h2 class="title">Emre Yörük</h2>
-        <p class="category">Software Engineer</p>
+        <h2 class="title">{{ profile.full_name }}</h2>
       </div>
     </div>
     <div class="section pt-0">
@@ -50,7 +49,7 @@
 
                 <div class="col-lg-6 mx-auto">
                     <div class="form-group row">
-                      <label for="name" class="col-3 my-auto">Name:</label>
+                      <label for="name" class="col-3 my-auto">Full Name:</label>
                       <div class="input-group col-9">
                         <div class="input-group-prepend">
                           <div class="input-group-text"><i class="now-ui-icons users_circle-08"></i></div>
@@ -59,7 +58,7 @@
                           type="text"
                           placeholder="Name and Surname"
                           class="form-control"
-                          ngModel
+                          [(ngModel)]="profile.full_name"
                           id="name"
                           name="name"
                           #name
@@ -67,6 +66,46 @@
                           minlength="3"
                           [appIsValid]="name.validity.valid">
                           <span class="text-right invalid-feedback">Name must be at least 3 characters!</span>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="name" class="col-3 my-auto">Email Address:</label>
+                      <div class="input-group col-9">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text"><i class="now-ui-icons ui-1_email-85"></i></div>
+                        </div>
+                        <input
+                          type="email"
+                          placeholder="Email..."
+                          class="form-control"
+                          [(ngModel)]="profile.email"
+                          id="email"
+                          email="email"
+                          #email
+                          email
+                          required
+                          [appIsValid]="email.validity.valid">
+                          <span class="text-right invalid-feedback">Please enter a valid email adress!</span>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="name" class="col-3 my-auto">Username:</label>
+                      <div class="input-group col-9">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text"><i class="now-ui-icons users_single-02"></i></div>
+                        </div>
+                        <input
+                          type="text"
+                          placeholder="Username..."
+                          class="form-control"
+                          [(ngModel)]="profile.username"
+                          id="username"
+                          name="username"
+                          #username
+                          required
+                          minlength="1"
+                          [appIsValid]="username.validity.valid">
+                          <span class="text-right invalid-feedback">Username must be at least 1 characters!</span>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -101,7 +140,7 @@
                           placeholder="New Password"
                           id="newPassword"
                           name="newPassword"
-                          ngModel
+                          [(ngModel)]="profile.password"
                           #newPassword
                           required
                           minlength="6"
@@ -121,7 +160,7 @@
                           placeholder="About me"
                           name="aboutMe"
                           #aboutMe
-                          ngModel
+                          [(ngModel)]="profile.about"
                           id="aboutMe">
                         </textarea>
                       </div>
@@ -149,7 +188,7 @@
                         placeholder="Your instagram account link"
                         id="instagram"
                         name="instagram"
-                        ngModel
+                        [(ngModel)]="profile.instagram_link"
                         #instagram>
                     </div>
                   </div>
@@ -166,7 +205,7 @@
                         id="xtwitter"
                         name="xtwitter"
                         #xtwitter
-                        ngModel>
+                        [(ngModel)]="profile.x_link">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -182,7 +221,7 @@
                       id="facebook"
                       name="facebook"
                       #facebook
-                      ngModel>
+                      [(ngModel)]="profile.facebook_link">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -198,7 +237,7 @@
                         id="linkedin"
                         name="linkedin"
                         #linkedin
-                        ngModel>
+                        [(ngModel)]="profile.linkedin_link">
                     </div>
                   </div>
 

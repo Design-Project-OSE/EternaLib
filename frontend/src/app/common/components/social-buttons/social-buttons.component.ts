@@ -11,5 +11,5 @@ export class SocialButtonsComponent {
   @Input() instagram: string = "";
   @Input() x: string = "";
   @Input() linkedin: string = "";
-  @Input() github: string = "";
+  @Input() facebook: string = "";
 }

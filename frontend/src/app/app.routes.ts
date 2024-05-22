@@ -26,10 +26,16 @@ export const routes: Routes = [
             .then(c => c.HomeComponent)
       },
       {
-        path: 'profile',
+        path: 'profile/:username/:id',
         loadComponent:
             () => import('./components/profile/components/profile/profile.component')
             .then(c => c.ProfileComponent)
+      },
+      {
+        path: 'edit/:username/:id',
+        loadComponent:
+            () => import('./components/profile/components/profile-edit/profile-edit.component')
+            .then(c => c.ProfileEditComponent)
       },
       {
         path: 'about-us',
@@ -42,12 +48,6 @@ export const routes: Routes = [
         loadComponent:
             () => import('./components/contact-us/contact-us.component')
             .then(c => c.ContactUsComponent)
-      },
-      {
-        path: 'profile/edit',
-        loadComponent:
-            () => import('./components/profile/components/profile-edit/profile-edit.component')
-            .then(c => c.ProfileEditComponent)
       },
       {
         path: 'movies',

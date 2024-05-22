@@ -1,4 +1,4 @@
-export class ProfileModel{
+export class ProfileUpdateModel{
   userID: string = "";
   full_name: string = "";
   email: string = "";
@@ -10,7 +10,4 @@ export class ProfileModel{
   instagram_link: string = "";
   facebook_link: string = "";
   linkedin_link: string = "";
-  like_movie: number = 0;
-  like_book: number = 0;
-  like_game: number = 0;
 }

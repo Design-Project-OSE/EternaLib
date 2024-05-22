@@ -11,13 +11,13 @@
             </div>
           </div>
           <div class="col-3">
-            <app-animated-button routerLink="/profile/edit" class="float-left">
+            <app-animated-button routerLink="/profile/edit/{{ profile.username }}/{{ profile.userID }}" class="float-left">
               <i class="fa fa-user-pen"></i> Edit Profile
             </app-animated-button>
           </div>
         </div>
 
-        <h3 class="title">Emre Yörük</h3>
+        <h3 class="title">{{ profile.full_name }}</h3>
         <div class="content">
           <div class="social-description">
             <h2>58</h2>
@@ -39,15 +39,15 @@
         <div class="row">
           <div class="col-md-6">
             <h3 class="title mt-2">About Me</h3>
-            <h5 class="description mb-3">An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</h5>
+            <h5 class="description mb-3">{{ profile.about }}</h5>
           </div>
           <div class="col-md-6">
             <h3 class="title mt-2">My Social Accounts</h3>
                 <app-social-buttons
-                    instagram="https://www.instagram.com/emreyoruk0/"
-                    x="https://x.com/emrelyoruk"
-                    linkedin="https://www.linkedin.com/in/emreyorukk/"
-                    github="https://github.com/emreyoruk0">
+                    instagram="{{ profile.instagram_link }}"
+                    x="{{ profile.x_link}}"
+                    linkedin="{{ profile.linkedin_link }}"
+                    facebook="{{ profile.facebook_link }}">
                 </app-social-buttons>
           </div>
         </div>

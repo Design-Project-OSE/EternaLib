@@ -61,7 +61,7 @@
   transition: .2s ease-in-out;
 }
 
-.github {
+.facebook {
   margin-top: -.6em;
   margin-left: 1.2em;
 }
@@ -106,11 +106,16 @@
 .card3:hover {
   cursor: pointer;
   scale: 1.1;
-  background-color: black;
+  background-color: rgb(24, 119, 242);
 }
 
-.card3:hover .github {
+.card3:hover .facebook {
   fill: white;
+}
+
+
+.card3 .facebook {
+  fill: rgb(24, 119, 242);
 }
 
 .card4:hover {
