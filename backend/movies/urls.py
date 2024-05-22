@@ -22,7 +22,7 @@ urlpatterns=[
     path('movies/add/comment',views.list_moviegetcomment,name="Yorum yapma"),
     path('movies/add/like',views.list_moviegetlike,name="Beğeni yapma"),
     path('movies/get/id/comment',views.list_getidcomments,name="POST olarak girilen movieID ait tüm yorumları çekiyor"),
-    path('movies/get/id/like',views.list_getidlikes,name="POST olarak girilen movieID ait tüm like çekiyor"),
-    path('movies/get/id/like',views.list_getidlikeusers,name="POST olarak girilen userID ait tüm like çekiyor"),
+    path('movies/get/mid/like',views.list_getidlikes,name="POST olarak girilen movieID ait tüm like çekiyor"),
+    path('movies/get/uid/like',views.list_getidlikeusers,name="POST olarak girilen userID ait tüm like çekiyor"),
     path('movies/get/id/category/<uuid:id>',views.list_moviecategoryid,name="id girilen category bilgileri")
 ]
