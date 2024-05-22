@@ -91,6 +91,7 @@ def list_bookgetlike(request):
     elif request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         serializer = Seri_booklike(data=data)
+        user=get_object_or_404(CustomUser,id=user_id)
         if serializer.is_valid():
             user_id = serializer.validated_data['userID']
             book_id = serializer.validated_data['bookID']
@@ -101,11 +102,14 @@ def list_bookgetlike(request):
             
             if existing_like:
                 book = get_object_or_404(Book_Table, id=book_id)
+                
                 if existing_like.like and not like:
+                    user.like_book-=1
                     book.like -= 1
                 if existing_like.dislike and not dislike:
                     book.dislike -= 1
                 if not existing_like.like and like:
+                    user.like_book+=1
                     book.like += 1
                 if not existing_like.dislike and dislike:
                     book.dislike += 1
@@ -113,17 +117,18 @@ def list_bookgetlike(request):
                 existing_like.dislike = dislike
                 existing_like.save()
                 book.save()
-                
+                user.save()
                 return JsonResponse({**data,  "likecount": book.like, "dislikecount": book.dislike,'like':like,'dislike':dislike}, status=status.HTTP_200_OK)
 
             book_like = serializer.save()
             
             if book_like.like:
+                user.like_book+=1
                 book.like += 1
             if book_like.dislike:
                 book.dislike += 1
             book.save()
-            
+            user.save()
             return JsonResponse({**data, "likecount": book.like, "dislikecount": book.dislike,'like':like,'dislike':dislike}, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

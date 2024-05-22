@@ -20,7 +20,11 @@ def get_all_users(request):
                     'x_link': user.x_link,
                     'instagram_link': user.instagram_link,
                     'facebook_link': user.facebook_link,
-                    'linkedin_link': user.linkedin_link} for user in users]
+                    'linkedin_link': user.linkedin_link,
+                    'like_movies':user.like_movie,
+                    'like_games':user.like_games,
+                    'like_books':user.like_book
+                    } for user in users]
     return JsonResponse({'users':user_data})
 
 @csrf_exempt
@@ -41,7 +45,10 @@ def get_user_info(request):
                     'x_link': user.x_link,
                     'instagram_link': user.instagram_link,
                     'facebook_link': user.facebook_link,
-                    'linkedin_link': user.linkedin_link
+                    'linkedin_link': user.linkedin_link,
+                    'like_movie':user.like_movie,
+                    'like_games':user.like_games,
+                    'like_book':user.like_book
                 }
                 return JsonResponse({**user_data})
             except CustomUser.DoesNotExist:
@@ -168,7 +175,10 @@ def user_register(request):
             'instagram_link': user.instagram_link,
             'facebook_link': user.facebook_link,
             'linkedin_link': user.linkedin_link,
-            'savedate': user.savedate
+            'savedate': user.savedate,
+            'like_movies':user.like_movie,
+            'like_games':user.like_games,
+            'like_book':user.like_book
         }
 
         return JsonResponse({'success': 'User registered successfully','token':token.key, **user_data})

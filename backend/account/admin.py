@@ -5,12 +5,12 @@ from django.http import JsonResponse
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
-    list_display = ('id','email', 'full_name', 'is_staff', 'is_active', 'profil_picture',)  # Profil resmi alanını ekledik
+    list_display = ('id','email', 'full_name', 'is_staff', 'is_active',)  # Profil resmi alanını ekledik
     list_filter = ('email', 'is_staff', 'is_active',)
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('full_name', 'profil_picture')}),  # Profil resmi alanını buraya da ekleyin
-        ('Permissions', {'fields': ('is_staff', 'is_active')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active',)}),
         ('Links', {'fields': ('username', 'x_link', 'instagram_link', 'facebook_link', 'linkedin_link')}),
     )
     add_fieldsets = (

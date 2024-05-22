@@ -96,14 +96,16 @@ def list_gamegetlike(request):
             like = serializer.validated_data['like']
             dislike = serializer.validated_data['dislike']
             existing_like = Game_Like.objects.filter(userID=user_id, gameID=game_id).first()
-            
+            user=get_object_or_404(CustomUser,id=user_id)
             if existing_like:
                 game = get_object_or_404(Games_Table, id=game_id)
                 if existing_like.like and not like:
+                    user.like_games-=1
                     game.like -= 1
                 if existing_like.dislike and not dislike:
                     game.dislike -= 1
                 if not existing_like.like and like:
+                    user.like_games+=1
                     game.like += 1
                 if not existing_like.dislike and dislike:
                     game.dislike += 1
@@ -111,12 +113,14 @@ def list_gamegetlike(request):
                 existing_like.dislike = dislike
                 existing_like.save()
                 game.save()
+                user.save()
                 
                 return JsonResponse({**data,  "likecount": game.like, "dislikecount": game.dislike,'like':like,'dislike':dislike}, status=status.HTTP_200_OK)
 
             game_like = serializer.save()
             
             if game_like.like:
+                user.like_games+=1
                 game.like += 1
             if game_like.dislike:
                 game.dislike += 1

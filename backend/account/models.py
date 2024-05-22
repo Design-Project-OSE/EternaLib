@@ -15,6 +15,8 @@ class CustomUser(AbstractUser):
     facebook_link = models.URLField(blank=True, null=True,verbose_name="Facebook URL")
     linkedin_link = models.URLField(blank=True, null=True,verbose_name="Linkedn URL")
     savedate=models.DateTimeField(auto_now=True,verbose_name="Kayıt Tarihi")
-
+    like_movie=models.IntegerField(default=0,verbose_name="Beğendiği Film Sayısı")
+    like_games=models.IntegerField(default=0,verbose_name="Beğendiği Oyun Sayısı")
+    like_book=models.IntegerField(default=0,verbose_name="Beğendiği Kitap Sayısı")
     def __str__(self):
         return self.email
