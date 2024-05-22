@@ -73,8 +73,8 @@ def list_gamegetcomment(request):
         if serializer.is_valid():
             game_comment=serializer.save()
             game = get_object_or_404(Games_Table, id=game_comment.gameID)
-            if game.commentscount:
-                game.commentscount+=1
+            game.commentscount+=1
+            game.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
