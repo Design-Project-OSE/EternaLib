@@ -75,7 +75,8 @@ def list_bookgetcomment(request):
         if serializer.is_valid():
             book_comment=serializer.save()
             book = get_object_or_404(Book_Table, id=book_comment.bookID)
-            if book_comment.commentscount:
+            
+            if book.commentscount:
                 book.commentscount+=1
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

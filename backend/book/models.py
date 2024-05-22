@@ -51,7 +51,6 @@ class Book_Category(models.Model):
 
 class Book_Table(models.Model):
     id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap ID")
-
     name = models.CharField(max_length=maxtext, verbose_name="İsim")
     urlname = models.CharField(max_length=maxtext, verbose_name="URL İsmi")
     production = models.CharField(max_length=maxtext, verbose_name="Yapımcı")
