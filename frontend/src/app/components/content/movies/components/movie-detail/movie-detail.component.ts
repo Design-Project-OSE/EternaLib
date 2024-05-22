@@ -10,6 +10,7 @@ import { CategoryModel } from '../../../models/category.model';
 import { MovieAddLikeOrDislikeModel } from '../../models/movie-add-like-or-dislike.model';
 import { MovieAddCommentModel } from '../../models/movie-add-comment.model';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-movie-detail',
@@ -27,9 +28,15 @@ export class MovieDetailComponent {
 
   comments: MovieCommentsModel[] = []; // tıklanan filmin yorumlarını tutacak
 
+  isLiked: boolean;
+  isDisliked: boolean;
+
+  currentUser = this._authService.getCurrentUser();
+
   constructor(
     private _movieService: MovieService,
     private _toastr: ToastrService,
+    private _authService: AuthService,
     private _activated: ActivatedRoute
   ){
     this._activated.params.subscribe(res => {
@@ -37,6 +44,7 @@ export class MovieDetailComponent {
       this.movieId = res["id"];
       this.getMovieByUrl();
       this.getMovieComments();
+      this.getMovieLikesAndDislikes();
     });
   }
 
@@ -57,21 +65,53 @@ export class MovieDetailComponent {
     });
   }
 
+  getMovieLikesAndDislikes(){
+    this._movieService.getMovieLikesAndDislikes(res => {
+      for(let i = 0; i < res.length; i++){
+        if(res[i].movieID == this.movieId && res[i].userID == this.currentUser.id){
+          this.isLiked = res[i].like;
+          this.isDisliked = res[i].dislike;
+        }
+      }
+    });
+  }
 
-  addLikeOrDislike(likeOrDislike: boolean){
+
+  addLike(){
     let model = new MovieAddLikeOrDislikeModel();
     model.movieID = this.movieId;
+    model.userID = this.currentUser.id;
 
-    if(likeOrDislike){
+    if(!this.isLiked){
       model.like = true;
       model.dislike = false;
     } else {
-      model.dislike = true;
       model.like = false;
+      model.dislike = this.isDisliked;
     }
 
     this._movieService.addLikeOrDislike(model, res => {
       this.getMovieByUrl();
+      this.getMovieLikesAndDislikes();
+    });
+  }
+
+  addDislike(){
+    let model = new MovieAddLikeOrDislikeModel();
+    model.movieID = this.movieId;
+    model.userID = this.currentUser.id;
+
+    if(!this.isDisliked){
+      model.dislike = true;
+      model.like = false;
+    } else {
+      model.dislike = false;
+      model.like = this.isLiked;
+    }
+
+    this._movieService.addLikeOrDislike(model, res => {
+      this.getMovieByUrl();
+      this.getMovieLikesAndDislikes();
     });
   }
 
@@ -80,14 +120,16 @@ export class MovieDetailComponent {
     let model = { movieID: this.movieId }
     this._movieService.getMovieComments(model, res => {
       this.comments = res;
+      console.log(res);
     });
   }
 
 
-  
+
   addComment(form: NgForm){
     let model = new MovieAddCommentModel();
     model.movieID = this.movieId;
+    model.userID = this.currentUser.id;
     model.comment = form.controls["comment"].value;
 
     this._movieService.addComment(model, res => {

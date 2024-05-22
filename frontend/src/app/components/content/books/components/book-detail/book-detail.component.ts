@@ -27,7 +27,7 @@ export class BookDetailComponent {
 
   bookCategories: CategoryModel[] = []; // tıklanan kitabın kategorilerini tutacak
 
-  comments: any[] = []; // tıklanan kitabın yorumlarını tutacak
+  comments: BookCommentsModel[] = []; // tıklanan kitabın yorumlarını tutacak
 
   isLiked: boolean;
   isDisliked: boolean;
@@ -37,8 +37,8 @@ export class BookDetailComponent {
   constructor(
     private _bookService: BookService,
     private _toastr: ToastrService,
-    private _activates: ActivatedRoute,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _activates: ActivatedRoute
   ){
     this._activates.params.subscribe(res => {
       this.bookUrl = res["url"];

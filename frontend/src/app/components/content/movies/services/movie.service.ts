@@ -6,17 +6,14 @@ import { MovieCommentsModel } from '../models/movie-comments.model';
 import { MovieLikesAndDislikesModel } from '../models/movie-likes-and-dislikes.model';
 import { MovieAddCommentModel } from '../models/movie-add-comment.model';
 import { MovieAddLikeOrDislikeModel } from '../models/movie-add-like-or-dislike.model';
-import { AuthService } from '../../../auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
-  currentUser = this._authService.getCurrentUser();
 
   constructor(
-    private _http: GenericHttpService,
-    private _authService: AuthService
+    private _http: GenericHttpService
   ) { }
 
   getMovies(callback: (res: MovieModel[]) => void){
@@ -42,21 +39,18 @@ export class MovieService {
     this._http.post<MovieCommentsModel[]>('movies/get/id/comment', model, res => callback(res));
   }
 
-  // getMovieLikesAndDislikes(movieId: string, callback: (res: MovieLikesAndDislikesModel) => void){
-  //   this._http.post<MovieLikesAndDislikesModel>('movies/get/like', movieId, res => callback(res));
-  // }
 
 
-
-  //------------------------------------------------
   addComment(comment: MovieAddCommentModel, callback: (res: MovieCommentsModel) => void){
-    comment.userID = this.currentUser.id;
     this._http.post<MovieCommentsModel>('movies/add/comment', comment, res => callback(res));
   }
 
 
   addLikeOrDislike(likeOrDislike: MovieAddLikeOrDislikeModel, callback: (res: MovieLikesAndDislikesModel) => void){
-    likeOrDislike.userID = this.currentUser.id;
     this._http.post<MovieLikesAndDislikesModel>('movies/add/like', likeOrDislike, res => callback(res));
   }
+
+  getMovieLikesAndDislikes(callback: (res: MovieAddLikeOrDislikeModel[]) => void){
+    this._http.get<MovieAddLikeOrDislikeModel[]>('movies/like', res => callback(res));
+  } // kitabı beğenenleri/beğenmeyenleri getirir
 }

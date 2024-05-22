@@ -4,7 +4,6 @@ import { GameModel } from '../models/game.model';
 import { CategoryModel } from '../../models/category.model';
 import { GameCommentsModel } from '../models/game-comments.model';
 import { GameLikesAndDislikesModel } from '../models/game-likes-and-dislikes.model';
-import { AuthService } from '../../../auth/services/auth.service';
 import { GameAddCommentModel } from '../models/game-add-comment.model';
 import { GameAddLikeOrDislikeModel } from '../models/game-add-like-or-dislike.model';
 
@@ -12,11 +11,9 @@ import { GameAddLikeOrDislikeModel } from '../models/game-add-like-or-dislike.mo
   providedIn: 'root'
 })
 export class GameService {
-  currentUser = this._authService.getCurrentUser();
 
   constructor(
-    private _http: GenericHttpService,
-    private _authService: AuthService
+    private _http: GenericHttpService
   ) { }
 
   getGames(callback: (res: GameModel[]) => void) {
@@ -43,12 +40,10 @@ export class GameService {
 
 
   addComment(comment: GameAddCommentModel, callback: (res: GameCommentsModel) => void){
-    comment.userID = this.currentUser.id;
     this._http.post<GameCommentsModel>('games/add/comment', comment, res => callback(res));
   }
 
   addLikeOrDislike(likeOrDislike: GameAddLikeOrDislikeModel, callback: (res: GameLikesAndDislikesModel) => void){
-    likeOrDislike.userID = this.currentUser.id;
     this._http.post<GameLikesAndDislikesModel>('games/add/like', likeOrDislike, res => callback(res));
   }
 
