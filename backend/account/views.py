@@ -11,8 +11,16 @@ from django.db import IntegrityError
 @csrf_exempt
 def get_all_users(request):
     users = CustomUser.objects.all()
-    user_data = [{'id': user.id, 'full_name': user.full_name, 'email': user.email} for user in users]
-    return JsonResponse({'users': user_data})
+    user_data = [{'id': user.id,
+                    'full_name': user.full_name,
+                    'email': user.email,
+                    'username': user.username,
+                    'profil_picture': user.profil_picture.url if user.profil_picture else None,
+                    'x_link': user.x_link,
+                    'instagram_link': user.instagram_link,
+                    'facebook_link': user.facebook_link,
+                    'linkedin_link': user.linkedin_link} for user in users]
+    return JsonResponse({'users':user_data})
 
 @csrf_exempt
 def get_user_info(request):
@@ -33,7 +41,7 @@ def get_user_info(request):
                     'facebook_link': user.facebook_link,
                     'linkedin_link': user.linkedin_link
                 }
-                return JsonResponse({'user': user_data})
+                return JsonResponse({**user_data})
             except CustomUser.DoesNotExist:
                 return JsonResponse({'error': 'User does not exist'}, status=404)
         else:
@@ -81,7 +89,7 @@ def update_user_info(request):
                     'savedate': user.savedate
                 }
 
-                return JsonResponse({'success': 'User information updated successfully', 'user': user_data})
+                return JsonResponse({'success': 'User information updated successfully', **user_data})
             except CustomUser.DoesNotExist:
                 return JsonResponse({'error': 'User does not exist'}, status=404)
         else:
