@@ -65,6 +65,7 @@ def update_user_info(request):
                 username = data.get('username')
                 about=data.get('about')
                 profil_picture = data.get('profil_picture')
+                password=data.get('password')
                 x_link = data.get('x_link')
                 instagram_link = data.get('instagram_link')
                 facebook_link = data.get('facebook_link')
@@ -76,6 +77,7 @@ def update_user_info(request):
                 user.about=about
                 user.profil_picture = profil_picture
                 user.x_link = x_link
+                user.password=password
                 user.instagram_link = instagram_link
                 user.facebook_link = facebook_link
                 user.linkedin_link = linkedin_link
@@ -85,6 +87,7 @@ def update_user_info(request):
                     'full_name': user.full_name,
                     'email': user.email,
                     'username': user.username,
+                    'password':user.password,
                     'about':user.about,
                     'profil_picture': user.profil_picture.url if user.profil_picture else None,
                     'x_link': user.x_link,

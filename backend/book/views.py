@@ -149,7 +149,7 @@ def list_getidcomments(request):
                         comment_data = {
                             'id': comment.id,
                             'userID': comment.userID,
-                            'movieID': comment.bookID,
+                            'bookID': comment.bookID,
                             'comment': comment.comment,
                             'savedate': comment.savedate,
                             'full_name': user.full_name,
@@ -182,7 +182,8 @@ def list_getidlikes(request):
             return JsonResponse({'error': 'No book ID provided.'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
-    
+
+@csrf_exempt
 def list_getidlikeusers(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -193,6 +194,54 @@ def list_getidlikeusers(request):
             return JsonResponse(serializer.data, safe=False)
         else:
             return JsonResponse({'error': 'No user ID provided.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+    
+@csrf_exempt
+def list_liked(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            book_id = data.get('userID')
+
+            if book_id is not None:
+                # bookID ile ilgili yorumları çek
+                likes = Book_Like.objects.filter(userID=book_id)
+                like_serializer = Seri_booklike(likes, many=True)
+
+                if likes.exists():
+                    # Yorumların içine kullanıcı bilgilerini birleştir
+                    likes_with_user_info = []
+                    for like in likes:
+                        book = get_object_or_404(Book_Table, id=like.bookID)
+                        like_data = {
+                            'id': like.id,
+                            'userID': like.userID,
+                            'bookID': like.bookID,
+                            'like':like.like,
+                            'dislike':like.dislike,
+                            'savedate': like.savedate,
+                            'name': book.name,
+                            'urlname': book.urlname,
+                            'production': book.production,
+                            'about':book.about,
+                            'release':book.release,
+                            'background':book.background,
+                            'poster':book.poster,
+                            'like':book.like,
+                            'dislike':book.dislike,
+                            'commentcount':book.commentscount
+                        }
+                        likes_with_user_info.append(like_data)
+
+
+                    return JsonResponse(likes_with_user_info, safe=False)
+                else:
+                    return JsonResponse({'error': 'No comments found for the provided book ID.'}, status=404)
+            else:
+                return JsonResponse({'error': 'No book ID provided.'}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
     
