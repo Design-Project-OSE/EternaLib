@@ -206,3 +206,42 @@ def list_getidlikeusers(request):
     else:
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
     
+@csrf_exempt
+def list_liked(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            user_id = data.get('userID')
+
+            if user_id is not None:
+                likes = Movies_Like.objects.filter(userID=user_id, like=True)
+                likes_with_movie_info = []
+
+                for like in likes:
+                    movie = get_object_or_404(Movies_Table, id=like.movieID)
+                    like_data = {
+                        'id': like.id,
+                        'userID': like.userID,
+                        'movieID': like.movieID,
+                        'savedate': like.savedate,
+                        'name': movie.name,
+                        'urlname': movie.urlname,
+                        'production': movie.production,
+                        'about': movie.about,
+                        'release': movie.release,
+                        'background': movie.background,
+                        'poster': movie.poster,
+                        'commentcount': movie.commentscount
+                    }
+                    likes_with_movie_info.append(like_data)
+
+                if likes_with_movie_info:
+                    return JsonResponse(likes_with_movie_info, safe=False)
+                else:
+                    return JsonResponse({'error': 'No liked movies found for the provided user ID.'}, status=404)
+            else:
+                return JsonResponse({'error': 'No user ID provided.'}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)

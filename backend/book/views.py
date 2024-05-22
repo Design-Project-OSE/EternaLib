@@ -206,7 +206,7 @@ def list_liked(request):
 
             if book_id is not None:
                 # bookID ile ilgili yorumları çek
-                likes = Book_Like.objects.filter(userID=book_id)
+                likes = Book_Like.objects.filter(userID=book_id,like=True)
                 like_serializer = Seri_booklike(likes, many=True)
 
                 if likes.exists():

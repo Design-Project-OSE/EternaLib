@@ -26,5 +26,5 @@ urlpatterns=[
     path('books/get/id/category/<uuid:id>',views.list_bookcategoryid,name="id girilen category bilgileri"),
     path('books/get/gid/like',views.list_getidlikes,name="POST olarak girilen bookID ait tüm like çekiyor"),
     path('books/get/sid/like',views.list_getidlikeusers,name="POST olarak girilen userID ait tüm like çekiyor"),
-    path('books/like/search',views.list_liked,name="userID verilen kullanıcının  beğendiği filmler tam liste")
+    path('books/like/search',views.list_liked,name="userID verilen kullanıcının  beğendiği kitaplar tam liste")
 ]

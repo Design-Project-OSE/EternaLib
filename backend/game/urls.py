@@ -26,5 +26,6 @@ urlpatterns=[
     path('games/get/id/comment',views.list_getidcomments,name="POST olarak girilen gameID ait tüm yorumları çekiyor"),
     path('games/get/gid/like',views.list_getidlikes,name="POST olarak girilen gameID ait tüm like çekiyor"),
     path('games/get/sid/like',views.list_getidlikeusers,name="POST olarak girilen userID ait tüm like çekiyor"),
-    path('movies/get/id/category/<uuid:id>',views.list_gamecategoryid,name="id girilen category bilgileri")
+    path('movies/get/id/category/<uuid:id>',views.list_gamecategoryid,name="id girilen category bilgileri"),
+    path('movies/like/search',views.list_liked,name="userID verilen kullanıcının  beğendiği oyunlar tam liste")
 ]

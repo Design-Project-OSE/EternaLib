@@ -191,3 +191,51 @@ def list_getidlikeusers(request):
             return JsonResponse({'error': 'No user ID provided.'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+    
+@csrf_exempt
+def list_liked(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            game_id = data.get('userID')
+
+            if game_id is not None:
+                # bookID ile ilgili yorumları çek
+                likes = Game_Like.objects.filter(userID=game_id,like=True)
+                like_serializer = Seri_gameslike(likes, many=True)
+
+                if likes.exists():
+                    # Yorumların içine kullanıcı bilgilerini birleştir
+                    likes_with_user_info = []
+                    for like in likes:
+                        game = get_object_or_404(Games_Table, id=like.gameID)
+                        like_data = {
+                            'id': like.id,
+                            'userID': like.userID,
+                            'gameID': like.gameID,
+                            'like':like.like,
+                            'dislike':like.dislike,
+                            'savedate': like.savedate,
+                            'name': game.name,
+                            'urlname': game.urlname,
+                            'production': game.production,
+                            'about':game.about,
+                            'release':game.release,
+                            'background':game.background,
+                            'poster':game.poster,
+                            'like':game.like,
+                            'dislike':game.dislike,
+                            'commentcount':game.commentscount
+                        }
+                        likes_with_user_info.append(like_data)
+
+
+                    return JsonResponse(likes_with_user_info, safe=False)
+                else:
+                    return JsonResponse({'error': 'No comments found for the provided game ID.'}, status=404)
+            else:
+                return JsonResponse({'error': 'No game ID provided.'}, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
