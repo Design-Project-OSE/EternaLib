@@ -89,9 +89,9 @@ def list_moviegetcomment(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAny])
-@csrf_exempt
 def list_moviegetlike(request):
     if request.method == 'GET':
         likes = Movies_Like.objects.all()
@@ -123,13 +123,13 @@ def list_moviegetlike(request):
                 existing_like.save()
                 movie.save()
                 data = {
-                'movieID':movie.id,
-                'userID':user_id,
-                'like':movie.like,
-                'dislike':movie.dislike
-            }
+                    'movieID': movie.id,
+                    'userID': user_id,
+                    'like': movie.like,
+                    'dislike': movie.dislike
+                }
                 
-                return Response({**data}, status=status.HTTP_200_OK)
+                return Response({**data,'like':movie.like,'dislike':movie.dislike}, status=status.HTTP_200_OK)
             
             movie_like = serializer.save()
             movie = get_object_or_404(Movies_Table, id=movie_id)
@@ -139,10 +139,9 @@ def list_moviegetlike(request):
                 movie.dislike += 1
             movie.save()
             
-            return Response({"data": serializer.data, "like": movie.like, "dislike": movie.dislike}, status=status.HTTP_201_CREATED)
+            return Response({**data, "like": movie.like, "dislike": movie.dislike}, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
     
 @csrf_exempt
 def list_getidcomments(request):
