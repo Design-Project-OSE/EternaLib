@@ -89,7 +89,7 @@ def list_moviegetcomment(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+@csrf_exempt
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAny])
 def list_moviegetlike(request):
