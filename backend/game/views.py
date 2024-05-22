@@ -90,12 +90,13 @@ def list_gamegetlike(request):
         if serializer.is_valid():
             user_id = serializer.validated_data['userID']
             game_id = serializer.validated_data['gameID']
+            game = get_object_or_404(Games_Table, id=game_id)
             like = serializer.validated_data['like']
             dislike = serializer.validated_data['dislike']
             existing_like = Game_Like.objects.filter(userID=user_id, gameID=game_id).first()
             
             if existing_like:
-                game = Games_Table.objects.get(id=game_id)
+                game = get_object_or_404(Games_Table, id=game_id)
                 if existing_like.like and not like:
                     game.like -= 1
                 if existing_like.dislike and not dislike:
@@ -108,24 +109,18 @@ def list_gamegetlike(request):
                 existing_like.dislike = dislike
                 existing_like.save()
                 game.save()
-                data = {
-                'gameID':game.id,
-                'userID':user_id,
-                'like':game.like,
-                'dislike':game.dislike
-            }
                 
-                return Response({**data}, status=status.HTTP_200_OK)
-            
+                return JsonResponse({**data,  "likecount": game.like, "dislikecount": game.dislike,'like':like,'dislike':dislike}, status=status.HTTP_200_OK)
+
             game_like = serializer.save()
-            game = get_object_or_404(Games_Table, id=game_id)
+            
             if game_like.like:
                 game.like += 1
             if game_like.dislike:
                 game.dislike += 1
             game.save()
             
-            return Response({"data": serializer.data, "like": game.like, "dislike": game.dislike}, status=status.HTTP_201_CREATED)
+            return JsonResponse({**data, "likecount": game.like, "dislikecount": game.dislike,'like':like,'dislike':dislike}, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

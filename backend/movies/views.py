@@ -89,7 +89,6 @@ def list_moviegetcomment(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@csrf_exempt
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAny])
 def list_moviegetlike(request):
@@ -104,12 +103,13 @@ def list_moviegetlike(request):
         if serializer.is_valid():
             user_id = serializer.validated_data['userID']
             movie_id = serializer.validated_data['movieID']
+            movie = get_object_or_404(Movies_Table, id=movie_id)
             like = serializer.validated_data['like']
             dislike = serializer.validated_data['dislike']
             existing_like = Movies_Like.objects.filter(userID=user_id, movieID=movie_id).first()
             
             if existing_like:
-                movie = Movies_Table.objects.get(id=movie_id)
+                movie = get_object_or_404(Movies_Table, id=movie_id)
                 if existing_like.like and not like:
                     movie.like -= 1
                 if existing_like.dislike and not dislike:
@@ -122,24 +122,18 @@ def list_moviegetlike(request):
                 existing_like.dislike = dislike
                 existing_like.save()
                 movie.save()
-                data = {
-                    'movieID': movie.id,
-                    'userID': user_id,
-                    'like': movie.like,
-                    'dislike': movie.dislike
-                }
                 
-                return Response({**data,'like':movie.like,'dislike':movie.dislike}, status=status.HTTP_200_OK)
-            
+                return JsonResponse({**data,  "likecount": movie.like, "dislikecount": movie.dislike,'like':like,'dislike':dislike}, status=status.HTTP_200_OK)
+
             movie_like = serializer.save()
-            movie = get_object_or_404(Movies_Table, id=movie_id)
+            
             if movie_like.like:
                 movie.like += 1
             if movie_like.dislike:
                 movie.dislike += 1
             movie.save()
             
-            return Response({**data, "like": movie.like, "dislike": movie.dislike}, status=status.HTTP_201_CREATED)
+            return JsonResponse({**data, "likecount": movie.like, "dislikecount": movie.dislike,'like':like,'dislike':dislike}, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

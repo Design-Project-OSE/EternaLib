@@ -14,7 +14,7 @@ class Game_Comment(models.Model):
     class Meta:
         verbose_name = "Oyun Yorumu"
         verbose_name_plural = "Oyun Yorumları"
-        unique_together = ('userID', 'gameID')
+
 
     def __str__(self):
         return str(self.id)
