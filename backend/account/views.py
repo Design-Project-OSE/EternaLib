@@ -27,9 +27,9 @@ def get_all_users(request):
                     'instagram_link': user.instagram_link,
                     'facebook_link': user.facebook_link,
                     'linkedin_link': user.linkedin_link,
-                    'like_movies':user.like_movie,
+                    'like_movie':user.like_movie,
                     'like_games':user.like_games,
-                    'like_books':user.like_book
+                    'like_book':user.like_book
                     } for user in users]
     return JsonResponse({'users':user_data})
 
@@ -185,7 +185,7 @@ def user_register(request):
             'facebook_link': user.facebook_link,
             'linkedin_link': user.linkedin_link,
             'savedate': user.savedate,
-            'like_movies': user.like_movie,
+            'like_movie': user.like_movie,
             'like_games': user.like_games,
             'like_book': user.like_book
         }
@@ -239,15 +239,13 @@ def change_password(request):
         new_password = data.get('new_password')
 
         try:
-            # userID'yi UUID formatına dönüştür
             user_id = uuid.UUID(user_id)
-            # UUID'ye sahip kullanıcıyı bul
             user = CustomUser.objects.get(id=user_id)
         except (ValueError, CustomUser.DoesNotExist):
             return JsonResponse({'message': 'User not found'}, status=404)
 
         if not user.check_password(current_password):
-            return JsonResponse({'message': 'Password is wrong'}, status=400)
+            return JsonResponse({'message': 'Current password is wrong!'}, status=400)
 
         user.set_password(new_password)
         user.save()
