@@ -138,7 +138,7 @@ def list_gamegetlike(request):
             game_like = serializer.save()
             
             if game_like.like:
-                user.like_book += 1
+                user.like_games += 1
                 game.like += 1
             if game_like.dislike:
                 game.dislike += 1
