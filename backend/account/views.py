@@ -9,6 +9,9 @@ from rest_framework.authtoken.models import Token
 from django.db import IntegrityError
 from django.core.files.storage import FileSystemStorage
 import random
+from movies.models import Movies_Comment,Movies_Like
+from game.models import Game_Comment,Game_Like
+from book.models import Book_Comment,Book_Like
 
 @csrf_exempt
 def get_all_users(request):
@@ -211,7 +214,14 @@ def delete_user(request):
         if userID:
             try:
                 user = CustomUser.objects.get(id=userID)
+                Movies_Comment.objects.filter(userID=userID).delete()
+                Game_Comment.objects.filter(userID=userID).delete()
+                Book_Comment.objects.filter(userID=userID).delete()
+                Book_Like.objects.filter(userID=userID).delete()
+                Movies_Like.objects.filter(userID=userID).delete()
+                Game_Like.objects.filter(userID=userID).delete()
                 user.delete()
+
                 return JsonResponse({'message': 'Kullanıcı başarıyla silindi'})
             except CustomUser.DoesNotExist:
                 return JsonResponse({'message': 'Kullanıcı mevcut değil'}, status=404)
