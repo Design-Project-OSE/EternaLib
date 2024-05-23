@@ -4,19 +4,19 @@ import uuid
 
 class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,verbose_name="ID")  
-    full_name = models.CharField(max_length=255,verbose_name="İsim Soyad")
-    email = models.EmailField(unique=True,verbose_name="E-Mail")
-    about=models.CharField(max_length=500,verbose_name="Hakkında",blank=True, null=True,)
+    full_name = models.CharField(blank=True, null=True,max_length=255,verbose_name="İsim Soyad")
+    email = models.EmailField(blank=True, null=True,unique=True,verbose_name="E-Mail")
+    about=models.CharField(blank=True, null=True,max_length=500,verbose_name="Hakkında",blank=True, null=True,)
     username = models.CharField(max_length=150, unique=True,blank=True, null=True,verbose_name="Kullanıcı Adı")
-    password = models.CharField(max_length=128,verbose_name="Şifre")
+    password = models.CharField(blank=True, null=True,max_length=128,verbose_name="Şifre")
     profil_picture=models.ImageField(blank=True, null=True,verbose_name="Profil Resmi")
     x_link = models.URLField(blank=True, null=True,verbose_name="X URL")
     instagram_link = models.URLField(blank=True, null=True,verbose_name="İnstegram URL")
     facebook_link = models.URLField(blank=True, null=True,verbose_name="Facebook URL")
     linkedin_link = models.URLField(blank=True, null=True,verbose_name="Linkedn URL")
     savedate=models.DateTimeField(auto_now=True,verbose_name="Kayıt Tarihi")
-    like_movie=models.IntegerField(default=0,verbose_name="Beğendiği Film Sayısı")
-    like_games=models.IntegerField(default=0,verbose_name="Beğendiği Oyun Sayısı")
-    like_book=models.IntegerField(default=0,verbose_name="Beğendiği Kitap Sayısı")
+    like_movie=models.IntegerField(blank=True, null=True,default=0,verbose_name="Beğendiği Film Sayısı")
+    like_games=models.IntegerField(blank=True, null=True,default=0,verbose_name="Beğendiği Oyun Sayısı")
+    like_book=models.IntegerField(blank=True, null=True,default=0,verbose_name="Beğendiği Kitap Sayısı")
     def __str__(self):
         return self.email
