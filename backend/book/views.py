@@ -235,7 +235,7 @@ def list_getidlikeusers(request):
         data = json.loads(request.body.decode('utf-8'))
         user_id = data.get('userID')
         if user_id is not None:  
-            likes = Book_Like.objects.filter(user_id=user_id)
+            likes = Book_Like.objects.filter(userID=user_id,like=True)
             serializer = Seri_booklike(likes, many=True)
             return JsonResponse(serializer.data, safe=False)
         else:

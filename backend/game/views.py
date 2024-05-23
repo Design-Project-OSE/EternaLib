@@ -210,13 +210,14 @@ def list_getidlikes(request):
             return JsonResponse({'message': 'No game ID provided.'}, status=400)
     else:
         return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
-    
+
+@csrf_exempt
 def list_getidlikeusers(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         user_id = data.get('userID')
         if user_id is not None:  
-            likes = Game_Like.objects.filter(user_id=user_id)
+            likes = Game_Like.objects.filter(userID=user_id,like=True)
             serializer = Seri_gameslike(likes, many=True)
             return JsonResponse(serializer.data, safe=False)
         else:
