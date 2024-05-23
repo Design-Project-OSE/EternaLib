@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from .models import CustomUser
 from rest_framework.authtoken.models import Token
 from django.db import IntegrityError
+from django.core.files.storage import FileSystemStorage
 
 @csrf_exempt
 def get_all_users(request):
@@ -79,6 +80,12 @@ def update_user_info(request):
                 instagram_link = data.get('instagram_link')
                 facebook_link = data.get('facebook_link')
                 linkedin_link = data.get('linkedin_link')
+                if 'profil_picture' in request.FILES:
+                    profil_picture = request.FILES['profil_picture']
+                    fs = FileSystemStorage(location='backend/images')
+                    filename = fs.save(profil_picture.name, profil_picture)
+                    uploaded_file_url = fs.url(filename)
+                    user.profil_picture = filename 
 
                 user.full_name = full_name
                 user.email = email
