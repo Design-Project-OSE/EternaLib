@@ -91,7 +91,7 @@ def list_bookgetlike(request):
         try:
             data = json.loads(request.body.decode('utf-8'))
         except json.JSONDecodeError:
-            return Response({'error': 'Invalid JSON'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Invalid JSON'}, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = Seri_booklike(data=data)
         if serializer.is_valid():
@@ -191,13 +191,13 @@ def list_getidcomments(request):
 
                     return JsonResponse(comments_with_user_info, safe=False)
                 else:
-                    return JsonResponse({'error': 'No comments found for the provided book ID.'}, status=404)
+                    return JsonResponse({'message': 'No comments found for the provided book ID.'}, status=404)
             else:
-                return JsonResponse({'error': 'No book ID provided.'}, status=400)
+                return JsonResponse({'message': 'No book ID provided.'}, status=400)
         except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
+            return JsonResponse({'message': 'Invalid JSON.'}, status=400)
     else:
-        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+        return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
     
 @csrf_exempt
 def list_getidlikes(request):
@@ -209,9 +209,9 @@ def list_getidlikes(request):
             serializer = Seri_booklike(comments, many=True)
             return JsonResponse(serializer.data, safe=False)
         else:
-            return JsonResponse({'error': 'No book ID provided.'}, status=400)
+            return JsonResponse({'message': 'No book ID provided.'}, status=400)
     else:
-        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+        return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
 
 @csrf_exempt
 def list_getidlikeusers(request):
@@ -223,9 +223,9 @@ def list_getidlikeusers(request):
             serializer = Seri_booklike(likes, many=True)
             return JsonResponse(serializer.data, safe=False)
         else:
-            return JsonResponse({'error': 'No user ID provided.'}, status=400)
+            return JsonResponse({'message': 'No user ID provided.'}, status=400)
     else:
-        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+        return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
     
 @csrf_exempt
 def list_liked(request):
@@ -267,11 +267,11 @@ def list_liked(request):
 
                     return JsonResponse(likes_with_user_info, safe=False)
                 else:
-                    return JsonResponse({'error': 'No comments found for the provided book ID.'}, status=404)
+                    return JsonResponse({'message': 'No comments found for the provided book ID.'}, status=404)
             else:
-                return JsonResponse({'error': 'No book ID provided.'}, status=400)
+                return JsonResponse({'message': 'No book ID provided.'}, status=400)
         except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
+            return JsonResponse({'message': 'Invalid JSON.'}, status=400)
     else:
-        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+        return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
     

@@ -104,7 +104,7 @@ def list_moviegetlike(request):
         try:
             data = json.loads(request.body.decode('utf-8'))
         except json.JSONDecodeError:
-            return Response({'error': 'Invalid JSON'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Invalid JSON'}, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = Seri_movielike(data=data)
         if serializer.is_valid():
@@ -201,13 +201,13 @@ def list_getidcomments(request):
 
                     return JsonResponse(comments_with_user_info, safe=False)
                 else:
-                    return JsonResponse({'error': 'No comments found for the provided movie ID.'}, status=404)
+                    return JsonResponse({'message': 'No comments found for the provided movie ID.'}, status=404)
             else:
-                return JsonResponse({'error': 'No movie ID provided.'}, status=400)
+                return JsonResponse({'message': 'No movie ID provided.'}, status=400)
         except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
+            return JsonResponse({'message': 'Invalid JSON.'}, status=400)
     else:
-        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+        return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
     
 @csrf_exempt
 def list_getidlikes(request):
@@ -219,9 +219,9 @@ def list_getidlikes(request):
             serializer = Seri_movielike(comments, many=True)
             return JsonResponse(serializer.data, safe=False)
         else:
-            return JsonResponse({'error': 'No movie ID provided.'}, status=400)
+            return JsonResponse({'message': 'No movie ID provided.'}, status=400)
     else:
-        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+        return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
     
 # [POST] HAKKINDA=[alınan kullanıcı id ait like bilgilerini toplar] INPUTS=[userID]
 @csrf_exempt
@@ -234,9 +234,9 @@ def list_getidlikeusers(request):
             serializer = Seri_movielike(likes, many=True)
             return JsonResponse(serializer.data, safe=False)
         else:
-            return JsonResponse({'error': 'No user ID provided.'}, status=400)
+            return JsonResponse({'message': 'No user ID provided.'}, status=400)
     else:
-        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+        return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
     
 @csrf_exempt
 def list_liked(request):
@@ -270,10 +270,10 @@ def list_liked(request):
                 if likes_with_movie_info:
                     return JsonResponse(likes_with_movie_info, safe=False)
                 else:
-                    return JsonResponse({'error': 'No liked movies found for the provided user ID.'}, status=404)
+                    return JsonResponse({'message': 'No liked movies found for the provided user ID.'}, status=404)
             else:
-                return JsonResponse({'error': 'No user ID provided.'}, status=400)
+                return JsonResponse({'message': 'No user ID provided.'}, status=400)
         except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON.'}, status=400)
+            return JsonResponse({'message': 'Invalid JSON.'}, status=400)
     else:
-        return JsonResponse({'error': 'Only POST requests are allowed.'}, status=405)
+        return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)

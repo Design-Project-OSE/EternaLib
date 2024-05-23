@@ -55,11 +55,11 @@ def get_user_info(request):
                 }
                 return JsonResponse({**user_data})
             except CustomUser.DoesNotExist:
-                return JsonResponse({'error': 'User does not exist'}, status=404)
+                return JsonResponse({'message': 'User does not exist'}, status=404)
         else:
-            return JsonResponse({'error': 'User ID is required'}, status=400)
+            return JsonResponse({'message': 'User ID is required'}, status=400)
     else:
-        return JsonResponse({'error': 'POST method is required'}, status=405)
+        return JsonResponse({'message': 'POST method is required'}, status=405)
 
 @csrf_exempt
 def update_user_info(request):
@@ -110,13 +110,13 @@ def update_user_info(request):
                     'savedate': user.savedate
                 }
 
-                return JsonResponse({'success': 'User information updated successfully', **user_data})
+                return JsonResponse({'message': 'User information updated messagefully', **user_data})
             except CustomUser.DoesNotExist:
-                return JsonResponse({'error': 'User does not exist'}, status=404)
+                return JsonResponse({'message': 'User does not exist'}, status=404)
         else:
-            return JsonResponse({'error': 'User ID is required'}, status=400)
+            return JsonResponse({'message': 'User ID is required'}, status=400)
     else:
-        return JsonResponse({'error': 'POST method is required'}, status=405)
+        return JsonResponse({'message': 'POST method is required'}, status=405)
 
 @csrf_exempt
 def user_login(request):
@@ -140,11 +140,11 @@ def user_login(request):
                 'username': user.username,
                 'password':user.password,
             }
-            return JsonResponse({'success': 'Login successful', 'token': token.key, **user_data})
+            return JsonResponse({'message': 'Login messageful', 'token': token.key, **user_data})
         else:
-            return JsonResponse({'error': 'Invalid email or password'}, status=401)
+            return JsonResponse({'message': 'Invalid email or password'}, status=401)
     else:
-        return JsonResponse({'error': 'POST method is required'}, status=405)
+        return JsonResponse({'message': 'POST method is required'}, status=405)
 
 @csrf_exempt
 def user_register(request):
@@ -155,10 +155,10 @@ def user_register(request):
         password = data.get('password')
 
         if not (full_name and email and password):
-            return JsonResponse({'error': 'Full name, email, and password are required'}, status=400)
+            return JsonResponse({'message': 'Full name, email, and password are required'}, status=400)
 
         if CustomUser.objects.filter(email=email).exists():
-            return JsonResponse({'error': 'Email is already in use'}, status=400)
+            return JsonResponse({'message': 'Email is already in use'}, status=400)
 
         user = CustomUser.objects.create_user(username=email, email=email, password=password)
         user.full_name = full_name
@@ -185,17 +185,17 @@ def user_register(request):
             'like_book': user.like_book
         }
 
-        return JsonResponse({'success': 'User registered successfully', 'token': token.key, **user_data})
+        return JsonResponse({'message': 'User registered messagefully', 'token': token.key, **user_data})
     else:
-        return JsonResponse({'error': 'POST method is required'}, status=405)
+        return JsonResponse({'message': 'POST method is required'}, status=405)
 
 @csrf_exempt
 def user_logout(request):
     if request.method == 'POST':
         logout(request)
-        return JsonResponse({'success': 'Logout successful'})
+        return JsonResponse({'message': 'Logout messageful'})
     else:
-        return JsonResponse({'error': 'POST method is required'}, status=405)
+        return JsonResponse({'message': 'POST method is required'}, status=405)
     
 @csrf_exempt
 def delete_user(request):
@@ -203,20 +203,20 @@ def delete_user(request):
         try:
             data = json.loads(request.body)
         except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+            return JsonResponse({'message': 'Invalid JSON'}, status=400)
 
         userID = data.get('userID')
         if userID:
             try:
                 user = CustomUser.objects.get(id=userID)
                 user.delete()
-                return JsonResponse({'success': 'Kullanıcı başarıyla silindi'})
+                return JsonResponse({'message': 'Kullanıcı başarıyla silindi'})
             except CustomUser.DoesNotExist:
-                return JsonResponse({'error': 'Kullanıcı mevcut değil'}, status=404)
+                return JsonResponse({'message': 'Kullanıcı mevcut değil'}, status=404)
         else:
-            return JsonResponse({'error': 'Kullanıcı ID gerekli'}, status=400)
+            return JsonResponse({'message': 'Kullanıcı ID gerekli'}, status=400)
     else:
-        return JsonResponse({'error': 'POST yöntemi gereklidir'}, status=405)
+        return JsonResponse({'message': 'POST yöntemi gereklidir'}, status=405)
     
 @csrf_exempt
 def change_password(request):
@@ -229,15 +229,15 @@ def change_password(request):
         try:
             user = User.objects.get(id=user_id)
         except User.DoesNotExist:
-            return JsonResponse({'error': 'Kullanıcı bulunamadı'}, status=404)
+            return JsonResponse({'message': 'Kullanıcı bulunamadı'}, status=404)
 
         if not user.check_password(current_password):
-            return JsonResponse({'error': 'Mevcut şifre yanlış'}, status=400)
+            return JsonResponse({'message': 'Mevcut şifre yanlış'}, status=400)
 
         user.set_password(new_password)
         user.save()
 
-        return JsonResponse({'success': 'Şifre başarıyla değiştirildi'})
+        return JsonResponse({'message': 'Şifre başarıyla değiştirildi'})
 
     else:
-        return JsonResponse({'error': 'POST yöntemi gereklidir'}, status=405)
+        return JsonResponse({'message': 'POST yöntemi gereklidir'}, status=405)
