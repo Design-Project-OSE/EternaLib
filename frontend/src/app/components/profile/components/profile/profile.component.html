@@ -11,10 +11,10 @@
             </div>
           </div>
           <div class="col-3">
-            <app-animated-button routerLink="/edit/{{profile.username}}/{{ profile.userID }}" class="float-left">
+            <a routerLink="/edit/{{ profile.username }}/{{ profile.userID }}" class="float-left">
               <i class="fa fa-user-pen"></i> Edit Profile
               <a ></a>
-            </app-animated-button>
+            </a>
           </div>
         </div>
 
@@ -25,7 +25,7 @@
             <p>Liked Movies</p>
           </div>
           <div class="social-description">
-            <h2>{{ profile.like_game }}</h2>
+            <h2>{{ profile.like_games }}</h2>
             <p>Liked Games</p>
           </div>
           <div class="social-description">
@@ -79,42 +79,66 @@
           </div>
           <!-- Tab panes -->
           <div class="tab-content gallery mx-auto">
-            <div class="tab-pane active" id="games" role="tabpanel">
+            <div class="tab-pane active" id="games" role="tabpanel" *ngIf="likedGames">
                 <div class="row collections">
-                  <div class="col-lg-3 col-md-6 mx-5">
+                  <div class="col-lg-3 col-md-6 mx-5" *ngFor="let likedGame of likedGames">
                       <app-custom-card
-                        name="Infamous Second Son"
-                        imageUrl="https://image.api.playstation.com/vulcan/img/rnd/202010/2821/KXv6VplN1r1bNPdfR4r29w0m.png"
-                        routerUrl="/games/detail"
-                        likeCount="1.6b"
-                        commentCount="5">
+                        name="{{ likedGame.name }}"
+                        imageUrl="{{ likedGame.poster}}"
+                        routerUrl="/games/{{ likedGame.urlname }}/{{ likedGame.id }}"
+                        likeCount="{{ likedGame.like }}"
+                        commentCount="{{ likedGame.commentscount }}">
                       </app-custom-card>
+                  </div>
+                  <div *ngIf="likedGames.length==0" class="text-center">
+                    <h4 class="text-primary"><b>You didn't like any games...</b></h4>
+                    <b><i class="mb-5 fa-regular fa-face-sad-cry fa-2xl"></i></b>
+                    <app-animated-button routerLink="/games">
+                      <i class="fa-solid fa-film fa-xl"></i>
+                      Discover Games...
+                    </app-animated-button>
                   </div>
                 </div>
             </div>
-            <div class="tab-pane" id="movies" role="tabpanel">
+            <div class="tab-pane" id="movies" role="tabpanel" *ngIf="likedMovies">
                 <div class="row collections">
-                  <div class="col-lg-3 col-md-6 mx-5">
+                  <div class="col-lg-3 col-md-6 mx-5" *ngFor="let likedMovie of likedMovies">
                       <app-custom-card
-                        name="Durante La Tormenta"
-                        imageUrl="https://tr.web.img4.acsta.net/r_1280_720/pictures/19/03/28/15/19/3146737.jpg"
-                        routerUrl="/movies/detail"
-                        likeCount="3.6b"
-                        commentCount="15">
+                        name="{{ likedMovie.name }}"
+                        imageUrl="{{ likedMovie.poster }}"
+                        routerUrl="/movies/{{ likedMovie.urlname }}/{{ likedMovie.id }}"
+                        likeCount="{{ likedMovie.like }}"
+                        commentCount="{{ likedMovie.commentscount }}">
                       </app-custom-card>
+                  </div>
+                  <div *ngIf="likedMovies.length==0" class="text-center">
+                    <h4 class="text-primary"><b>You didn't like any movies...</b></h4>
+                    <b><i class="mb-5 fa-regular fa-face-sad-cry fa-2xl"></i></b>
+                    <app-animated-button routerLink="/movies">
+                      <i class="fa-solid fa-film fa-xl"></i>
+                      Discover Movies...
+                    </app-animated-button>
                   </div>
                 </div>
             </div>
-            <div class="tab-pane" id="books" role="tabpanel">
+            <div class="tab-pane" id="books" role="tabpanel" *ngIf="likedBooks">
                 <div class="row collections">
-                  <div class="col-lg-3 col-md-6 mx-5">
+                  <div class="col-lg-3 col-md-6 mx-5" *ngFor="let likedBook of likedBooks">
                       <app-custom-card
-                        name="Dune"
-                        imageUrl="https://m.media-amazon.com/images/I/A1u+2fY5yTL._AC_UF1000,1000_QL80_.jpg"
-                        routerUrl="/books/detail"
-                        likeCount="1.1b"
-                        commentCount="3">
+                        name="{{ likedBook.name }}"
+                        imageUrl="{{ likedBook.poster }}"
+                        routerUrl="/books/{{ likedBook.urlname }}/{{ likedBook.id }}"
+                        likeCount="{{ likedBook.like }}"
+                        commentCount="{{ likedBook.commentscount }}">
                       </app-custom-card>
+                  </div>
+                  <div *ngIf="likedBooks.length==0" class="text-center">
+                    <h4 class="text-primary"><b>You didn't like any books...</b></h4>
+                    <b><i class="mb-5 fa-regular fa-face-sad-cry fa-2xl"></i></b>
+                    <app-animated-button routerLink="/books">
+                      <i class="fa-solid fa-film fa-xl"></i>
+                      Discover Books...
+                    </app-animated-button>
                   </div>
                 </div>
             </div>

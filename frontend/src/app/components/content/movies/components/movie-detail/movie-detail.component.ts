@@ -79,7 +79,7 @@ export class MovieDetailComponent {
 
 
   addLike(){
-    this._authService.IsUserLoggedIn();
+    this._authService.IsUserLoggedIn("like this movie");
 
     let model = new MovieAddLikeOrDislikeModel();
     model.movieID = this.movieId;
@@ -100,7 +100,7 @@ export class MovieDetailComponent {
   }
 
   addDislike(){
-    this._authService.IsUserLoggedIn();
+    this._authService.IsUserLoggedIn("dislike this movie");
 
     let model = new MovieAddLikeOrDislikeModel();
     model.movieID = this.movieId;
@@ -132,7 +132,7 @@ export class MovieDetailComponent {
 
 
   addComment(form: NgForm){
-    this._authService.IsUserLoggedIn();
+    this._authService.IsUserLoggedIn("comment this movie");
 
     let model = new MovieAddCommentModel();
     model.movieID = this.movieId;

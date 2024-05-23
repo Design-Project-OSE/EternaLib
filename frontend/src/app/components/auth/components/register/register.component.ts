@@ -30,19 +30,17 @@ export class RegisterComponent implements OnInit {
   register(form: NgForm){
     if(form.valid){
       this._auth.register(this.model, res => {
-        console.log(res);
         this._toastr.success(`Welcome ${res.full_name}`, "Registration Successful!");
-
         localStorage.setItem("user", JSON.stringify(res));
 
         let redirectUrl = sessionStorage.getItem('redirectAfterLogin');
         if (redirectUrl) {
             sessionStorage.removeItem('redirectAfterLogin');
             window.location.href = redirectUrl;
+            this._toastr.success(`Welcome ${res.full_name}`, "Registration Successful!");
         } else {
           this._router.navigateByUrl("/");
         }
-
         this._auth.isLoggedIn = true;
       });
     }

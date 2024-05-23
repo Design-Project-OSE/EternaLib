@@ -76,8 +76,8 @@ export class GameDetailComponent {
   }
 
   addLike(){
-    this._authService.IsUserLoggedIn();
-    
+    this._authService.IsUserLoggedIn("like this game");
+
     let model = new GameAddLikeOrDislikeModel();
     model.gameID = this.gameId;
     model.userID = this.currentUser.id;
@@ -97,7 +97,7 @@ export class GameDetailComponent {
   }
 
   addDislike(){
-    this._authService.IsUserLoggedIn();
+    this._authService.IsUserLoggedIn("dislike this game");
 
     let model = new GameAddLikeOrDislikeModel();
     model.gameID = this.gameId;
@@ -126,7 +126,7 @@ export class GameDetailComponent {
   }
 
   addComment(form: NgForm){
-    this._authService.IsUserLoggedIn();
+    this._authService.IsUserLoggedIn("comment this game");
 
     let model = new GameAddCommentModel();
     model.gameID = this.gameId;

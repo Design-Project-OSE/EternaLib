@@ -18,19 +18,28 @@ export class BookService {
 
   getBooks(callback: (res: BookModel[]) => void){
     this._http.get<BookModel[]>('books', res => callback(res));
-  }
+  } // tüm kitapları getirir
 
   getAllCategoriesForBooks(callback: (res: CategoryModel[]) => void){
     this._http.get<CategoryModel[]>('books/category', res => callback(res));
-  }
+  } // kitaplar için olan tüm kategorileri getirir
 
   getBookByUrl(url: string, callback: (res: BookModel) => void){
     this._http.get<BookModel>('books/urlname/' + url, res => callback(res));
-  }
+  } // url'si verilen kitabın detaylarını getirir
+
+  getBookById(id: string, callback: (res: BookModel) => void){
+    this._http.get<BookModel>('books/id/' + id, res => callback(res));
+  } // id'si verilen kitabın detaylarını getirir
 
   getCategoryById(categoryId: string, callback: (res: CategoryModel) => void){
     this._http.get<CategoryModel>('books/get/id/category/' + categoryId, res => callback(res));
   } // id'si verilen kategoriyi getirir
+
+
+  getUsersLikedBooks(model: any, callback: (res: BookLikesAndDislikesModel[]) => void){
+    this._http.post<BookLikesAndDislikesModel[]>('books/get/sid/like', model, res => callback(res));
+  } // userID'ye göre kullanıcının beğendiği kitapları getirir
 
 
 

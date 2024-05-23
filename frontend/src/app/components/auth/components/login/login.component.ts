@@ -33,20 +33,17 @@ export class LoginComponent implements OnInit {
       model.password = form.controls["password"].value;
 
       this._auth.login(model, res => {
-        console.log(res);
-
         this._toastr.success(`Welcome ${res.full_name}`, "Login Successful!");
-
         localStorage.setItem("user", JSON.stringify(res));
 
         let redirectUrl = sessionStorage.getItem('redirectAfterLogin');
         if (redirectUrl) {
             sessionStorage.removeItem('redirectAfterLogin');
             window.location.href = redirectUrl;
+            this._toastr.success(`Welcome ${res.full_name}`, "Login Successful!");
         } else {
           this._router.navigateByUrl("/");
         }
-
         this._auth.isLoggedIn = true;
       });
     }

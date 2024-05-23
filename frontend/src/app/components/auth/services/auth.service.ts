@@ -34,11 +34,11 @@ export class AuthService {
     this._http.post<UserModel>('account', model, res => callback(res));
   }
 
-  IsUserLoggedIn(){
+  IsUserLoggedIn(text: string){
     let currentUrl = window.location.href;
     sessionStorage.setItem('redirectAfterLogin', currentUrl);
     if(!localStorage.getItem("user")){
-      this._swal.callSwall("If you want to comment, you should create an account!","You don't have an account", "Create Account", () =>
+      this._swal.callSwall(`If you want to ${text}, you should create an account!`,"You don't have an account", "Create Account", () =>
         {
           this._router.navigateByUrl("/register");
         });

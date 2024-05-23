@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-animated-button',
@@ -8,6 +8,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './animated-button.component.scss'
 })
 export class AnimatedButtonComponent {
- 
+
 
 }

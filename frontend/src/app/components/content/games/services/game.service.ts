@@ -18,19 +18,28 @@ export class GameService {
 
   getGames(callback: (res: GameModel[]) => void) {
     this._http.get<GameModel[]>(`games`, res => callback(res));
-  }
+  } // tüm oyunları getirir
 
   getAllCategoriesForGames(callback: (res: CategoryModel[]) => void){
     this._http.get<CategoryModel[]>(`games/category`, res => callback(res));
-  }
+  } // oyunlar için olan tüm kategorileri getirir
 
   getGameByUrl(url: string, callback: (res: GameModel) => void){
     this._http.get<GameModel>('games/urlname/' + url, res => callback(res));
-  }
+  } // url'si verilen oyunun detaylarını getirir
+
+  getGameById(id: string, callback: (res: GameModel) => void){
+    this._http.get<GameModel>('games/id/' + id, res => callback(res));
+  } // id'si verilen oyunun detaylarını getirir
 
   getCategoryById(categoryId: string, callback: (res: CategoryModel) => void){
     this._http.get<CategoryModel>('games/get/id/category/' + categoryId, res => callback(res));
   } // id'si verilen kategoriyi getirir
+
+
+  getUsersLikedGames(model: any, callback: (res: GameLikesAndDislikesModel[]) => void){
+    this._http.post<GameLikesAndDislikesModel[]>('games/get/sid/like', model, res => callback(res));
+  } // userID'ye göre kullanıcının beğendiği oyunları getirir
 
 
 

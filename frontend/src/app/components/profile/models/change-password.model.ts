@@ -1,5 +1,5 @@
 export class ChangePasswordModel{
   userID: string = "";
-  oldPassword: string = "";
-  newPassword: string = "";
+  current_password: string = "";
+  new_password: string = "";
 }

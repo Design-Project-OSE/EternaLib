@@ -12,5 +12,5 @@ export class ProfileModel{
   linkedin_link: string = "";
   like_movie: number = 0;
   like_book: number = 0;
-  like_game: number = 0;
+  like_games: number = 0;
 }

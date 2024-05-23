@@ -61,12 +61,13 @@ export class ProfileEditComponent {
     if(form.valid){
       let model = new ChangePasswordModel();
       model.userID = this.userId;
-      model.oldPassword = form.controls['oldPassword'].value;
-      model.newPassword = form.controls['newPassword'].value;
+      model.current_password = form.controls['oldPassword'].value;
+      model.new_password = form.controls['newPassword'].value;
 
       this._profileService.channgePassword(model, res => {
         this._toastr.success(res.message);
         form.reset();
+        document.getElementById('closeModal').click();
       });
     }
   }

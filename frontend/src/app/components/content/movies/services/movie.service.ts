@@ -18,19 +18,28 @@ export class MovieService {
 
   getMovies(callback: (res: MovieModel[]) => void){
     this._http.get<MovieModel[]>('movies', res => callback(res));
-  }
+  } // tüm filmleri getirir
 
   getAllCategoriesForMovies(callback: (res: CategoryModel[]) => void){
     this._http.get<CategoryModel[]>('movies/category', res => callback(res));
-  }
+  } // filmler için olan tüm kategorileri getirir
 
   getMovieByUrl(url: string, callback: (res: MovieModel) => void){
     this._http.get<MovieModel>('movies/urlname/' + url, res => callback(res));
-  }
+  } // url'si verilen filmin detaylarını getirir
+
+  getMovieById(id: string, callback: (res: MovieModel) => void){
+    this._http.get<MovieModel>('movies/id/' + id, res => callback(res));
+  } // id'si verilen filmin detaylarını getirir
 
   getCategoryById(categoryId: string, callback: (res: CategoryModel) => void){
     this._http.get<CategoryModel>('movies/get/id/category/' + categoryId, res => callback(res));
   } // id'si verilen kategoriyi getirir
+
+
+  getUsersLikedMovies(model: any, callback: (res: MovieLikesAndDislikesModel[]) => void){
+    this._http.post<MovieLikesAndDislikesModel[]>('movies/get/uid/like', model, res => callback(res));
+  } // userID'ye göre kullanıcının beğendiği filmleri getirir
 
 
 
