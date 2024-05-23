@@ -11,11 +11,21 @@ from django.http import JsonResponse
 from account.models import CustomUser
 from account.serializers import Seri_users
 
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+@csrf_exempt
+def list_mostbooks(request):
+    top_5_book = Book_Table.objects.order_by('-like')[:5]
+    top_5_book_ids = top_5_book.values_list('id', flat=True)
+    return JsonResponse(list(top_5_book_ids), safe=False)
+
+
 #obj= tüm objectleri tutar
 #seri=obj response için seriliazer uygular
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_bookcategory(request):
     obj=Book_Category.objects.all()
     seri=Seri_bookcategory(obj,many=True)
@@ -23,12 +33,15 @@ def list_bookcategory(request):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_booktable(request):
     obj=Book_Table.objects.all()
     seri=Seri_booktable(obj,many=True)
     return Response(seri.data)
+
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_bookcategoryid(request,id):
     obj=get_object_or_404(Book_Category,id=id)
     seri=Seri_bookcategory(obj)
@@ -36,6 +49,7 @@ def list_bookcategoryid(request,id):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_bookcomment(request):
     obj=Book_Comment.objects.all()
     seri=Seri_bookcomment(obj,many=True)
@@ -43,6 +57,7 @@ def list_bookcomment(request):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_booklike(request):
     obj=Book_Like.objects.all()
     seri=Seri_booklike(obj,many=True)
@@ -50,6 +65,7 @@ def list_booklike(request):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_bookid(request,id):
     obj=get_object_or_404(Book_Table,id=id)
     seri=Seri_booktable(obj)
@@ -57,6 +73,7 @@ def list_bookid(request,id):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_bookurlname(request,urlname):
     obj=get_object_or_404(Book_Table,urlname=urlname)
     seri=Seri_booktable(obj)
@@ -64,6 +81,7 @@ def list_bookurlname(request,urlname):
 
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
 def list_bookgetcomment(request):
     if request.method == 'GET':
         comments = Book_Comment.objects.all()
@@ -167,12 +185,10 @@ def list_getidcomments(request):
             book_id = data.get('bookID')
 
             if book_id is not None:
-                # bookID ile ilgili yorumları çek
                 comments = Book_Comment.objects.filter(bookID=book_id)
                 comment_serializer = Seri_bookcomment(comments, many=True)
 
                 if comments.exists():
-                    # Yorumların içine kullanıcı bilgilerini birleştir
                     comments_with_user_info = []
                     for comment in comments:
                         user = get_object_or_404(CustomUser, id=comment.userID)
@@ -235,12 +251,10 @@ def list_liked(request):
             book_id = data.get('userID')
 
             if book_id is not None:
-                # bookID ile ilgili yorumları çek
                 likes = Book_Like.objects.filter(userID=book_id,like=True)
                 like_serializer = Seri_booklike(likes, many=True)
 
                 if likes.exists():
-                    # Yorumların içine kullanıcı bilgilerini birleştir
                     likes_with_user_info = []
                     for like in likes:
                         book = get_object_or_404(Book_Table, id=like.bookID)

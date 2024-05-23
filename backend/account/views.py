@@ -8,7 +8,7 @@ from .models import CustomUser
 from rest_framework.authtoken.models import Token
 from django.db import IntegrityError
 from django.core.files.storage import FileSystemStorage
-import random
+import random,uuid
 from movies.models import Movies_Comment,Movies_Like
 from game.models import Game_Comment,Game_Like
 from book.models import Book_Comment,Book_Like
@@ -234,22 +234,25 @@ def delete_user(request):
 def change_password(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        user_id = data.get('user_id')
+        user_id = data.get('userID')
         current_password = data.get('current_password')
         new_password = data.get('new_password')
 
         try:
-            user = User.objects.get(id=user_id)
-        except User.DoesNotExist:
-            return JsonResponse({'message': 'Kullanıcı bulunamadı'}, status=404)
+            # userID'yi UUID formatına dönüştür
+            user_id = uuid.UUID(user_id)
+            # UUID'ye sahip kullanıcıyı bul
+            user = CustomUser.objects.get(id=user_id)
+        except (ValueError, CustomUser.DoesNotExist):
+            return JsonResponse({'message': 'User not found'}, status=404)
 
         if not user.check_password(current_password):
-            return JsonResponse({'message': 'Mevcut şifre yanlış'}, status=400)
+            return JsonResponse({'message': 'Password is wrong'}, status=400)
 
         user.set_password(new_password)
         user.save()
 
-        return JsonResponse({'message': 'Şifre başarıyla değiştirildi'})
+        return JsonResponse({'message': 'Password changed successfully'})
 
     else:
-        return JsonResponse({'message': 'POST yöntemi gereklidir'}, status=405)
+        return JsonResponse({'message': 'POST is important'}, status=405)
