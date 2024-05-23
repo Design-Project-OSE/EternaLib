@@ -1,13 +1,14 @@
 import json
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt,csrf_protect
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 from .models import CustomUser
 from rest_framework.authtoken.models import Token
 from django.db import IntegrityError
 from django.core.files.storage import FileSystemStorage
+import random
 
 @csrf_exempt
 def get_all_users(request):
@@ -69,7 +70,6 @@ def update_user_info(request):
         if userID:
             try:
                 user = CustomUser.objects.get(id=userID)
-                
                 full_name = data.get('full_name')
                 email = data.get('email')
                 username = data.get('username')
@@ -162,7 +162,9 @@ def user_register(request):
 
         user = CustomUser.objects.create_user(username=email, email=email, password=password)
         user.full_name = full_name
-        user.username = full_name.lower().replace(' ', '_').replace('ş', 's').replace('ğ', 'g').replace('ç', 'c').replace('ı', 'i').replace('ö', 'o').replace('ü', 'u')
+        username = full_name.lower().replace(' ', '_').replace('ş', 's').replace('ğ', 'g').replace('ç', 'c').replace('ı', 'i').replace('ö', 'o').replace('ü', 'u')
+        sp_ch=''.join([str(random.randint(0, 9)) for _ in range(4)])
+        user.username=username+sp_ch
         user.save()
         try:
             token = Token.objects.create(user=user)
