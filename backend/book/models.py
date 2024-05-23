@@ -37,7 +37,7 @@ class Book_Like(models.Model):
         return f"Beğeni ID: {self.id}"  
 
 class Book_Category(models.Model):
-    id = id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap Kategori ID")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap Kategori ID")
     name = models.CharField(max_length=maxtext, verbose_name="Tür İsmi")
     catshort = models.CharField(max_length=maxtag, verbose_name="Kitap Türü Kısaltması")
     savedate = models.DateTimeField(auto_now_add=True, verbose_name="Eklenme Tarihi")

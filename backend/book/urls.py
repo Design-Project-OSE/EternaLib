@@ -9,7 +9,6 @@ views.py içerisinde fonksiyonlar bulunur
 http://127.0.0.1:8000 ana sayfa
 http://127.0.0.1:8000/book/ kitapların özellikleri döner
 http://127.0.0.1:8000/book/category/ kitap kategorilerinin bilgilerini verir
-!!!EKLENMEDİ!!!
 http://127.0.0.1:8000/book/id id:kitap ID verilen kitabı verir
 
 """
@@ -26,5 +25,6 @@ urlpatterns=[
     path('books/get/id/category/<uuid:id>',views.list_bookcategoryid,name="id girilen category bilgileri"),
     path('books/get/gid/like',views.list_getidlikes,name="POST olarak girilen bookID ait tüm like çekiyor"),
     path('books/get/sid/like',views.list_getidlikeusers,name="POST olarak girilen userID ait tüm like çekiyor"),
-    path('books/like/search',views.list_liked,name="userID verilen kullanıcının  beğendiği kitaplar tam liste")
+    path('books/like/search',views.list_liked,name="userID verilen kullanıcının  beğendiği kitaplar tam liste"),
+    path('books/category/get',views.list_getcategory,name="categoryID alıyor tüm sahip kitapları çekiyor")
 ]

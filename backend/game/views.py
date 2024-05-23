@@ -131,7 +131,7 @@ def list_gamegetlike(request):
                     "dislike": dislike,
                     "likecount": game.like,
                     "dislikecount": game.dislike,
-                    "usermov": user.like_book
+                    "usermov": user.like_game
                 }, status=status.HTTP_200_OK)
             
 
@@ -233,7 +233,7 @@ def list_liked(request):
             game_id = data.get('userID')
 
             if game_id is not None:
-                # bookID ile ilgili yorumları çek
+                # gameID ile ilgili yorumları çek
                 likes = Game_Like.objects.filter(userID=game_id,like=True)
                 like_serializer = Seri_gameslike(likes, many=True)
 
@@ -272,3 +272,41 @@ def list_liked(request):
             return JsonResponse({'message': 'Invalid JSON.'}, status=400)
     else:
         return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
+    
+@csrf_exempt
+def list_getcategory(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            catalog_id = data.get('catalogID')
+            if catalog_id is not None:
+                games = Games_Table.objects.filter(categories__id=catalog_id)
+                games_data = []
+                for game in games:
+                    categories = [category.name for category in game.categories.all()]
+                    game_data = {
+                        'id': game.id,
+                        'title': game.name,
+                        'urlname': game.urlname,
+                        'production': game.production,
+                        'about': game.about,
+                        'categories': categories,
+                        'release': game.release.strftime('%Y-%m-%d'),
+                        'background': game.background,
+                        'poster': game.poster,
+                        'savedate': game.savedate.strftime('%Y-%m-%d %H:%M:%S'),
+                        'isPublished': game.isPublished,
+                        'like': game.like,
+                        'dislike': game.dislike,
+                        'commentscount': game.commentscount
+                    }
+                    games_data.append(game_data)
+                return JsonResponse(games_data, safe=False)
+            else:
+                return JsonResponse({'error': 'Catalog ID is required'}, status=400)
+        except json.decoder.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+        except ValueError:
+            return JsonResponse({'error': 'Invalid catalog ID'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)

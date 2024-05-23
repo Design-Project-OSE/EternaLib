@@ -284,3 +284,40 @@ def list_liked(request):
             return JsonResponse({'message': 'Invalid JSON.'}, status=400)
     else:
         return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
+    
+def list_getcategory(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            catalog_id = data.get('catalogID')
+            if catalog_id is not None:
+                movies = Movies_Table.objects.filter(categories__id=catalog_id)
+                movies_data = []
+                for movie in movies:
+                    categories = [category.name for category in movie.categories.all()]
+                    movie_data = {
+                        'id': movie.id,
+                        'title': movie.name,
+                        'urlname': movie.urlname,
+                        'production': movie.production,
+                        'about': movie.about,
+                        'categories': categories,
+                        'release': movie.release.strftime('%Y-%m-%d'),
+                        'background': movie.background,
+                        'poster': movie.poster,
+                        'savedate': movie.savedate.strftime('%Y-%m-%d %H:%M:%S'),
+                        'isPublished': movie.isPublished,
+                        'like': movie.like,
+                        'dislike': movie.dislike,
+                        'commentscount': movie.commentscount
+                    }
+                    movies_data.append(movie_data)
+                return JsonResponse(movies_data, safe=False)
+            else:
+                return JsonResponse({'error': 'Catalog ID is required'}, status=400)
+        except json.decoder.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+        except ValueError:
+            return JsonResponse({'error': 'Invalid catalog ID'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)

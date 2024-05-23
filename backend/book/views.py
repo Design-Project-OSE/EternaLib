@@ -6,7 +6,7 @@ from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from .models import Book_Table,Book_Category,Book_Like,Book_Comment
 from .serializers import Seri_booktable,Seri_bookcategory,Seri_bookcomment,Seri_booklike
 from django.views.decorators.csrf import csrf_exempt
-import json
+import json,uuid
 from django.http import JsonResponse
 from account.models import CustomUser
 from account.serializers import Seri_users
@@ -289,3 +289,39 @@ def list_liked(request):
     else:
         return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
     
+def list_getcategory(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            catalog_id = data.get('catalogID')
+            if catalog_id is not None:
+                books = Book_Table.objects.filter(categories__id=catalog_id)
+                books_data = []
+                for book in books:
+                    categories = [category.name for category in book.categories.all()]
+                    book_data = {
+                        'id': book.id,
+                        'title': book.name,
+                        'urlname': book.urlname,
+                        'production': book.production,
+                        'about': book.about,
+                        'categories': categories,
+                        'release': book.release.strftime('%Y-%m-%d'),
+                        'background': book.background,
+                        'poster': book.poster,
+                        'savedate': book.savedate.strftime('%Y-%m-%d %H:%M:%S'),
+                        'isPublished': book.isPublished,
+                        'like': book.like,
+                        'dislike': book.dislike,
+                        'commentscount': book.commentscount
+                    }
+                    books_data.append(book_data)
+                return JsonResponse(books_data, safe=False)
+            else:
+                return JsonResponse({'error': 'Catalog ID is required'}, status=400)
+        except json.decoder.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON format'}, status=400)
+        except ValueError:
+            return JsonResponse({'error': 'Invalid catalog ID'}, status=400)
+    else:
+        return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)

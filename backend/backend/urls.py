@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from . import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('search/',views.search,name="Arama yapıyor işte searchterm alıyor sadece"),
     path('',include('movies.urls')),
     path('',include('book.urls')),
     path('',include('game.urls')),
