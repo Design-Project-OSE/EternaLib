@@ -7,5 +7,7 @@ urlpatterns = [
     path('account/update', views.update_user_info, name='[POST] ETKİ=[userID verilen kullanıcı verilerini günceller] INPUTS=[userID,fullname,email,username,x_link,instagram_link,facebook_link,linkedin_link]'),
     path('login',views.user_login,name="[POST] ETKİ=[Giriş yapar] INPUTS=[email,password]"),
     path('register',views.user_register,name="[POST] ETKİ=[Kayıt İşlemi] INPUTS=[full_name,email,password]"),
-    path('logout',views.user_logout,name="[GET] ETKİ=[Çıkış] INPUTS=[]"),
+    path('register',views.user_register,name="[POST] ETKİ=[Kayıt İşlemi] INPUTS=[full_name,email,password]"),
+    path('delete',views.delete_user,name="[POST] ETKİ=[Kullanıcı Silme] INPUTS=[userID]"),
+    path('changepassword',views.change_password,name="[POST] ETKİ=[Kullanıcı Şifre Değiştirme] INPUTS=[current_password,new_password]"),
 ]
