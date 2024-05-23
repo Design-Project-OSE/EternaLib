@@ -52,7 +52,7 @@ class Movies_Category(models.Model):
 class Movies_Table(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Film ID")
     name = models.CharField(max_length=maxtext, verbose_name="İsim")
-    urlname = models.CharField(max_length=maxtext, verbose_name="Url İsmi")
+    urlname = models.CharField(blank=True, null=True,max_length=maxtext, verbose_name="Url İsmi")
     production = models.CharField(max_length=maxtext, verbose_name="Yapımcı")
     about = models.TextField(max_length=maxrich, verbose_name="Hakkında")
     categories = models.ManyToManyField(Movies_Category, verbose_name="Kategoriler")  
@@ -73,3 +73,18 @@ class Movies_Table(models.Model):
 
     def __str__(self):
         return self.name
+    def save(self, *args, **kwargs):
+        name= convert_turkish_characters(self.name.lower()).replace(' ', '-')
+        if not self.urlname:
+            self.urlname = name
+
+        super(Movies_Table, self).save(*args, **kwargs)
+
+def convert_turkish_characters(text):
+    conversions = {
+            'İ': 'I', 'ı': 'i', 'Ş': 'S', 'ş': 's', 'Ğ': 'G', 'ğ': 'g',
+            'Ü': 'U', 'ü': 'u', 'Ö': 'O', 'ö': 'o', 'Ç': 'C', 'ç': 'c'
+        }
+    for turkish, english in conversions.items():
+        text = text.replace(turkish, english)
+    return text

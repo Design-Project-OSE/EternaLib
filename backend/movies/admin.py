@@ -6,7 +6,7 @@ class MoviesAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'name')
     list_filter = ['savedate']
     list_editable = ('isPublished',)
-    search_fields = ['id', 'name', 'about']  # 'genres' alanını kaldırdım, bu alan modelde tanımlı değil
+    search_fields = ['id', 'name', 'about']  
     list_per_page = 10
 
     class Meta:
@@ -26,7 +26,7 @@ class Movies_Category_Admin(admin.ModelAdmin):
 
 class Movies_Comment_Admin(admin.ModelAdmin):
     list_display = ('id', 'movieID', 'userID', 'comment', 'savedate')
-    list_display_links = ('id', 'movieID')  # 'name' yerine 'movieID' kullandım
+    list_display_links = ('id', 'movieID')  
     list_filter = ['savedate']
     search_fields = ['id', 'movieID', 'userID', 'comment']
     list_per_page = 10

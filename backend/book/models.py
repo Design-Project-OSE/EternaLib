@@ -52,7 +52,7 @@ class Book_Category(models.Model):
 class Book_Table(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Kitap ID")
     name = models.CharField(max_length=maxtext, verbose_name="İsim")
-    urlname = models.CharField(max_length=maxtext, verbose_name="URL İsmi")
+    urlname = models.CharField(blank=True, null=True,max_length=maxtext, verbose_name="URL İsmi")
     production = models.CharField(max_length=maxtext, verbose_name="Yapımcı")
     about = models.TextField(verbose_name="Hakkında", max_length=maxrich)
     categories = models.ManyToManyField(Book_Category, verbose_name="Tür")
@@ -68,7 +68,23 @@ class Book_Table(models.Model):
     class Meta:
         verbose_name = "Kitap"
         verbose_name_plural = "Kitaplar"
-        
+    
 
     def __str__(self):
         return self.name  
+        
+    def save(self, *args, **kwargs):
+        name= convert_turkish_characters(self.name.lower()).replace(' ', '-')
+        if not self.urlname:
+            self.urlname = name
+
+        super(Book_Table, self).save(*args, **kwargs)
+
+def convert_turkish_characters(text):
+    conversions = {
+            'İ': 'I', 'ı': 'i', 'Ş': 'S', 'ş': 's', 'Ğ': 'G', 'ğ': 'g',
+            'Ü': 'U', 'ü': 'u', 'Ö': 'O', 'ö': 'o', 'Ç': 'C', 'ç': 'c'
+        }
+    for turkish, english in conversions.items():
+        text = text.replace(turkish, english)
+    return text
