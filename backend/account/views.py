@@ -222,14 +222,17 @@ def delete_user(request):
 def change_password(request):
     if request.method == 'POST':
         data = json.loads(request.body)
+        user_id = data.get('user_id')
         current_password = data.get('current_password')
         new_password = data.get('new_password')
 
-        user = request.user
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'Kullanıcı bulunamadı'}, status=404)
 
         if not user.check_password(current_password):
             return JsonResponse({'error': 'Mevcut şifre yanlış'}, status=400)
-
 
         user.set_password(new_password)
         user.save()
