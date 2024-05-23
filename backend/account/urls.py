@@ -9,5 +9,5 @@ urlpatterns = [
     path('register',views.user_register,name="[POST] ETKİ=[Kayıt İşlemi] INPUTS=[full_name,email,password]"),
     path('logout',views.logout,name="[POST] ETKİ=[çıkış] INPUTS=[]"),
     path('delete',views.delete_user,name="[POST] ETKİ=[Kullanıcı Silme] INPUTS=[userID]"),
-    path('changepassword',views.change_password,name="[POST] ETKİ=[Kullanıcı Şifre Değiştirme] INPUTS=[current_password,new_password]"),
+    path('changepassword',views.change_password,name="[POST] ETKİ=[Kullanıcı Şifre Değiştirme] INPUTS=[userID,current_password,new_password]"),
 ]
