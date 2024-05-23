@@ -113,7 +113,7 @@ def list_gamegetlike(request):
                 if existing_like.dislike and not dislike:
                     game.dislike -= 1
                 if not existing_like.like and like:
-                    user.like_book += 1
+                    user.like_games += 1
                     game.like += 1
                 if not existing_like.dislike and dislike:
                     game.dislike += 1

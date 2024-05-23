@@ -75,7 +75,6 @@ def update_user_info(request):
                 username = data.get('username')
                 about=data.get('about')
                 profil_picture = data.get('profil_picture')
-                password=data.get('password')
                 x_link = data.get('x_link')
                 instagram_link = data.get('instagram_link')
                 facebook_link = data.get('facebook_link')
@@ -93,7 +92,6 @@ def update_user_info(request):
                 user.about=about
                 user.profil_picture = profil_picture
                 user.x_link = x_link
-                user.password=password
                 user.instagram_link = instagram_link
                 user.facebook_link = facebook_link
                 user.linkedin_link = linkedin_link
@@ -103,7 +101,6 @@ def update_user_info(request):
                     'full_name': user.full_name,
                     'email': user.email,
                     'username': user.username,
-                    'password':user.password,
                     'about':user.about,
                     'profil_picture': user.profil_picture.url if user.profil_picture else None,
                     'x_link': user.x_link,
@@ -142,12 +139,6 @@ def user_login(request):
                 'email': user.email,
                 'username': user.username,
                 'password':user.password,
-                'profil_picture': user.profil_picture.url if user.profil_picture else None,
-                'x_link': user.x_link,
-                'instagram_link': user.instagram_link,
-                'facebook_link': user.facebook_link,
-                'linkedin_link': user.linkedin_link,
-                'savedate': user.savedate
             }
             return JsonResponse({'success': 'Login successful', 'token': token.key, **user_data})
         else:
@@ -160,21 +151,24 @@ def user_register(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         full_name = data.get('full_name')
-    
         email = data.get('email')
         password = data.get('password')
 
-        if not (full_name, email, password):
+        if not (full_name and email and password):
             return JsonResponse({'error': 'Full name, email, and password are required'}, status=400)
+
+        if CustomUser.objects.filter(email=email).exists():
+            return JsonResponse({'error': 'Email is already in use'}, status=400)
 
         user = CustomUser.objects.create_user(username=email, email=email, password=password)
         user.full_name = full_name
-        user.username=full_name.lower().replace(' ','_').replace('ş','s').replace('ğ','g').replace('ç','c').replace('ı','i').replace('ö','o').replace('ü','u')
+        user.username = full_name.lower().replace(' ', '_').replace('ş', 's').replace('ğ', 'g').replace('ç', 'c').replace('ı', 'i').replace('ö', 'o').replace('ü', 'u')
         user.save()
         try:
-                token = Token.objects.create(user=user)
+            token = Token.objects.create(user=user)
         except IntegrityError:
-                token = Token.objects.get(user=user)
+            token = Token.objects.get(user=user)
+
         user_data = {
             'id': user.id,
             'full_name': user.full_name,
@@ -186,12 +180,12 @@ def user_register(request):
             'facebook_link': user.facebook_link,
             'linkedin_link': user.linkedin_link,
             'savedate': user.savedate,
-            'like_movies':user.like_movie,
-            'like_games':user.like_games,
-            'like_book':user.like_book
+            'like_movies': user.like_movie,
+            'like_games': user.like_games,
+            'like_book': user.like_book
         }
 
-        return JsonResponse({'success': 'User registered successfully','token':token.key, **user_data})
+        return JsonResponse({'success': 'User registered successfully', 'token': token.key, **user_data})
     else:
         return JsonResponse({'error': 'POST method is required'}, status=405)
 
@@ -221,5 +215,26 @@ def delete_user(request):
                 return JsonResponse({'error': 'Kullanıcı mevcut değil'}, status=404)
         else:
             return JsonResponse({'error': 'Kullanıcı ID gerekli'}, status=400)
+    else:
+        return JsonResponse({'error': 'POST yöntemi gereklidir'}, status=405)
+    
+@csrf_exempt
+def change_password(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        current_password = data.get('current_password')
+        new_password = data.get('new_password')
+
+        user = request.user
+
+        if not user.check_password(current_password):
+            return JsonResponse({'error': 'Mevcut şifre yanlış'}, status=400)
+
+
+        user.set_password(new_password)
+        user.save()
+
+        return JsonResponse({'success': 'Şifre başarıyla değiştirildi'})
+
     else:
         return JsonResponse({'error': 'POST yöntemi gereklidir'}, status=405)
