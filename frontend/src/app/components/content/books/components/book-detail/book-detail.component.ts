@@ -78,6 +78,8 @@ export class BookDetailComponent {
   }
 
   addLike(){
+    this._authService.IsUserLoggedIn();
+    
     let model = new BookAddLikeOrDislikeModel();
     model.bookID = this.bookId;
     model.userID = this.currentUser.id;
@@ -97,6 +99,8 @@ export class BookDetailComponent {
   }
 
   addDislike(){
+    this._authService.IsUserLoggedIn();
+
     let model = new BookAddLikeOrDislikeModel();
     model.bookID = this.bookId;
     model.userID = this.currentUser.id;
@@ -126,6 +130,8 @@ export class BookDetailComponent {
   }
 
   addComment(form: NgForm){
+    this._authService.IsUserLoggedIn();
+
     let model = new BookAddCommentModel();
     model.bookID = this.bookId;
     model.userID = this.currentUser.id;

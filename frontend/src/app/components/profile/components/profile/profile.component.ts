@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { SharedModule } from '../../../../common/shared/shared.module';
 import { ProfileService } from '../../services/profile.service';
 import { ProfileModel } from '../../models/profile.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, RouterModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })

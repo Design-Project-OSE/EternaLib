@@ -6,7 +6,7 @@ import { RegisterModel } from '../models/register.model';
 import { ToastrService } from 'ngx-toastr';
 import { LoginResponseModel } from '../models/login-response.model';
 import { UserModel } from '../models/user.model';
-import { MessageResponseModel } from '../../../common/models/message.response.model';
+import { SwalService } from '../../../common/services/swal.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,7 @@ export class AuthService {
   constructor(
     private _http: GenericHttpService,
     private _toastr: ToastrService,
+    private _swal: SwalService,
     private _router: Router
   ) { }
 
@@ -33,8 +34,16 @@ export class AuthService {
     this._http.post<UserModel>('account', model, res => callback(res));
   }
 
-
-
+  IsUserLoggedIn(){
+    let currentUrl = window.location.href;
+    sessionStorage.setItem('redirectAfterLogin', currentUrl);
+    if(!localStorage.getItem("user")){
+      this._swal.callSwall("If you want to comment, you should create an account!","You don't have an account", "Create Account", () =>
+        {
+          this._router.navigateByUrl("/register");
+        });
+    }
+  }
 
   // LoginResponseModel tipinde döndürür
   getCurrentUser(){
@@ -51,6 +60,7 @@ export class AuthService {
       let user = this.getCurrentUser();
       this._toastr.info(`Good Bye! ${user.userfullname}` ,"Çıkış Yapıldı");
       localStorage.removeItem("user");
+      this._router.navigateByUrl('/login');
     });
   }
 }

@@ -3,7 +3,7 @@ import { ContentDetailComponent } from '../../../../../common/components/content
 import { NgForm } from '@angular/forms';
 import { SharedModule } from '../../../../../common/shared/shared.module';
 import { MovieService } from '../../services/movie.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MovieModel } from '../../models/movie.model';
 import { MovieCommentsModel } from '../../models/movie-comments.model';
 import { CategoryModel } from '../../../models/category.model';
@@ -11,6 +11,7 @@ import { MovieAddLikeOrDislikeModel } from '../../models/movie-add-like-or-disli
 import { MovieAddCommentModel } from '../../models/movie-add-comment.model';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../../auth/services/auth.service';
+import { SwalService } from '../../../../../common/services/swal.service';
 
 @Component({
   selector: 'app-movie-detail',
@@ -78,6 +79,8 @@ export class MovieDetailComponent {
 
 
   addLike(){
+    this._authService.IsUserLoggedIn();
+
     let model = new MovieAddLikeOrDislikeModel();
     model.movieID = this.movieId;
     model.userID = this.currentUser.id;
@@ -97,6 +100,8 @@ export class MovieDetailComponent {
   }
 
   addDislike(){
+    this._authService.IsUserLoggedIn();
+
     let model = new MovieAddLikeOrDislikeModel();
     model.movieID = this.movieId;
     model.userID = this.currentUser.id;
@@ -127,6 +132,8 @@ export class MovieDetailComponent {
 
 
   addComment(form: NgForm){
+    this._authService.IsUserLoggedIn();
+
     let model = new MovieAddCommentModel();
     model.movieID = this.movieId;
     model.userID = this.currentUser.id;

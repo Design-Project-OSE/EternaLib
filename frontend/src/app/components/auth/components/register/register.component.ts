@@ -35,7 +35,14 @@ export class RegisterComponent implements OnInit {
 
         localStorage.setItem("user", JSON.stringify(res));
 
-        this._router.navigateByUrl("/");
+        let redirectUrl = sessionStorage.getItem('redirectAfterLogin');
+        if (redirectUrl) {
+            sessionStorage.removeItem('redirectAfterLogin');
+            window.location.href = redirectUrl;
+        } else {
+          this._router.navigateByUrl("/");
+        }
+
         this._auth.isLoggedIn = true;
       });
     }

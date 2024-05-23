@@ -3,7 +3,6 @@ export class ProfileUpdateModel{
   full_name: string = "";
   email: string = "";
   username: string = "";
-  password: string = "";
   about: string = "";
   profil_picture: string = "";
   x_link: string = "";

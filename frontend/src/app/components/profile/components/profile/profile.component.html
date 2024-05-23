@@ -11,8 +11,9 @@
             </div>
           </div>
           <div class="col-3">
-            <app-animated-button routerLink="/profile/edit/{{ profile.username }}/{{ profile.userID }}" class="float-left">
+            <app-animated-button routerLink="/edit/{{profile.username}}/{{ profile.userID }}" class="float-left">
               <i class="fa fa-user-pen"></i> Edit Profile
+              <a ></a>
             </app-animated-button>
           </div>
         </div>
@@ -20,15 +21,15 @@
         <h3 class="title">{{ profile.full_name }}</h3>
         <div class="content">
           <div class="social-description">
-            <h2>58</h2>
+            <h2>{{ profile.like_movie }}</h2>
             <p>Liked Movies</p>
           </div>
           <div class="social-description">
-            <h2>26</h2>
+            <h2>{{ profile.like_game }}</h2>
             <p>Liked Games</p>
           </div>
           <div class="social-description">
-            <h2>7</h2>
+            <h2>{{ profile.like_book }}</h2>
             <p>Liked Books</p>
           </div>
         </div>

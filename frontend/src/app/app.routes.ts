@@ -32,7 +32,7 @@ export const routes: Routes = [
             .then(c => c.ProfileComponent)
       },
       {
-        path: 'edit/:username/:id',
+        path: 'edit/:value/:id',
         loadComponent:
             () => import('./components/profile/components/profile-edit/profile-edit.component')
             .then(c => c.ProfileEditComponent)

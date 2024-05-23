@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { GenericHttpService } from '../../../common/services/generic-http.service';
 import { ProfileModel } from '../models/profile.model';
 import { ProfileUpdateModel } from '../models/profile-update.model';
+import { MessageResponseModel } from '../../../common/models/message.response.model';
+import { ChangePasswordModel } from '../models/change-password.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +20,14 @@ export class ProfileService {
 
   updateProfile(profile: ProfileUpdateModel, callback: (res: ProfileUpdateModel) => void){
     this._http.post<ProfileUpdateModel>('account/update', profile, res => callback(res));
+  }
+
+
+  channgePassword(model: ChangePasswordModel, callback: (res: MessageResponseModel) => void){
+    this._http.post<MessageResponseModel>('changepassword ', model, res => callback(res));
+  }
+
+  deleteUser(model: any, callback: (res: MessageResponseModel) => void){
+    this._http.post<MessageResponseModel>('delete', model, res => callback(res));
   }
 }

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
 import { AnimatedButtonComponent } from '../../../common/components/animated-button/animated-button.component';
-import { UserModel } from '../../auth/models/user.model';
 import { LoginResponseModel } from '../../auth/models/login-response.model';
 
 @Component({
