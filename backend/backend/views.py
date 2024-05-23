@@ -27,7 +27,7 @@ def search(request):
             sermov = Seri_movietable(movies, many=True)
             serbook = Seri_booktable(books, many=True)
             sergame = Seri_gamestable(games, many=True)
-            return JsonResponse({'message': 'success', 'movies': sermov.data, 'books': serbook.data, 'games': sergame.data})
+            return JsonResponse({'movies': sermov.data, 'books': serbook.data, 'games': sergame.data})
         else:
             return JsonResponse({'message': 'not success', 'errors': form.errors}, status=400)
     else:
