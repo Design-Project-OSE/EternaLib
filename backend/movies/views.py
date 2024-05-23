@@ -93,49 +93,81 @@ def list_moviegetcomment(request):
 
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAny])
+@csrf_exempt
 def list_moviegetlike(request):
     if request.method == 'GET':
         likes = Movies_Like.objects.all()
         serializer = Seri_movielike(likes, many=True)
         return Response(serializer.data)
-
+    
     elif request.method == 'POST':
-        data = json.loads(request.body.decode('utf-8'))
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+        except json.JSONDecodeError:
+            return Response({'error': 'Invalid JSON'}, status=status.HTTP_400_BAD_REQUEST)
+
         serializer = Seri_movielike(data=data)
         if serializer.is_valid():
             user_id = serializer.validated_data['userID']
             movie_id = serializer.validated_data['movieID']
-            movie = get_object_or_404(Movies_Table, id=movie_id)
             like = serializer.validated_data['like']
             dislike = serializer.validated_data['dislike']
+            
+            user = get_object_or_404(CustomUser, id=user_id)
+            movie = get_object_or_404(Movies_Table, id=movie_id)
+            
             existing_like = Movies_Like.objects.filter(userID=user_id, movieID=movie_id).first()
             
             if existing_like:
-                movie = get_object_or_404(Movies_Table, id=movie_id)
+                # Update existing like/dislike
                 if existing_like.like and not like:
+                    user.like_movie -= 1
                     movie.like -= 1
                 if existing_like.dislike and not dislike:
                     movie.dislike -= 1
                 if not existing_like.like and like:
+                    user.like_movie += 1
                     movie.like += 1
                 if not existing_like.dislike and dislike:
                     movie.dislike += 1
+                
                 existing_like.like = like
                 existing_like.dislike = dislike
                 existing_like.save()
                 movie.save()
+                user.save()
                 
-                return JsonResponse({**data,  "likecount": movie.like, "dislikecount": movie.dislike,'like':like,'dislike':dislike}, status=status.HTTP_200_OK)
+                return JsonResponse({
+                    "userID": str(user_id),
+                    "movieID": str(movie_id),
+                    "like": like,
+                    "dislike": dislike,
+                    "likecount": movie.like,
+                    "dislikecount": movie.dislike,
+                    "usermov": user.like_movie
+                }, status=status.HTTP_200_OK)
+            
 
             movie_like = serializer.save()
             
             if movie_like.like:
+                user.like_movie += 1
                 movie.like += 1
             if movie_like.dislike:
                 movie.dislike += 1
-            movie.save()
             
-            return JsonResponse({**data, "likecount": movie.like, "dislikecount": movie.dislike,'like':like,'dislike':dislike}, status=status.HTTP_201_CREATED)
+            movie.save()
+            user.save()
+            
+            return JsonResponse({
+                "userID": str(user_id),
+                "movieID": str(movie_id),
+                "like": like,
+                "dislike": dislike,
+                "likecount": movie.like,
+                "dislikecount": movie.dislike,
+                "usermov": user.like_movie
+            }, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

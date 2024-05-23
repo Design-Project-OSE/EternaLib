@@ -80,53 +80,81 @@ def list_gamegetcomment(request):
 
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAny])
+@csrf_exempt
 def list_gamegetlike(request):
     if request.method == 'GET':
         likes = Game_Like.objects.all()
         serializer = Seri_gameslike(likes, many=True)
         return Response(serializer.data)
-
+    
     elif request.method == 'POST':
-        data = json.loads(request.body.decode('utf-8'))
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+        except json.JSONDecodeError:
+            return Response({'error': 'Invalid JSON'}, status=status.HTTP_400_BAD_REQUEST)
+
         serializer = Seri_gameslike(data=data)
         if serializer.is_valid():
             user_id = serializer.validated_data['userID']
             game_id = serializer.validated_data['gameID']
-            game = get_object_or_404(Games_Table, id=game_id)
             like = serializer.validated_data['like']
             dislike = serializer.validated_data['dislike']
+            
+            user = get_object_or_404(CustomUser, id=user_id)
+            game = get_object_or_404(Games_Table, id=game_id)
+            
             existing_like = Game_Like.objects.filter(userID=user_id, gameID=game_id).first()
-            user=get_object_or_404(CustomUser,id=user_id)
+            
             if existing_like:
-                game = get_object_or_404(Games_Table, id=game_id)
+                # Update existing like/dislike
                 if existing_like.like and not like:
-                    user.like_games-=1
+                    user.like_games -= 1
                     game.like -= 1
                 if existing_like.dislike and not dislike:
                     game.dislike -= 1
                 if not existing_like.like and like:
-                    user.like_games+=1
+                    user.like_book += 1
                     game.like += 1
                 if not existing_like.dislike and dislike:
                     game.dislike += 1
+                
                 existing_like.like = like
                 existing_like.dislike = dislike
                 existing_like.save()
                 game.save()
                 user.save()
                 
-                return JsonResponse({**data,  "likecount": game.like, "dislikecount": game.dislike,'like':like,'dislike':dislike}, status=status.HTTP_200_OK)
+                return JsonResponse({
+                    "userID": str(user_id),
+                    "gameID": str(game_id),
+                    "like": like,
+                    "dislike": dislike,
+                    "likecount": game.like,
+                    "dislikecount": game.dislike,
+                    "usermov": user.like_book
+                }, status=status.HTTP_200_OK)
+            
 
             game_like = serializer.save()
             
             if game_like.like:
-                user.like_games+=1
+                user.like_book += 1
                 game.like += 1
             if game_like.dislike:
                 game.dislike += 1
-            game.save()
             
-            return JsonResponse({**data, "likecount": game.like, "dislikecount": game.dislike,'like':like,'dislike':dislike}, status=status.HTTP_201_CREATED)
+            game.save()
+            user.save()
+            
+            return JsonResponse({
+                "userID": str(user_id),
+                "gameID": str(game_id),
+                "like": like,
+                "dislike": dislike,
+                "likecount": game.like,
+                "dislikecount": game.dislike,
+                "usermov": user.like_games
+            }, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

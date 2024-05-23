@@ -202,3 +202,24 @@ def user_logout(request):
         return JsonResponse({'success': 'Logout successful'})
     else:
         return JsonResponse({'error': 'POST method is required'}, status=405)
+    
+@csrf_exempt
+def delete_user(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+        userID = data.get('userID')
+        if userID:
+            try:
+                user = CustomUser.objects.get(id=userID)
+                user.delete()
+                return JsonResponse({'success': 'Kullanıcı başarıyla silindi'})
+            except CustomUser.DoesNotExist:
+                return JsonResponse({'error': 'Kullanıcı mevcut değil'}, status=404)
+        else:
+            return JsonResponse({'error': 'Kullanıcı ID gerekli'}, status=400)
+    else:
+        return JsonResponse({'error': 'POST yöntemi gereklidir'}, status=405)
