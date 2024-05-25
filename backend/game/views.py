@@ -326,6 +326,7 @@ def delete_comment(request):
         comment_id = data.get('commentID')
         try:
             Game_Comment.objects.filter(id=comment_id).delete()
+            return JsonResponse({'message':'Comment deleting successfully'})
         except (Game_Comment.DoesNotExist):
             return JsonResponse({'message': 'Comment not found'}, status=404)
     else:
