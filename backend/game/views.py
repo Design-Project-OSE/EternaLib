@@ -13,6 +13,14 @@ from account.serializers import Seri_users
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
+@csrf_exempt
+def list_mostgames(request):
+    top_5_games = Games_Table.objects.order_by('-like')[:5]
+    top_5_game_ids = top_5_games.values_list('id', flat=True)
+    return JsonResponse(list(top_5_game_ids), safe=False)
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
 def list_game(request):
     obj=Games_Table.objects.all()
     seri=Seri_gamestable(obj,many=True)

@@ -27,7 +27,8 @@ urlpatterns=[
     path('games/get/id/comment',views.list_getidcomments,name="POST olarak girilen gameID ait tüm yorumları çekiyor"),
     path('games/get/gid/like',views.list_getidlikes,name="POST olarak girilen gameID ait tüm like çekiyor"),
     path('games/get/sid/like',views.list_getidlikeusers,name="POST olarak girilen userID ait tüm like çekiyor"),
-    path('movies/get/id/category/<uuid:id>',views.list_gamecategoryid,name="id girilen category bilgileri"),
-    path('movies/like/search',views.list_liked,name="userID verilen kullanıcının  beğendiği oyunlar tam liste"),
+    path('games/get/id/category/<uuid:id>',views.list_gamecategoryid,name="id girilen category bilgileri"),
+    path('games/like/search',views.list_liked,name="userID verilen kullanıcının  beğendiği oyunlar tam liste"),
+    path('games/list/top',views.list_mostgames,name="[GET] ETKİ=[En iyi 5 oyun verir]  INPUTS=[]"),
     path('games/category/get',views.list_getcategory,name="categoryID alıyor tüm sahip kitapları çekiyor")
 ]
