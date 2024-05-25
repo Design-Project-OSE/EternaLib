@@ -325,3 +325,5 @@ def list_getcategory(request):
             return JsonResponse({'error': 'Invalid catalog ID'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+    
+

@@ -9,9 +9,9 @@ from rest_framework.authtoken.models import Token
 from django.db import IntegrityError
 from django.core.files.storage import FileSystemStorage
 import random,uuid
-from movies.models import Movies_Comment,Movies_Like
-from game.models import Game_Comment,Game_Like
-from book.models import Book_Comment,Book_Like
+from movies.models import Movies_Comment,Movies_Like,Movies_Table
+from game.models import Game_Comment,Game_Like,Games_Table
+from book.models import Book_Comment,Book_Like,Book_Table
 
 @csrf_exempt
 def get_all_users(request):
@@ -221,6 +221,33 @@ def delete_user(request):
                 Movies_Like.objects.filter(userID=userID).delete()
                 Game_Like.objects.filter(userID=userID).delete()
                 user.delete()
+
+                movcomlen = Movies_Comment.objects.count()
+                movlikelen = Movies_Like.objects.filter(like=True).count()
+                movdislikelen = Movies_Like.objects.filter(dislike=True).count()
+
+                Movies_Table.commentscount = movcomlen
+                Movies_Table.like = movlikelen
+                Movies_Table.dislike = movdislikelen
+                Movies_Table.save()
+
+                gamelen = Game_Comment.objects.count()
+                gamelikelen = Game_Like.objects.filter(like=True).count()
+                gamedislikelen = Game_Like.objects.filter(dislike=True).count()
+
+                Games_Table.commentscount = gamelen
+                Games_Table.like = gamelikelen
+                Games_Table.dislike = gamedislikelen
+                Games_Table.save()
+
+                booklen = Book_Comment.objects.count()
+                booklikelen = Book_Like.objects.filter(like=True).count()
+                bookdislikelen = Book_Like.objects.filter(dislike=True).count()
+
+                Book_Table.commentscount = booklen
+                Book_Table.like = booklikelen
+                Book_Table.dislike = bookdislikelen
+                Book_Table.save()
 
                 return JsonResponse({'message': 'Kullanıcı başarıyla silindi'})
             except CustomUser.DoesNotExist:
