@@ -139,7 +139,7 @@ def list_gamegetlike(request):
                     "dislike": dislike,
                     "likecount": game.like,
                     "dislikecount": game.dislike,
-                    "usermov": user.like_game
+                    "usermov": user.like_games
                 }, status=status.HTTP_200_OK)
             
 
