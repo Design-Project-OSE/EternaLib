@@ -11,10 +11,9 @@
             </div>
           </div>
           <div class="col-3">
-            <a routerLink="/edit/{{ profile.username }}/{{ profile.userID }}" class="float-left">
+            <app-animated-button routerLink="/edit/{{ profile.username }}/{{ currentUser.id }}" class="float-left">
               <i class="fa fa-user-pen"></i> Edit Profile
-              <a ></a>
-            </a>
+            </app-animated-button>
           </div>
         </div>
 
@@ -85,7 +84,7 @@
                       <app-custom-card
                         name="{{ likedGame.name }}"
                         imageUrl="{{ likedGame.poster}}"
-                        routerUrl="/games/{{ likedGame.urlname }}/{{ likedGame.id }}"
+                        routerUrl="/games/{{ likedGame.urlname }}"
                         likeCount="{{ likedGame.like }}"
                         commentCount="{{ likedGame.commentscount }}">
                       </app-custom-card>
@@ -106,7 +105,7 @@
                       <app-custom-card
                         name="{{ likedMovie.name }}"
                         imageUrl="{{ likedMovie.poster }}"
-                        routerUrl="/movies/{{ likedMovie.urlname }}/{{ likedMovie.id }}"
+                        routerUrl="/movies/{{ likedMovie.urlname }}"
                         likeCount="{{ likedMovie.like }}"
                         commentCount="{{ likedMovie.commentscount }}">
                       </app-custom-card>
@@ -127,7 +126,7 @@
                       <app-custom-card
                         name="{{ likedBook.name }}"
                         imageUrl="{{ likedBook.poster }}"
-                        routerUrl="/books/{{ likedBook.urlname }}/{{ likedBook.id }}"
+                        routerUrl="/books/{{ likedBook.urlname }}"
                         likeCount="{{ likedBook.like }}"
                         commentCount="{{ likedBook.commentscount }}">
                       </app-custom-card>

@@ -3,7 +3,7 @@ import { ContentDetailComponent } from '../../../../../common/components/content
 import { NgForm } from '@angular/forms';
 import { SharedModule } from '../../../../../common/shared/shared.module';
 import { MovieService } from '../../services/movie.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MovieModel } from '../../models/movie.model';
 import { MovieCommentsModel } from '../../models/movie-comments.model';
 import { CategoryModel } from '../../../models/category.model';
@@ -32,37 +32,46 @@ export class MovieDetailComponent {
   isLiked: boolean;
   isDisliked: boolean;
 
-  currentUser = this._authService.getCurrentUser();
+  currentUser = this._authService.getCurrentUser(); // mevcut kullanıcıyı tutacak
 
   constructor(
     private _movieService: MovieService,
     private _toastr: ToastrService,
+    private _swal: SwalService,
     private _authService: AuthService,
     private _activated: ActivatedRoute
   ){
     this._activated.params.subscribe(res => {
       this.movieUrl = res["url"];
-      this.movieId = res["id"];
-      this.getMovieByUrl();
-      this.getMovieComments();
-      this.getMovieLikesAndDislikes();
+      this.getMovieByUrl()
+          .then(() => {
+            this.getMovieComments();
+            this.getMovieLikesAndDislikes();
+          });
     });
   }
 
 
-  getMovieByUrl(){
-    this._movieService.getMovieByUrl(this.movieUrl, res => {
-      this.movie = res;
+  getMovieByUrl(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this._movieService.getMovieByUrl(this.movieUrl, res => {
+        this.movie = res;
+        this.movieId = res.id;
 
-      for(let i = 0; i < this.movie.categories.length; i++){
-        this.getCategoryById(this.movie.categories[i]);
-      }
+        for (let i = 0; i < this.movie.categories.length; i++) {
+          this.getCategoryById(this.movie.categories[i]);
+        }
+
+        resolve();
+      });
     });
   }
 
   getCategoryById(categoryId: any){
     this._movieService.getCategoryById(categoryId, res => {
-      this.movieCategories.push(res);
+      if (!this.movieCategories.some(category => category.id === categoryId)) {
+        this.movieCategories.push(res);
+      }
     });
   }
 
@@ -144,5 +153,20 @@ export class MovieDetailComponent {
       this.getMovieComments();
       form.reset();
     });
+  }
+
+  deleteComment(commentId: string, userId: string){
+    let model = {
+      commentID: commentId,
+      userID: userId
+    };
+
+    this._swal.callSwall(`Are you sure you want to delete the comment?`,"Delete Comment", "Delete", () =>
+      {
+        this._movieService.deleteComment(model, res => {
+          this._toastr.success(res.message);
+          this.getMovieComments();
+        });
+      });
   }
 }

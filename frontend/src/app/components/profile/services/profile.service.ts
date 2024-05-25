@@ -14,8 +14,12 @@ export class ProfileService {
     private _http: GenericHttpService
   ) { }
 
-  getProfileByUserId(model: any, callback: (res : ProfileModel) => void){
+  getProfileByUserId(model: any, callback: (res: ProfileModel) => void){
     this._http.post<ProfileModel>('account', model, res => callback(res));
+  }
+
+  getProfileByUsername(model: any, callback: (res: ProfileModel) => void){
+    this._http.post<ProfileModel>('account/username', model, res => callback(res));
   }
 
   updateProfile(profile: ProfileUpdateModel, callback: (res: ProfileUpdateModel) => void){

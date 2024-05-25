@@ -74,8 +74,16 @@
           </div>
         </div>
         <p class="display-5">{{ comment.comment }}</p>
-        <button class="btn btn-light rounded-pill bg-white text-dark"><i class="fa-solid fa-thumbs-up"></i></button>
-        <button class="btn btn-light rounded-pill bg-white text-dark"><i class="fa-solid fa-thumbs-down"></i></button>
+        <button class="btn btn-light rounded-pill bg-white text-dark">
+          <i class="fa-solid fa-thumbs-up"></i>
+        </button>
+        <button class="btn btn-light rounded-pill bg-white text-dark">
+          <i class="fa-solid fa-thumbs-down"></i>
+        </button>
+
+        <button *ngIf="comment.userID==currentUser.id" (click)="deleteComment(comment.id, comment.userID)" class="btn btn-danger rounded-pill float-right">
+          <i class="fa-solid fa-trash"></i>
+        </button>
       </div>
     </div>
 

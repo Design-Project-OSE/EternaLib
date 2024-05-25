@@ -6,6 +6,7 @@ import { BookCommentsModel } from '../models/book-comments.model';
 import { BookLikesAndDislikesModel } from '../models/book-likes-and-dislikes.model';
 import { BookAddCommentModel } from '../models/book-add-comment.model';
 import { BookAddLikeOrDislikeModel } from '../models/book-add-like-or-dislike.model';
+import { MessageResponseModel } from '../../../../common/models/message.response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,13 @@ export class BookService {
     this._http.get<BookModel>('books/id/' + id, res => callback(res));
   } // id'si verilen kitabın detaylarını getirir
 
+
+  getBooksByCategoryId(categoryId: string, callback: (res: BookModel[]) => void){
+    let model = { catalogID: categoryId }
+    this._http.post<BookModel[]>('books/category/get', model, res => callback(res));
+  } // id'si verilen kategorideki kitapları getirir
+
+
   getCategoryById(categoryId: string, callback: (res: CategoryModel) => void){
     this._http.get<CategoryModel>('books/get/id/category/' + categoryId, res => callback(res));
   } // id'si verilen kategoriyi getirir
@@ -40,6 +48,10 @@ export class BookService {
   getUsersLikedBooks(model: any, callback: (res: BookLikesAndDislikesModel[]) => void){
     this._http.post<BookLikesAndDislikesModel[]>('books/get/sid/like', model, res => callback(res));
   } // userID'ye göre kullanıcının beğendiği kitapları getirir
+
+  deleteComment(model: any, callback: (res: MessageResponseModel) => void){
+    this._http.post<MessageResponseModel>('books/comment/delete', model, res => callback(res));
+  } // benzersiz id'si ve kullanıcı id'si verilen yorum siler
 
 
 

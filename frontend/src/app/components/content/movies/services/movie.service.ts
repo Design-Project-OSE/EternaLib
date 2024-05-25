@@ -6,6 +6,8 @@ import { MovieCommentsModel } from '../models/movie-comments.model';
 import { MovieLikesAndDislikesModel } from '../models/movie-likes-and-dislikes.model';
 import { MovieAddCommentModel } from '../models/movie-add-comment.model';
 import { MovieAddLikeOrDislikeModel } from '../models/movie-add-like-or-dislike.model';
+import { model } from 'mongoose';
+import { MessageResponseModel } from '../../../../common/models/message.response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,14 @@ export class MovieService {
     this._http.get<MovieModel>('movies/id/' + id, res => callback(res));
   } // id'si verilen filmin detaylarını getirir
 
+
+  getMoviesByCategoryId(categoryId: string, callback: (res: MovieModel[]) => void){
+    let model = { catalogID: categoryId }
+    this._http.post<MovieModel[]>('movies/category/get', model, res => callback(res));
+  } // id'si verilen kategorideki filmleri getirir
+
+
+
   getCategoryById(categoryId: string, callback: (res: CategoryModel) => void){
     this._http.get<CategoryModel>('movies/get/id/category/' + categoryId, res => callback(res));
   } // id'si verilen kategoriyi getirir
@@ -40,6 +50,10 @@ export class MovieService {
   getUsersLikedMovies(model: any, callback: (res: MovieLikesAndDislikesModel[]) => void){
     this._http.post<MovieLikesAndDislikesModel[]>('movies/get/uid/like', model, res => callback(res));
   } // userID'ye göre kullanıcının beğendiği filmleri getirir
+
+  deleteComment(model: any, callback: (res: MessageResponseModel) => void){
+    this._http.post<MessageResponseModel>('movies/comment/delete', model, res => callback(res));
+  } // benzersiz id'si ve kullanıcı id'si verilen yorum siler
 
 
 

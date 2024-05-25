@@ -1,11 +1,52 @@
-<app-content which="play" contentTypee="Games" [categoriess]=categories>
+<app-content which="play" contentTypee="Games">
+
+    <div class="d-flex align-items-center w-100">
+      <div class="input-group w-25 mb-3 no-border">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="now-ui-icons ui-1_zoom-bold"></i>
+          </div>
+        </div>
+        <input
+            #searchInput
+            type="search"
+            class="form-control"
+            (keyup)="getGames(searchInput.value)"
+            placeholder="Search a game...">
+      </div>
+      <div class="ml-auto w-25 mb-3 no-border input-group">
+
+        <div class="dropdown">
+          <button href="#" class="btn btn-light dropdown-toggle" id="cDropdown" data-toggle="dropdown" (click)="selectedCategory=='All'">
+            <p class="px-1"><b>{{ selectedCategory }}</b></p>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="cDropdown">
+            <li class="dropdown-item" style="cursor: pointer;" (click)="selectedCategory='All'; getGames(searchInput.value)">
+              All
+            </li>
+            <li class="dropdown-item" *ngFor="let category of categories" style="cursor: pointer;" (click)="selectedCategory=category.name; getGames(searchInput.value, category.id)">
+              {{ category.name }}
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
     <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let game of games">
         <app-custom-card
           name= "{{ game.name }}"
           imageUrl="{{ game.poster }}"
-          routerUrl="/games/{{ game.urlname }}/{{ game.id}}"
+          routerUrl="/games/{{ game.urlname }}"
           likeCount="{{ game.like }}"
           commentCount="{{ game.commentscount }}">
         </app-custom-card>
+    </div>
+
+    <div *ngIf="games.length==0">
+      <h1 class="text-center">
+        <b>No games match your search </b>
+        <i class="fa-regular fa-face-sad-tear"></i>
+      </h1>
     </div>
 </app-content>

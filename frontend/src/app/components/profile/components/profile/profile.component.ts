@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedModule } from '../../../../common/shared/shared.module';
 import { ProfileService } from '../../services/profile.service';
 import { ProfileModel } from '../../models/profile.model';
@@ -9,6 +9,7 @@ import { GameModel } from '../../../content/games/models/game.model';
 import { BookModel } from '../../../content/books/models/book.model';
 import { GameService } from '../../../content/games/services/game.service';
 import { BookService } from '../../../content/books/services/book.service';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,11 +18,13 @@ import { BookService } from '../../../content/books/services/book.service';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
   username: string = "";
   userId: string = "";
 
   profile: ProfileModel = new ProfileModel();
+
+  currentUser = this._auth.getCurrentUser();
 
   likedMovies: MovieModel[] = [];
   likedGames: GameModel[] = [];
@@ -29,6 +32,7 @@ export class ProfileComponent {
 
   constructor(
     private _profileService: ProfileService,
+    private _auth: AuthService,
     private _movieService: MovieService,
     private _gameService: GameService,
     private _bookService: BookService,
@@ -42,6 +46,10 @@ export class ProfileComponent {
       this.getUsersLikedGames();
       this.getUsersLikedBooks();
     });
+  }
+
+  ngOnInit(): void {
+
   }
 
   getProfileByUserId(id: string){

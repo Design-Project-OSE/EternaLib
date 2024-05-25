@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GameAddLikeOrDislikeModel } from '../../models/game-add-like-or-dislike.model';
 import { GameAddCommentModel } from '../../models/game-add-comment.model';
 import { AuthService } from '../../../../auth/services/auth.service';
+import { SwalService } from '../../../../../common/services/swal.service';
 
 @Component({
   selector: 'app-game-detail',
@@ -31,36 +32,45 @@ export class GameDetailComponent {
   isLiked: boolean;
   isDisliked: boolean;
 
-  currentUser = this._authService.getCurrentUser();
+  currentUser = this._authService.getCurrentUser(); // mevcut kullanıcıyı tutacak
 
   constructor(
     private _gameService: GameService,
     private _toastr: ToastrService,
+    private _swal: SwalService,
     private _authService: AuthService,
     private _activated: ActivatedRoute
   ){
     this._activated.params.subscribe(res => {
       this.gameUrl = res["url"];
-      this.gameId = res["id"];
-      this.getGameByUrl();
-      this.getGameComments();
-      this.getGameLikesAndDislikes();
+      this.getGameByUrl()
+          .then(() => {
+            this.getGameComments();
+            this.getGameLikesAndDislikes();
+          });
     });
   }
 
-  getGameByUrl(){
-    this._gameService.getGameByUrl(this.gameUrl, res => {
-      this.game = res;
+  getGameByUrl(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this._gameService.getGameByUrl(this.gameUrl, res => {
+        this.game = res;
+        this.gameId = res.id;
 
-      for(let i = 0; i < this.game.categories.length; i++){
-        this.getCategoryById(this.game.categories[i]);
-      }
+        for (let i = 0; i < this.game.categories.length; i++) {
+          this.getCategoryById(this.game.categories[i]);
+        }
+
+        resolve();
+      });
     });
   }
 
   getCategoryById(categoryId: any){
     this._gameService.getCategoryById(categoryId, res => {
-      this.gameCategories.push(res);
+      if (!this.gameCategories.some(category => category.id === categoryId)) {
+        this.gameCategories.push(res);
+      }
     });
   }
 
@@ -138,5 +148,20 @@ export class GameDetailComponent {
       this.getGameComments();
       form.reset();
     });
+  }
+
+  deleteComment(commentId: string, userId: string){
+    let model = {
+      commentID: commentId,
+      userID: userId
+    };
+
+    this._swal.callSwall(`Are you sure you want to delete the comment?`,"Delete Comment", "Delete", () =>
+      {
+        this._gameService.deleteComment(model, res => {
+          this._toastr.success(res.message);
+          this.getGameComments();
+        });
+      });
   }
 }

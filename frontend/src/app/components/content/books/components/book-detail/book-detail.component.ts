@@ -12,6 +12,7 @@ import { BookAddLikeOrDislikeModel } from '../../models/book-add-like-or-dislike
 import { BookAddCommentModel } from '../../models/book-add-comment.model';
 import { AuthService } from '../../../../auth/services/auth.service';
 import { UserModel } from '../../../../auth/models/user.model';
+import { SwalService } from '../../../../../common/services/swal.service';
 
 @Component({
   selector: 'app-book-detail',
@@ -32,37 +33,46 @@ export class BookDetailComponent {
   isLiked: boolean;
   isDisliked: boolean;
 
-  currentUser = this._authService.getCurrentUser();
+  currentUser = this._authService.getCurrentUser(); // mevcut kullanıcıyı tutacak
 
   constructor(
     private _bookService: BookService,
     private _toastr: ToastrService,
+    private _swal: SwalService,
     private _authService: AuthService,
     private _activates: ActivatedRoute
   ){
     this._activates.params.subscribe(res => {
       this.bookUrl = res["url"];
-      this.bookId = res["id"];
-      this.getBookByUrl();
-      this.getBookComments();
-      this.getBookLikesAndDislikes();
+      this.getBookByUrl()
+          .then(() => {
+              this.getBookComments();
+              this.getBookLikesAndDislikes();
+          });
     });
   }
 
 
-  getBookByUrl(){
-    this._bookService.getBookByUrl(this.bookUrl, res => {
-      this.book = res;
+  getBookByUrl(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this._bookService.getBookByUrl(this.bookUrl, res => {
+        this.book = res;
+        this.bookId = res.id;
 
-      for(let i = 0; i < this.book.categories.length; i++){
-        this.getCategoryById(this.book.categories[i]);
-      }
+        for (let i = 0; i < this.book.categories.length; i++) {
+          this.getCategoryById(this.book.categories[i]);
+        }
+
+        resolve();
+      });
     });
   }
 
   getCategoryById(categoryId: any){
     this._bookService.getCategoryById(categoryId, res => {
-      this.bookCategories.push(res);
+      if (!this.bookCategories.some(category => category.id === categoryId)) {
+        this.bookCategories.push(res);
+      }
     });
   }
 
@@ -142,5 +152,20 @@ export class BookDetailComponent {
       this.getBookComments();
       form.reset();
     });
+  }
+
+  deleteComment(commentId: string, userId: string){
+    let model = {
+      commentID: commentId,
+      userID: userId
+    };
+
+    this._swal.callSwall(`Are you sure you want to delete the comment?`,"Delete Comment", "Delete", () =>
+      {
+        this._bookService.deleteComment(model, res => {
+          this._toastr.success(res.message);
+          this.getBookComments();
+        });
+      });
   }
 }

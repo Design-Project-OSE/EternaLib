@@ -23,6 +23,90 @@
           <a class="nav-link" routerLink="/books" (click)="_auth.isAuthPages=false"><i class="fa-solid fa-book fa-xl"></i><b> Books</b></a>
         </li>
       </ul>
+      <form class="ml-auto dropdown" data-background-color style="width: 350px;" >
+        <div class="form-group has-white mb-0" data-toggle="dropdown" id="searchDropdown">
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="now-ui-icons ui-1_zoom-bold"></i>
+              </div>
+            </div>
+            <input
+            #searchInput
+            type="search"
+            class="form-control"
+            (keyup)="searchForContents(searchInput.value)"
+            placeholder="Search a content...">
+          </div>
+        </div>
+        <div class="dropdown-menu w-100 py-0" aria-labelledby="searchDropdown">
+          <div class="dropdown-item my-0 p-0" *ngIf="allMovies.length!=0">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th class="py-0" style="border: none;">
+                    <b class="text-primary h4">Movies</b>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let movie of allMovies" routerLink="/movies/{{ movie.urlname }}" style="cursor: pointer;">
+                  <td class="p-2" style="border-top: none;">
+                    <img src="{{ movie.poster }}" style="width: 60px; height:80px">
+                  </td>
+                  <td style="border-top: none;">
+                      <b>{{ movie.name }}</b>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="dropdown-divider my-0"></div>
+          <div class="dropdown-item my-0 p-0" *ngIf="allGames.length!=0">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th class="py-0" style="border: none;">
+                   <b class="text-primary h4">Games</b>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let game of allGames" routerLink="/games/{{ game.urlname }}" style="cursor: pointer;">
+                  <td class="p-2" style="border-top: none;">
+                    <img src="{{ game.poster }}" style="width: 60px; height:80px">
+                  </td>
+                  <td style="border-top: none;">
+                      <b>{{ game.name }}</b>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="dropdown-divider my-0"></div>
+          <div class="dropdown-item my-0 p-0" *ngIf="allBooks.length!=0">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th class="py-0" style="border: none;">
+                    <b class="text-primary h4">Books</b>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let book of allBooks" routerLink="/books/{{ book.urlname }}" style="cursor: pointer;">
+                  <td class="p-2" style="border-top: none;">
+                    <img src="{{ book.poster }}" style="width: 60px; height:80px">
+                  </td>
+                  <td style="border-top: none;">
+                      <b>{{ book.name }}</b>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </form>
     </div>
 
     <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="/assets/img/blurred-image-1.jpg">
