@@ -313,3 +313,4 @@ def change_password(request):
 
     else:
         return JsonResponse({'message': 'POST is important'}, status=405)
+    

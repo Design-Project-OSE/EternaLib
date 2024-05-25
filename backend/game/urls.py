@@ -17,6 +17,7 @@ urlpatterns=[
     path('games',views.list_game,name="Oyunlar"),
     path('games/category',views.list_gamecategory,name="Oyun Kategorileri"),
     path('games/comment',views.list_gamecomment,name="Oyun Yorumları"),
+    path('games/comment/delete',views.delete_comment,name="Oyun Yorumlarını siler commentID"),
     path('games/like',views.list_gamelike,name="Oyun Beğenileri"),
     path('games/id/<uuid:id>', views.list_gameid, name="Oyun ID Çekme"),
     path('games/urlname/<str:urlname>', views.list_gameurlname, name="Oyun URL Çekme"),

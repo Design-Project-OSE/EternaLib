@@ -289,6 +289,7 @@ def list_liked(request):
     else:
         return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
     
+@csrf_exempt
 def list_getcategory(request):
     if request.method == 'POST':
         try:
@@ -326,4 +327,14 @@ def list_getcategory(request):
     else:
         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
     
-
+@csrf_exempt
+def delete_comment(request):
+    if request.method=='POST':
+        data = json.loads(request.body)
+        comment_id = data.get('commentID')
+        try:
+            Book_Comment.objects.filter(id=comment_id).delete()
+        except (Book_Comment.DoesNotExist):
+            return JsonResponse({'message': 'Comment not found'}, status=404)
+    else:
+        return JsonResponse({'message': 'POST is important'}, status=405)

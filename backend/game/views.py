@@ -310,3 +310,15 @@ def list_getcategory(request):
             return JsonResponse({'error': 'Invalid catalog ID'}, status=400)
     else:
         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+    
+@csrf_exempt
+def delete_comment(request):
+    if request.method=='POST':
+        data = json.loads(request.body)
+        comment_id = data.get('commentID')
+        try:
+            Game_Comment.objects.filter(id=comment_id).delete()
+        except (Game_Comment.DoesNotExist):
+            return JsonResponse({'message': 'Comment not found'}, status=404)
+    else:
+        return JsonResponse({'message': 'POST is important'}, status=405)
