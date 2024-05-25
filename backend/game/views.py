@@ -185,7 +185,7 @@ def list_getidcomments(request):
                         comment_data = {
                             'id': comment.id,
                             'userID': comment.userID,
-                            'movieID': comment.gameID,
+                            'gameID': comment.gameID,
                             'comment': comment.comment,
                             'savedate': comment.savedate,
                             'full_name': user.full_name,
@@ -321,17 +321,32 @@ def list_getcategory(request):
     
 @csrf_exempt
 def delete_comment(request):
-    if request.method=='POST':
-        data = json.loads(request.body)
-        comment_id = data.get('commentID')
-        user_id = data.get('userID')
+    if request.method == 'POST':
         try:
-            Game_Comment.objects.filter(id=comment_id,userID=user_id).delete()
+            data = json.loads(request.body)
+            comment_id = data.get('commentID')
+            user_id = data.get('userID')
+
+            if not comment_id or not user_id:
+                return JsonResponse({'message': 'commentID and userID are required'}, status=400)
+
+            deleted, _ = Game_Comment.objects.filter(id=comment_id, userID=user_id).delete()
+
+            if deleted == 0:
+                return JsonResponse({'message': 'Comment not found'}, status=404)
+
             gamelen = Game_Comment.objects.count()
-            Games_Table.commentscount = gamelen
-            Games_Table.save()
-            return JsonResponse({'message':'Comment deleting successfully'})
-        except (Game_Comment.DoesNotExist):
-            return JsonResponse({'message': 'Comment not found'}, status=404)
+            game_table = Games_Table.objects.first()
+            game_table.commentscount = gamelen
+            game_table.save()
+
+            return JsonResponse({'message': 'Comment deleted successfully'})
+
+        except json.JSONDecodeError:
+            return JsonResponse({'message': 'Invalid JSON'}, status=400)
+
+        except Exception as e:
+            return JsonResponse({'message': str(e)}, status=500)
+
     else:
         return JsonResponse({'message': 'POST is important'}, status=405)

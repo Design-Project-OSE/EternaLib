@@ -329,17 +329,32 @@ def list_getcategory(request):
     
 @csrf_exempt
 def delete_comment(request):
-    if request.method=='POST':
-        data = json.loads(request.body)
-        comment_id = data.get('commentID')
-        user_id = data.get('userID')
+    if request.method == 'POST':
         try:
-            Book_Comment.objects.filter(id=comment_id,userID=user_id).delete()
+            data = json.loads(request.body)
+            comment_id = data.get('commentID')
+            user_id = data.get('userID')
+
+            if not comment_id or not user_id:
+                return JsonResponse({'message': 'commentID and userID are required'}, status=400)
+
+            deleted, _ = Book_Comment.objects.filter(id=comment_id, userID=user_id).delete()
+
+            if deleted == 0:
+                return JsonResponse({'message': 'Comment not found'}, status=404)
+
             booklen = Book_Comment.objects.count()
-            Book_Table.commentscount = booklen
-            Book_Table.save()
-            return JsonResponse({'message':'Comment deleting successfully'})
-        except (Book_Comment.DoesNotExist):
-            return JsonResponse({'message': 'Comment not found'}, status=404)
+            book_table = Book_Table.objects.first()
+            book_table.commentscount = booklen
+            book_table.save()
+
+            return JsonResponse({'message': 'Comment deleted successfully'})
+
+        except json.JSONDecodeError:
+            return JsonResponse({'message': 'Invalid JSON'}, status=400)
+
+        except Exception as e:
+            return JsonResponse({'message': str(e)}, status=500)
+
     else:
         return JsonResponse({'message': 'POST is important'}, status=405)
