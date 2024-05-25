@@ -69,10 +69,10 @@ def get_userid_info(request):
 def get_username_info(request):
     if request.method == 'POST':
         data = json.loads(request.body)
-        userID = data.get('username')
-        if userID:
+        username = data.get('username')
+        if username:
             try:
-                user = CustomUser.objects.get(id=userID)
+                user = CustomUser.objects.get(username=username)
                 user_data = {
                     'id': user.id,
                     'full_name': user.full_name,
