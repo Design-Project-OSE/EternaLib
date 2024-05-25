@@ -327,8 +327,9 @@ def delete_comment(request):
     if request.method=='POST':
         data = json.loads(request.body)
         comment_id = data.get('commentID')
+        user_id = data.get('userID')
         try:
-            Movies_Comment.objects.filter(id=comment_id).delete()
+            Movies_Comment.objects.filter(id=comment_id,userID=user_id).delete()
             return JsonResponse({'message':'Comment deleting successfully'})
         except (Movies_Comment.DoesNotExist):
             return JsonResponse({'message': 'Comment not found'}, status=404)
