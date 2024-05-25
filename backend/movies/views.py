@@ -328,6 +328,9 @@ def delete_comment(request):
         data = json.loads(request.body)
         comment_id = data.get('commentID')
         user_id = data.get('userID')
+        movielen = Movies_Comment.objects.count()
+        Movies_Table.commentscount = movielen
+        Movies_Table.save()
         try:
             Movies_Comment.objects.filter(id=comment_id,userID=user_id).delete()
             return JsonResponse({'message':'Comment deleting successfully'})
