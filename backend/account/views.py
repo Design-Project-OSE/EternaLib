@@ -34,10 +34,42 @@ def get_all_users(request):
     return JsonResponse({'users':user_data})
 
 @csrf_exempt
-def get_user_info(request):
+def get_userid_info(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         userID = data.get('userID')
+        if userID:
+            try:
+                user = CustomUser.objects.get(id=userID)
+                user_data = {
+                    'id': user.id,
+                    'full_name': user.full_name,
+                    'email': user.email,
+                    'username': user.username,
+                    'password':user.password,
+                    'about':user.about,
+                    'profil_picture': user.profil_picture.url if user.profil_picture else None,
+                    'x_link': user.x_link,
+                    'instagram_link': user.instagram_link,
+                    'facebook_link': user.facebook_link,
+                    'linkedin_link': user.linkedin_link,
+                    'like_movie':user.like_movie,
+                    'like_games':user.like_games,
+                    'like_book':user.like_book
+                }
+                return JsonResponse({**user_data})
+            except CustomUser.DoesNotExist:
+                return JsonResponse({'message': 'User does not exist'}, status=404)
+        else:
+            return JsonResponse({'message': 'User ID is required'}, status=400)
+    else:
+        return JsonResponse({'message': 'POST method is required'}, status=405)
+    
+@csrf_exempt
+def get_username_info(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        userID = data.get('username')
         if userID:
             try:
                 user = CustomUser.objects.get(id=userID)
