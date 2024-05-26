@@ -14,4 +14,6 @@ urlpatterns = [
     path('delete',views.delete_user,name="[POST] ETKİ=[Kullanıcı Silme] INPUTS=[userID]"),
     path('changepassword',views.change_password,name="[POST] ETKİ=[Kullanıcı Şifre Değiştirme] INPUTS=[userID,current_password,new_password]"),
     path('updateprofilpicture',views.update_profilpictures,name="[POST] ETKİ=[Profil Resmi Güncelleme] INPUTS=[userID,profil_picture]"),
-]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

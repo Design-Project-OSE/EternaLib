@@ -110,23 +110,16 @@ def update_user_info(request):
                 email = data.get('email')
                 username = data.get('username')
                 about=data.get('about')
-                profil_picture = data.get('profil_picture')
                 x_link = data.get('x_link')
                 instagram_link = data.get('instagram_link')
                 facebook_link = data.get('facebook_link')
                 linkedin_link = data.get('linkedin_link')
-                if 'profil_picture' in request.FILES:
-                    profil_picture = request.FILES['profil_picture']
-                    fs = FileSystemStorage(location='backend/images')
-                    filename = fs.save(profil_picture.name, profil_picture)
-                    uploaded_file_url = fs.url(filename)
-                    user.profil_picture = filename 
+
 
                 user.full_name = full_name
                 user.email = email
                 user.username = username
                 user.about=about
-                user.profil_picture = profil_picture
                 user.x_link = x_link
                 user.instagram_link = instagram_link
                 user.facebook_link = facebook_link
@@ -138,7 +131,6 @@ def update_user_info(request):
                     'email': user.email,
                     'username': user.username,
                     'about':user.about,
-                    'profil_picture': user.profil_picture.url if user.profil_picture else None,
                     'x_link': user.x_link,
                     'instagram_link': user.instagram_link,
                     'facebook_link': user.facebook_link,
@@ -328,7 +320,7 @@ def update_profilpictures(request):
                 profil_picture = request.FILES['profil_picture']
                 fs = FileSystemStorage(location='images')
                 filename = fs.save(profil_picture.name, profil_picture)
-                uploaded_file_url = settings.MEDIA_URL+filename
+                uploaded_file_url = fs.url(filename)
                 user.profil_picture = filename
             else:
                 return JsonResponse({'message': 'Profil picture is required'}, status=400)
@@ -340,7 +332,7 @@ def update_profilpictures(request):
                 'url': uploaded_file_url
             }
 
-            return JsonResponse({'message': 'User information updated successfully', **user_data})
+            return JsonResponse({'message': 'Profile Picture updated successfully', **user_data})
         except CustomUser.DoesNotExist:
             return JsonResponse({'message': 'User does not exist'}, status=404)
     else:
