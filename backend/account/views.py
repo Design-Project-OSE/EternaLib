@@ -317,32 +317,30 @@ def change_password(request):
 @csrf_exempt
 def update_profilpictures(request):
     if request.method == 'POST':
-        data = json.loads(request.body.decode('utf-8'))
-        userID = data.get('userID')
-        if userID:
-            try:
-                user = CustomUser.objects.get(id=userID)
-                profil_picture = data.get('profil_picture')
-                if 'profil_picture' in request.FILES:
-                    profil_picture = request.FILES['profil_picture']
-                    fs = FileSystemStorage(location='backend/images')
-                    filename = fs.save(profil_picture.name, profil_picture)
-                    uploaded_file_url = fs.url(filename)
-                    user.profil_picture = filename 
-
-
-                user.profil_picture = profil_picture
-                user.save()
-                user_data = {
-                    'id': user.id,
-                    'profil_picture': user.profil_picture.url if user.profil_picture else None,
-                    'url':uploaded_file_url
-                }
-
-                return JsonResponse({'message': 'User information updated messagefully', **user_data})
-            except CustomUser.DoesNotExist:
-                return JsonResponse({'message': 'User does not exist'}, status=404)
-        else:
+        if 'userID' not in request.POST:
             return JsonResponse({'message': 'User ID is required'}, status=400)
+        
+        userID = request.POST['userID']
+        try:
+            user = CustomUser.objects.get(id=userID)
+            if 'profil_picture' in request.FILES:
+                profil_picture = request.FILES['profil_picture']
+                fs = FileSystemStorage(location='backend/images')
+                filename = fs.save(profil_picture.name, profil_picture)
+                uploaded_file_url = fs.url(filename)
+                user.profil_picture = filename
+            else:
+                return JsonResponse({'message': 'Profil picture is required'}, status=400)
+
+            user.save()
+            user_data = {
+                'id': user.id,
+                'profil_picture': user.profil_picture.url if user.profil_picture else None,
+                'url': uploaded_file_url
+            }
+
+            return JsonResponse({'message': 'User information updated successfully', **user_data})
+        except CustomUser.DoesNotExist:
+            return JsonResponse({'message': 'User does not exist'}, status=404)
     else:
         return JsonResponse({'message': 'POST method is required'}, status=405)
