@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
     about=models.CharField(max_length=500,verbose_name="Hakkında",blank=True, null=True,)
     username = models.CharField(max_length=150, unique=True,blank=True, null=True,verbose_name="Kullanıcı Adı")
     password = models.CharField(max_length=128,verbose_name="Şifre")
-    profil_picture=models.ImageField(blank=True, null=True,upload_to='images/',verbose_name="Profil Resmi",default="images/default.png")
+    profil_picture=models.ImageField(blank=True, null=True,upload_to='images/',verbose_name="Profil Resmi",default="/images/default.png")
     x_link = models.URLField(blank=True, null=True,verbose_name="X URL")
     instagram_link = models.URLField(blank=True, null=True,verbose_name="İnstegram URL")
     facebook_link = models.URLField(blank=True, null=True,verbose_name="Facebook URL")
