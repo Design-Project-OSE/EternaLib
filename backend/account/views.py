@@ -317,7 +317,7 @@ def change_password(request):
 @csrf_exempt
 def update_profilpictures(request):
     if request.method == 'POST':
-        data = json.loads(request.body)
+        data = json.loads(request.body.decode('utf-8'))
         userID = data.get('userID')
         if userID:
             try:
