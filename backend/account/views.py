@@ -325,7 +325,7 @@ def update_profilpictures(request):
             user = CustomUser.objects.get(id=userID)
             if 'profil_picture' in request.FILES:
                 profil_picture = request.FILES['profil_picture']
-                fs = FileSystemStorage(location='backend/images')
+                fs = FileSystemStorage(location='images')
                 filename = fs.save(profil_picture.name, profil_picture)
                 uploaded_file_url = fs.url(filename)
                 user.profil_picture = filename
