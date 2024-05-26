@@ -11,4 +11,5 @@ urlpatterns = [
     path('logout',views.user_logout,name="[POST] ETKİ=[çıkış] INPUTS=[]"),
     path('delete',views.delete_user,name="[POST] ETKİ=[Kullanıcı Silme] INPUTS=[userID]"),
     path('changepassword',views.change_password,name="[POST] ETKİ=[Kullanıcı Şifre Değiştirme] INPUTS=[userID,current_password,new_password]"),
+    path('updateprofilpicture',views.update_profilpictures,name="[POST] ETKİ=[Profil Resmi Güncelleme] INPUTS=[userID,profil_picture]"),
 ]
