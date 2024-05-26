@@ -6,7 +6,6 @@ import { MovieCommentsModel } from '../models/movie-comments.model';
 import { MovieLikesAndDislikesModel } from '../models/movie-likes-and-dislikes.model';
 import { MovieAddCommentModel } from '../models/movie-add-comment.model';
 import { MovieAddLikeOrDislikeModel } from '../models/movie-add-like-or-dislike.model';
-import { model } from 'mongoose';
 import { MessageResponseModel } from '../../../../common/models/message.response.model';
 
 @Injectable({

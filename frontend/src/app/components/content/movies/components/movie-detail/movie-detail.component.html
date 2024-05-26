@@ -59,7 +59,7 @@
     <div class="row mt-3 bg-light" *ngFor="let comment of comments">
       <div class="col-2 p-2">
         <a routerLink="/profile/{{ comment.username }}/{{ comment.userID }}">
-          <img src="/assets/img/onur.jpg" alt="Thumbnail Image" class="rounded-circle img-raised">
+          <img [src]="'http://127.0.0.1:8000/' + comment.profil_picture" class="rounded-circle img-raised">
         </a>
       </div>
       <div class="col-10 p-2">

@@ -50,8 +50,11 @@ export class ProfileEditComponent {
     if (this.selectedFile) {
       this._profileService.updateProfilePicture(this.userId, this.selectedFile, res => {
         this.profilePictureUrl = res.url;
+        console.log(res);
+        console.log(this.profilePictureUrl);
         this.getProfileByUserId(this.userId);
         this._toastr.success(res.message);
+        document.getElementById('changeProfilePhotoModal').click();
       });
     } else {
       this._toastr.error('Please select a file');
@@ -93,7 +96,7 @@ export class ProfileEditComponent {
       this._profileService.channgePassword(model, res => {
         this._toastr.success(res.message);
         form.reset();
-        document.getElementById('closeModal').click();
+        document.getElementById('closePasswordModal').click();
       });
     }
   }

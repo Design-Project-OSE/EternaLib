@@ -7,8 +7,9 @@
         <div class="w-25 mx-auto position-relative">
           <img [src]="'http://127.0.0.1:8000/' + profilePictureUrl" class="rounded-circle img-raised">
           <span class="position-absolute top-0 start-100">
-              <input type="file" (change)="onFileSelected($event)">
-              <app-animated-button (click)="onUpload()">Save</app-animated-button>
+              <app-animated-button  data-toggle="modal" data-target="#changeProfilePhotoModal" rel="tooltip" title="Change Profile Photo">
+                <i class="fa fa-pen"></i>
+              </app-animated-button>
           </span>
         </div>
         <h2 class="title">{{ updateProfile.full_name }}</h2>
@@ -36,7 +37,7 @@
             </a>
           </li>
           <li class="nav-item ml-5">
-            <a class="nav-link" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" rel="tooltip" title="Change Password">
+            <a class="nav-link" type="button" class="btn btn-primary" data-toggle="modal" data-target="#changePasswordModal" rel="tooltip" title="Change Password">
               <i class="fa-solid fa-key"></i>
             </a>
           </li>
@@ -228,7 +229,7 @@
 
 
 <!-- Change Password Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModal" aria-hidden="true">
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -281,10 +282,33 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">Cancel</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closePasswordModal">Cancel</button>
           <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+
+<!-- Change Profile Photo Modal -->
+<div class="modal fade" id="changeProfilePhotoModal" tabindex="-1" role="dialog" aria-labelledby="changeProfilePhotoModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changePasswordModal">Change Profile Photo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <input type="file" (change)="onFileSelected($event)">
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-dismiss="modal" id="closeProfilePhotoModal">Cancel</button>
+          <button (click)="onUpload()" class="btn btn-primary">Save</button>
+        </div>
+    </div>
+  </div>
+</div>
+
