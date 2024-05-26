@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -147,3 +148,6 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:4200"
 ]
 CSRF_COOKIE_SECURE = False  # Production'da True olmalı
+
+MEDIA_URL='/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')

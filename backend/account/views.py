@@ -12,6 +12,7 @@ import random,uuid
 from movies.models import Movies_Comment,Movies_Like,Movies_Table
 from game.models import Game_Comment,Game_Like,Games_Table
 from book.models import Book_Comment,Book_Like,Book_Table
+from django.conf import settings
 
 @csrf_exempt
 def get_all_users(request):
@@ -327,7 +328,7 @@ def update_profilpictures(request):
                 profil_picture = request.FILES['profil_picture']
                 fs = FileSystemStorage(location='images')
                 filename = fs.save(profil_picture.name, profil_picture)
-                uploaded_file_url = fs.url(filename)
+                uploaded_file_url = settings.MEDIA_URL+filename
                 user.profil_picture = filename
             else:
                 return JsonResponse({'message': 'Profil picture is required'}, status=400)
