@@ -4,6 +4,7 @@ import { ProfileModel } from '../models/profile.model';
 import { ProfileUpdateModel } from '../models/profile-update.model';
 import { MessageResponseModel } from '../../../common/models/message.response.model';
 import { ChangePasswordModel } from '../models/change-password.model';
+import { ProfilePictureResponseModel } from '../models/profile-picture.response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,15 @@ export class ProfileService {
 
   deleteUser(model: any, callback: (res: MessageResponseModel) => void){
     this._http.post<MessageResponseModel>('delete', model, res => callback(res));
+  }
+
+
+
+  updateProfilePicture(userID: string, file: File, callback: (res: ProfilePictureResponseModel) => void) {
+    const formData: FormData = new FormData();
+    formData.append('userID', userID);
+    formData.append('profil_picture', file, file.name);
+
+    this._http.post<ProfilePictureResponseModel>('updateprofilpicture', formData, res => callback(res));
   }
 }

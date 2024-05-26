@@ -5,14 +5,13 @@
       </div>
       <div class="container">
         <div class="w-25 mx-auto position-relative">
-          <img src="/assets/img/default-avatar.png" class="rounded-circle img-raised">
+          <img [src]="'http://127.0.0.1:8000/' + profilePictureUrl" class="rounded-circle img-raised">
           <span class="position-absolute top-0 start-100">
-              <app-animated-button>
-                <i class="fa fa-edit fa-xl"></i>
-              </app-animated-button>
+              <input type="file" (change)="onFileSelected($event)">
+              <app-animated-button (click)="onUpload()">Save</app-animated-button>
           </span>
         </div>
-        <h2 class="title">{{ profile.full_name }}</h2>
+        <h2 class="title">{{ updateProfile.full_name }}</h2>
       </div>
     </div>
     <div class="section pt-0">
@@ -63,7 +62,7 @@
                           type="text"
                           placeholder="Name and Surname"
                           class="form-control"
-                          [(ngModel)]="profile.full_name"
+                          [(ngModel)]="updateProfile.full_name"
                           id="full_name"
                           name="full_name"
                           #full_name
@@ -83,7 +82,7 @@
                           type="email"
                           placeholder="Email..."
                           class="form-control"
-                          [(ngModel)]="profile.email"
+                          [(ngModel)]="updateProfile.email"
                           id="email"
                           name="email"
                           #email
@@ -103,7 +102,7 @@
                           type="text"
                           placeholder="Username..."
                           class="form-control"
-                          [(ngModel)]="profile.username"
+                          [(ngModel)]="updateProfile.username"
                           id="username"
                           name="username"
                           #username
@@ -125,7 +124,7 @@
                           placeholder="About me"
                           name="aboutMe"
                           #aboutMe
-                          [(ngModel)]="profile.about"
+                          [(ngModel)]="updateProfile.about"
                           id="aboutMe">
                         </textarea>
                       </div>
@@ -153,7 +152,7 @@
                         placeholder="Your instagram account link"
                         id="instagram"
                         name="instagram"
-                        [(ngModel)]="profile.instagram_link"
+                        [(ngModel)]="updateProfile.instagram_link"
                         #instagram>
                     </div>
                   </div>
@@ -170,7 +169,7 @@
                         id="xtwitter"
                         name="xtwitter"
                         #xtwitter
-                        [(ngModel)]="profile.x_link">
+                        [(ngModel)]="updateProfile.x_link">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -186,7 +185,7 @@
                       id="facebook"
                       name="facebook"
                       #facebook
-                      [(ngModel)]="profile.facebook_link">
+                      [(ngModel)]="updateProfile.facebook_link">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -202,7 +201,7 @@
                         id="linkedin"
                         name="linkedin"
                         #linkedin
-                        [(ngModel)]="profile.linkedin_link">
+                        [(ngModel)]="updateProfile.linkedin_link">
                     </div>
                   </div>
 

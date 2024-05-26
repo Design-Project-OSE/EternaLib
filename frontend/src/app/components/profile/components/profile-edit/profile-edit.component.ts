@@ -17,9 +17,12 @@ import { AuthService } from '../../../auth/services/auth.service';
   styleUrl: './profile-edit.component.scss'
 })
 export class ProfileEditComponent {
-  profile: ProfileUpdateModel = new ProfileUpdateModel();
+  updateProfile: ProfileUpdateModel = new ProfileUpdateModel();
   userId: string = "";
   username: string = "";
+
+  selectedFile: File | null = null;
+  profilePictureUrl: string | null = null;
 
   constructor(
     private _profileService: ProfileService,
@@ -36,19 +39,42 @@ export class ProfileEditComponent {
     });
   }
 
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
+
+  onUpload() {
+    if (this.selectedFile) {
+      this._profileService.updateProfilePicture(this.userId, this.selectedFile, res => {
+        this.profilePictureUrl = res.url;
+        this.getProfileByUserId(this.userId);
+        this._toastr.success(res.message);
+      });
+    } else {
+      this._toastr.error('Please select a file');
+    }
+  }
+
+
+
   getProfileByUserId(id: string){
     let model = { userID: id };
 
     this._profileService.getProfileByUserId(model, res => {
-      this.profile = res;
+      this.updateProfile = res;
+      this.profilePictureUrl = res.profil_picture;
     });
   }
 
+
   editProfile(form: NgForm){
     if(form.valid){
-      this.profile.userID = this.userId;
+      this.updateProfile.userID = this.userId;
 
-      this._profileService.updateProfile(this.profile, res => {
+      this._profileService.updateProfile(this.updateProfile, res => {
       console.log(res);
       this._toastr.success('Profile updated successfully');
       form.reset();
