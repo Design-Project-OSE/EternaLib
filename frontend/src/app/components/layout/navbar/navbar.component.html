@@ -23,7 +23,11 @@
           <a class="nav-link" routerLink="/books" (click)="_auth.isAuthPages=false"><i class="fa-solid fa-book fa-xl"></i><b> Books</b></a>
         </li>
       </ul>
-      <form class="ml-auto dropdown" data-background-color style="width: 350px;" >
+
+    </div>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="/assets/img/blurred-image-1.jpg">
+      <form class="mx-auto dropdown" data-background-color style="width: 450px;" >
         <div class="form-group has-white mb-0" data-toggle="dropdown" id="searchDropdown">
           <div class="input-group mb-0">
             <div class="input-group-prepend">
@@ -39,7 +43,7 @@
             placeholder="Search a content...">
           </div>
         </div>
-        <div class="dropdown-menu w-100 py-0" aria-labelledby="searchDropdown">
+        <div class="dropdown-menu w-100 py-0 overflow-auto" aria-labelledby="searchDropdown" style="height: 600px;" *ngIf="searchInput.value.length!=0">
           <div class="dropdown-item my-0 p-0" *ngIf="allMovies.length!=0">
             <table class="table table-hover mb-0">
               <thead>
@@ -107,9 +111,6 @@
           </div>
         </div>
       </form>
-    </div>
-
-    <div class="collapse navbar-collapse justify-content-end" id="navigation" data-nav-image="/assets/img/blurred-image-1.jpg">
       <ul class="navbar-nav">
         <li class="nav-item dropdown" *ngIf="_auth.isLoggedIn">
           <a href="#" class="nav-link dropdown-toggle" id="sDropdown" data-toggle="dropdown">
@@ -133,24 +134,6 @@
           <a routerLink="/login" (click)="_auth.isAuthPages=false" *ngIf="!_auth.isAuthPages && !_auth.isLoggedIn" class="nav-link btn btn-outline-primary text-light btn-round">
             <i class="fa-solid fa-right-to-bracket"></i>
             <p class="pl-1"><b>LOG IN</b></p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link btn-round" rel="tooltip" title="Follow us on X (Twitter)" data-placement="bottom" href="https://twitter.com/emrelyoruk" target="_blank">
-            <i class="fab fa-square-x-twitter"></i>
-            <p class="d-lg-none d-xl-none">X (Twitter)</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link btn-round" rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="https://www.facebook.com/emre.akcam.7315/" target="_blank">
-            <i class="fab fa-facebook-square"></i>
-            <p class="d-lg-none d-xl-none">Facebook</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link btn-round" rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="https://www.instagram.com/emreyoruk0/" target="_blank">
-            <i class="fab fa-instagram"></i>
-            <p class="d-lg-none d-xl-none">Instagram</p>
           </a>
         </li>
       </ul>

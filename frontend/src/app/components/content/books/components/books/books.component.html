@@ -14,13 +14,12 @@
             (keyup)="getBooks(searchInput.value)"
             placeholder="Search a book...">
       </div>
-      <div class="ml-auto w-25 mb-3 no-border input-group">
-
+      <div class="ml-auto">
         <div class="dropdown">
-          <button href="#" class="btn btn-light dropdown-toggle" id="cDropdown" data-toggle="dropdown" (click)="selectedCategory=='All'">
-            <p class="px-1"><b>{{ selectedCategory }}</b></p>
+          <button href="#" class="btn btn-primary dropdown-toggle" id="cDropdown" data-toggle="dropdown" (click)="selectedCategory=='All'">
+            <p class="px-5 mb-0"><b>{{ selectedCategory }}</b></p>
           </button>
-          <ul class="dropdown-menu" aria-labelledby="cDropdown">
+          <ul class="dropdown-menu overflow-auto" aria-labelledby="cDropdown" style="height: 300px;">
             <li class="dropdown-item" style="cursor: pointer;" (click)="selectedCategory='All'; getBooks(searchInput.value)">
               All
             </li>
@@ -29,7 +28,6 @@
             </li>
           </ul>
         </div>
-
       </div>
     </div>
 

@@ -127,3 +127,30 @@
 .card4:hover .linkedin {
   fill: white;
 }
+
+
+.card5 {
+  width: 90px;
+  height: 90px;
+  outline: none;
+  border: none;
+  background: white;
+  border-radius: 5px 5px 5px 90px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  transition: .2s ease-in-out;
+}
+
+.card5:hover {
+  cursor: pointer;
+  scale: 1.1;
+  background-color: black;
+}
+
+.card5:hover .github {
+  fill: white;
+}
+
+.github {
+  margin-top: -.6em;
+  margin-left: 1.2em;
+}

@@ -11,7 +11,6 @@ import { ToastrService } from 'ngx-toastr';
 import { BookAddLikeOrDislikeModel } from '../../models/book-add-like-or-dislike.model';
 import { BookAddCommentModel } from '../../models/book-add-comment.model';
 import { AuthService } from '../../../../auth/services/auth.service';
-import { UserModel } from '../../../../auth/models/user.model';
 import { SwalService } from '../../../../../common/services/swal.service';
 
 @Component({

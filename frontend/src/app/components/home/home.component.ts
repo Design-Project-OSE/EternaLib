@@ -34,12 +34,12 @@ export class HomeComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.getMostPopularMoviesIds();
-    this.getMostPopularGamesIds();
-    this.getMostPopularBooksIds();
+    this.getMostPopularMovies();
+    this.getMostPopularGames();
+    this.getMostPopularBooks();
   }
 
-  getMostPopularMoviesIds() {
+  getMostPopularMovies() {
     this._homeService.getMostPopularMoviesIds(res => {
       this.mostPopularMoviesIds = res;
 
@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  getMostPopularGamesIds() {
+  getMostPopularGames() {
     this._homeService.getMostPopularGamesIds(res => {
       this.mostPopularGamesIds = res;
 
@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit{
     });
   }
 
-  getMostPopularBooksIds() {
+  getMostPopularBooks() {
     this._homeService.getMostPopularBooksIds(res => {
       this.mostPopularBooksIds = res;
 

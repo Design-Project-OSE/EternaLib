@@ -1,7 +1,7 @@
 <div class="profile-page sidebar-collapse">
   <div class="wrapper">
     <div class="page-header clear-filter page-header-small" filter-color="orange">
-      <div class="page-header-image" data-parallax="true" style="background-image:url('/assets/img/bg5.jpg');">
+      <div class="page-header-image" data-parallax="true" style="background-image:url('/assets/img/bg3.jpg');">
       </div>
       <div class="container">
         <div class="row">
@@ -44,10 +44,11 @@
           <div class="col-md-6">
             <h3 class="title mt-2">My Social Accounts</h3>
                 <app-social-buttons
+                    isGithub="false"
                     instagram="{{ profile.instagram_link }}"
                     x="{{ profile.x_link}}"
                     linkedin="{{ profile.linkedin_link }}"
-                    facebook="{{ profile.facebook_link }}">
+                    faceOrGit="{{ profile.facebook_link }}">
                 </app-social-buttons>
           </div>
         </div>
