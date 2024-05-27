@@ -6,21 +6,24 @@ import { CategoryModel } from '../../../models/category.model';
 import { BookService } from '../../services/book.service';
 import { SearchService } from '../../../../../common/services/search.service';
 import { SearchModel } from '../../../../../common/models/search.model';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [SharedModule, ContentComponent],
+  imports: [SharedModule, ContentComponent, NgxPaginationModule],
   templateUrl: './books.component.html',
   styleUrl: './books.component.scss'
 })
 export class BooksComponent implements OnInit {
   books: BookModel[] = [];
   categories: CategoryModel[] = [];
-
   selectedCategory: string = "All";
 
   search: SearchModel = new SearchModel();
+
+  pageNumber: number = 1;
+  pageSize: number = 10;
 
   constructor(
     private _bookService: BookService,

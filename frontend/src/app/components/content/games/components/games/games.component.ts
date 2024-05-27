@@ -6,21 +6,24 @@ import { CategoryModel } from '../../../models/category.model';
 import { GameService } from '../../services/game.service';
 import { SearchService } from '../../../../../common/services/search.service';
 import { SearchModel } from '../../../../../common/models/search.model';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-games',
   standalone: true,
-  imports: [SharedModule, ContentComponent],
+  imports: [SharedModule, ContentComponent, NgxPaginationModule],
   templateUrl: './games.component.html',
   styleUrl: './games.component.scss'
 })
 export class GamesComponent implements OnInit {
   games: GameModel[] = [];
   categories: CategoryModel[] = [];
-
   selectedCategory: string = "All";
 
   search: SearchModel = new SearchModel();
+
+  pageNumber: number = 1;
+  pageSize: number = 10;
 
   constructor(
     private _gameService: GameService,

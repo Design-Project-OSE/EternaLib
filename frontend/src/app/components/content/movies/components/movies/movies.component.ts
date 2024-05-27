@@ -6,21 +6,24 @@ import { MovieModel } from '../../models/movie.model';
 import { CategoryModel } from '../../../models/category.model';
 import { SearchModel } from '../../../../../common/models/search.model';
 import { SearchService } from '../../../../../common/services/search.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-movies',
   standalone: true,
-  imports: [SharedModule, ContentComponent],
+  imports: [SharedModule, ContentComponent, NgxPaginationModule],
   templateUrl: './movies.component.html',
   styleUrl: './movies.component.scss'
 })
 export class MoviesComponent implements OnInit {
   movies: MovieModel[] = [];
   categories: CategoryModel[] = [];
-
   selectedCategory: string = "All";
 
   search: SearchModel = new SearchModel();
+
+  pageNumber: number = 1;
+  pageSize: number = 10;
 
   constructor(
     private _movieService: MovieService,

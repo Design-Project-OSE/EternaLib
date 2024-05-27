@@ -1,5 +1,4 @@
 <app-content which="read" contentTypee="Books">
-
     <div class="d-flex align-items-center w-100">
       <div class="input-group w-25 mb-3 no-border">
         <div class="input-group-prepend">
@@ -31,7 +30,7 @@
       </div>
     </div>
 
-    <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let book of books">
+    <div class="col-lg-2 col-md-4 col-sm-6" *ngFor="let book of books | paginate: {itemsPerPage:pageSize, currentPage:pageNumber}">
         <app-custom-card
           name= "{{ book.name }}"
           imageUrl="{{ book.poster }}"
@@ -47,6 +46,19 @@
       <i class="fa-regular fa-face-sad-tear"></i>
     </h1>
   </div>
+
+  <select [(ngModel)]="pageSize" class="form-control" style="width: 70px;" *ngIf="books.length >= 5">
+    <option>5</option>
+    <option>10</option>
+    <option>20</option>
+    <option>50</option>
+    <option>100</option>
+  </select>
+  <nav class="ml-auto">
+    <pagination-controls
+      (pageChange)="pageNumber = $event" *ngIf="books.length >= 5">
+    </pagination-controls>
+  </nav>
 </app-content>
 
 
