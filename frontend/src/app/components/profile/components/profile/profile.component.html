@@ -81,7 +81,7 @@
           <div class="tab-content gallery mx-auto">
             <div class="tab-pane active" id="games" role="tabpanel" *ngIf="likedGames">
                 <div class="row collections">
-                  <div class="col-lg-3 col-md-6 mx-5" *ngFor="let likedGame of likedGames">
+                  <div class="col-lg-2 col-md-4 col-sm-6 mx-5" *ngFor="let likedGame of likedGames">
                       <app-custom-card
                         name="{{ likedGame.name }}"
                         imageUrl="{{ likedGame.poster}}"
@@ -102,7 +102,7 @@
             </div>
             <div class="tab-pane" id="movies" role="tabpanel" *ngIf="likedMovies">
                 <div class="row collections">
-                  <div class="col-lg-3 col-md-6 mx-5" *ngFor="let likedMovie of likedMovies">
+                  <div class="col-lg-2 col-md-4 col-sm-6 mx-5" *ngFor="let likedMovie of likedMovies">
                       <app-custom-card
                         name="{{ likedMovie.name }}"
                         imageUrl="{{ likedMovie.poster }}"
@@ -123,7 +123,7 @@
             </div>
             <div class="tab-pane" id="books" role="tabpanel" *ngIf="likedBooks">
                 <div class="row collections">
-                  <div class="col-lg-3 col-md-6 mx-5" *ngFor="let likedBook of likedBooks">
+                  <div class="col-lg-2 col-md-4 col-sm-6 mx-5" *ngFor="let likedBook of likedBooks">
                       <app-custom-card
                         name="{{ likedBook.name }}"
                         imageUrl="{{ likedBook.poster }}"
