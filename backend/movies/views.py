@@ -15,7 +15,7 @@ import json
 @permission_classes((permissions.AllowAny,))
 @csrf_exempt
 def list_mostmovies(request):
-    top_5_movies = Movies_Table.objects.order_by('-like')[:5]
+    top_5_movies = Movies_Table.objects.order_by('-like')[:10]
     top_5_movie_ids = top_5_movies.values_list('id', flat=True)
     return JsonResponse(list(top_5_movie_ids), safe=False)
 
@@ -208,7 +208,7 @@ def list_getidcomments(request):
 
                     return JsonResponse(comments_with_user_info, safe=False)
                 else:
-                    return JsonResponse({'message': 'No comments found for the provided movie ID.'}, status=404)
+                    return JsonResponse({'message': 'There are no comments on this film yet, but we would love for you to be the first to leave one!'}, status=404)
             else:
                 return JsonResponse({'message': 'No movie ID provided.'}, status=400)
         except json.JSONDecodeError:
