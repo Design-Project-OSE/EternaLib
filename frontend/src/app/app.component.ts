@@ -13,16 +13,7 @@ import { AuthService } from './components/auth/services/auth.service';
     <button class="backtotop" *ngIf="isShow" (click)="gotoTop()">
       <i class="fa-solid fa-circle-chevron-up"></i>
     </button>
-    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" type = "loading-screen" [fullScreen] = "true">
-      <div class="🤚">
-        <div class="👉"></div>
-        <div class="👉"></div>
-        <div class="👉"></div>
-        <div class="👉"></div>
-        <div class="🌴"></div>
-        <div class="👍"></div>
-    </div>
-    </ngx-spinner>
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "rgb(249, 99, 50)" type = "square-jelly-box" [fullScreen] = "true"><p style="color: rgb(249, 99, 50)">Loading...</p></ngx-spinner>
   `,
   styleUrl: './app.component.scss'
 })

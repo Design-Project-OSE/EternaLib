@@ -54,7 +54,7 @@
             "styles": [
               "src/styles.scss",
               "node_modules/ngx-toastr/toastr.css",
-              "node_modules/ngx-spinner/animations//loading-screen.css"
+              "node_modules/ngx-spinner/animations/square-jelly-box.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
