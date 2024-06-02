@@ -11,76 +11,74 @@ from account.serializers import Seri_users
 from .serializers import Seri_movietable,Seri_moviecategory,Seri_moviecomment,Seri_movielike
 import json
 
+@csrf_exempt
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
-@csrf_exempt
 def list_mostmovies(request):
     top_5_movies = Movies_Table.objects.order_by('-like')[:10]
     top_5_movie_ids = top_5_movies.values_list('id', flat=True)
     return JsonResponse(list(top_5_movie_ids), safe=False)
 
+@csrf_exempt
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
-@csrf_exempt
 def list_movie(request):
     obj=Movies_Table.objects.all()
     seri=Seri_movietable(obj,many=True)
     return Response(seri.data)
 
+@csrf_exempt
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
-@csrf_exempt
 def list_moviecategory(request):
     obj=Movies_Category.objects.all()
     seri=Seri_moviecategory(obj,many=True)
     return Response(seri.data)
 
+@csrf_exempt
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
-@csrf_exempt
 def list_moviecomment(request):
     obj=Movies_Comment.objects.all()
     seri=Seri_moviecomment(obj,many=True)
     return Response(seri.data)
 
+@csrf_exempt
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
-@csrf_exempt
 def list_movielike(request):
     obj=Movies_Like.objects.all()
     seri=Seri_movielike(obj,many=True)
     return Response(seri.data)
 
+@csrf_exempt
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
-@csrf_exempt
 def list_movieid(request,id):
     obj=get_object_or_404(Movies_Table,id=id)
     seri=Seri_movietable(obj)
     return Response(seri.data)
 
-
+@csrf_exempt
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
-@csrf_exempt
 def list_moviecategoryid(request,id):
     obj=get_object_or_404(Movies_Category,id=id)
     seri=Seri_moviecategory(obj)
     return Response(seri.data)
 
+@csrf_exempt
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
-@csrf_exempt
 def list_movieurlname(request,urlname):
     obj=get_object_or_404(Movies_Table,urlname=urlname)
     seri=Seri_movietable(obj)
     return Response(seri.data)
 
 
-
+@csrf_exempt
 @api_view(['GET', 'POST'])
 @permission_classes((permissions.AllowAny,))
-@csrf_exempt
 def list_moviegetcomment(request):
     if request.method == 'GET':
         comments = Movies_Comment.objects.all()
@@ -97,10 +95,10 @@ def list_moviegetcomment(request):
             movie.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    
+@csrf_exempt
 @api_view(['GET', 'POST'])
 @permission_classes([permissions.AllowAny])
-@csrf_exempt
 def list_moviegetlike(request):
     if request.method == 'GET':
         likes = Movies_Like.objects.all()
@@ -126,7 +124,6 @@ def list_moviegetlike(request):
             existing_like = Movies_Like.objects.filter(userID=user_id, movieID=movie_id).first()
             
             if existing_like:
-                # Update existing like/dislike
                 if existing_like.like and not like:
                     user.like_movie -= 1
                     movie.like -= 1
@@ -179,6 +176,8 @@ def list_moviegetlike(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @csrf_exempt
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
 def list_getidcomments(request):
     if request.method == 'POST':
         try:
@@ -190,7 +189,6 @@ def list_getidcomments(request):
                 comment_serializer = Seri_moviecomment(comments, many=True)
 
                 if comments.exists():
-                    # Yorumların içine kullanıcı bilgilerini birleştir
                     comments_with_user_info = []
                     for comment in comments:
                         user = get_object_or_404(CustomUser, id=comment.userID)
@@ -217,6 +215,8 @@ def list_getidcomments(request):
         return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
     
 @csrf_exempt
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
 def list_getidlikes(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -232,6 +232,8 @@ def list_getidlikes(request):
     
 # [POST] HAKKINDA=[alınan kullanıcı id ait like bilgilerini toplar] INPUTS=[userID]
 @csrf_exempt
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
 def list_getidlikeusers(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -246,6 +248,8 @@ def list_getidlikeusers(request):
         return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
     
 @csrf_exempt
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
 def list_liked(request):
     if request.method == 'POST':
         try:
@@ -286,6 +290,8 @@ def list_liked(request):
         return JsonResponse({'message': 'Only POST requests are allowed.'}, status=405)
  
 @csrf_exempt   
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
 def list_getcategory(request):
     if request.method == 'POST':
         try:
@@ -324,6 +330,8 @@ def list_getcategory(request):
         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
     
 @csrf_exempt
+@api_view(['POST'])
+@permission_classes([permissions.AllowAny])
 def delete_comment(request):
     if request.method == 'POST':
         try:
