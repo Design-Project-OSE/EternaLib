@@ -39,7 +39,7 @@ def update_user_info(request):
                 facebook_link = request.POST.get('facebook_link')
                 linkedin_link = request.POST.get('linkedin_link')
 
-                # Yeni bilgileri güncelle
+                # Yeni bilgileri güncelle.
                 user.full_name = full_name
                 user.email = email
                 user.username = username
