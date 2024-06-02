@@ -46,6 +46,7 @@
 #PROJECT PREPARERS
 1030520914 Sinan UYĞUN
 1030510202 Emre YÖRÜK
+1030520931 Onur KARAKAYA
 
 #Home Page
 <p align=“center”>
