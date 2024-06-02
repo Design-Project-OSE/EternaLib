@@ -1,10 +1,17 @@
 # [TR]EternaLib Web Bitirme Projesi
+
 ##ÜNİVERSİTE = ERCİYES ÜNİVERSİTESİ
+
 ##PROJE SORUMLUSU = FEHİM KÖYLÜ 
+
 ##PROJE HAZIRLAYANLAR:
+
 1030520914 Sinan UYĞUN
+
 1030510202 Emre YÖRÜK
+
 1030520931 Onur KARAKAYA
+
 
 #Ana Sayfa
 <p align="center">
@@ -40,13 +47,21 @@
 <p align="center">
    <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/42937679-df0a-4bb0-a3fd-aa96220ea622" />
 </p>
+
 # [EN]EternaLib Web Graduation Project
+
 ##UNIVERSITY = ERCİYES UNIVERSITY
+
 ##PROJECT MANAGER = FEHIM KOYLU
+
 #PROJECT PREPARERS
+
 1030520914 Sinan UYĞUN
+
 1030510202 Emre YÖRÜK
+
 1030520931 Onur KARAKAYA
+
 
 #Home Page
 <p align=“center”>
