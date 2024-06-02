@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Book_Category, Book_Table, Book_Comment, Book_Like
 
+
 class Book_Admin(admin.ModelAdmin):
     list_display = ('id', 'name', 'savedate', 'isPublished')
     list_display_links = ('id', 'name', 'savedate')

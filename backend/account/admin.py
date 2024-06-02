@@ -48,7 +48,7 @@ def update_user_info(request):
                 user.facebook_link = facebook_link
                 user.linkedin_link = linkedin_link
 
-                # Değişiklikleri kaydet
+                # Değişiklikleri kaydet.
                 user.save()
 
                 return JsonResponse({'success': 'User information updated successfully'})
