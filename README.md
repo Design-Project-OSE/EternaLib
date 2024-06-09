@@ -194,6 +194,6 @@
 
 ## Search
 <p align="center">
-   <img src="qhttps://github.com/Design-Project-OSE/EternaLib/assets/64197926/42937679-df0a-4bb0-a3fd-aa96220ea622" />
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/42937679-df0a-4bb0-a3fd-aa96220ea622" />
 </p>
 
