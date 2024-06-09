@@ -71,7 +71,7 @@
 
 ## Giriş Ekranı
 <p align="center">
-   <img src="(https://github.com/Design-Project-OSE/EternaLib/assets/64197926/5f2955a7-0536-4cd7-8594-70913fe5b9ea)" />
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/5f2955a7-0536-4cd7-8594-70913fe5b9ea" />
 </p>
 
 ## Kayıt Ekranı
@@ -83,6 +83,7 @@
 <p align="center">
    <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/42937679-df0a-4bb0-a3fd-aa96220ea622" />
 </p>
+
 
 # [EN]EternaLib Web Graduation Project
 
@@ -136,37 +137,63 @@
 5) Run the project with 'ng serve -o' to run the project.
 
 ## Home Page
-<p align=“center”>
-   <img src=“https://github.com/Design-Project-OSE/EternaLib/assets/64197926/a2b5d100-9dab-4839-b0db-f7e1e6495ce0” />
+<p align="center">
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/a2b5d100-9dab-4839-b0db-f7e1e6495ce0" />
 </p>
 
 ## Home Top 10 Movies
-<p align=“center”>
-   <img src=“https://github.com/Design-Project-OSE/EternaLib/assets/64197926/2f0eae6f-a328-4e87-8d62-9f7ceb880467” />
+<p align="center">
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/2f0eae6f-a328-4e87-8d62-9f7ceb880467" />
 </p>
 
 ## Home Top 10 Games
 <p align=“center”>
-   <img src=“https://github.com/Design-Project-OSE/EternaLib/assets/64197926/f80e9dc3-6dec-444a-b831-2e4efd07adc7” />
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/f80e9dc3-6dec-444a-b831-2e4efd07adc7" />
 </p>
 
 ## Home Top 10 Books
-<p align=“center”>
-   <img src=“https://github.com/Design-Project-OSE/EternaLib/assets/64197926/276f37de-8691-4a6b-9a3a-ce065d2a3e64” />
+<p align="center">
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/276f37de-8691-4a6b-9a3a-ce065d2a3e64" />
 </p>
 
 ## Login Screen
-<p align=“center”>
-   <img src=“(https://github.com/Design-Project-OSE/EternaLib/assets/64197926/5f2955a7-0536-4cd7-8594-70913fe5b9ea)” />
+<p align="center">
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/5f2955a7-0536-4cd7-8594-70913fe5b9ea" />
 </p>
 
 ## Registration Screen
-<p align=“center”>
-   <img src=“https://github.com/Design-Project-OSE/EternaLib/assets/64197926/a22933fb-9848-4694-80a1-b108fb746dac” />
+<p align="center">
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/a22933fb-9848-4694-80a1-b108fb746dac" />
 </p>
 
-## Making a Call
-<p align=“center”>
-   <img src=“https://github.com/Design-Project-OSE/EternaLib/assets/64197926/42937679-df0a-4bb0-a3fd-aa96220ea622” />
+
+## Home Top 10 Movies
+<p align="center">
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/2f0eae6f-a328-4e87-8d62-9f7ceb880467" />
+</p>
+
+## Home Top 10 Games
+<p align="center">
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/f80e9dc3-6dec-444a-b831-2e4efd07adc7" />
+</p>
+
+## Home Top 10 Books
+<p align="center">
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/276f37de-8691-4a6b-9a3a-ce065d2a3e64" />
+</p>
+
+## Login Screen
+<p align="center">
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/5f2955a7-0536-4cd7-8594-70913fe5b9ea" />
+</p>
+
+## Registration Screen
+<p align="center">
+   <img src="https://github.com/Design-Project-OSE/EternaLib/assets/64197926/a22933fb-9848-4694-80a1-b108fb746dac" />
+</p>
+
+## Search
+<p align="center">
+   <img src="qhttps://github.com/Design-Project-OSE/EternaLib/assets/64197926/42937679-df0a-4bb0-a3fd-aa96220ea622" />
 </p>
 
