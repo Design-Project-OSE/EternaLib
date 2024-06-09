@@ -12,6 +12,28 @@
 
 1030520931 Onur KARAKAYA
 
+##KURULUM
+Backend ile Frontend aynı anda çalıştırmak için 2 terminal açın.
+
+#BACKEND KURULUM
+1-) https://www.python.org/ sitesinden Python kurulumu gerçekleştirin.
+2-) Projeyi ana dizinde açtıktan sonra terminal kısmına 'cd Backend' yazarak backend dosyasına ulaşırsınız.
+3-) Sırasıyla:
+   pip install virtualenv
+   virtualenv myenv
+   myenv/Scripts/activate
+
+   tebrikler az önce sanal ortamımızı kurmuş olduk.
+
+4-) 'pip install -r requerement.txt' kodu ile gerekli paketleri kurun.
+5-) Projeyi çalıştırmak için 'python manage.py runserver' ile çalıştırın.
+
+#FRONTEND KURULUM
+1-) https://nodejs.org/ siteinden node.js kurulumu gerçekleştirin.
+2-) Komut İstemcisi(CMD) açın ve şu kodu yazın 'npm install -g @angular/cli' yazıp entera basın.
+3-) Projeyi ana dizinde açtıktan sonra terminal kısmına 'cd Frontend' yazarak frontend dosyasına ulaşırsınız.
+4-) Gerekli paketlerin yüklenmesi için 'npm install' yazıp entera basın.
+5-)Projeyi çalıştırmak için 'ng serve -o' ile çalıştırın.
 
 #Ana Sayfa
 <p align="center">
@@ -62,6 +84,29 @@
 
 1030520931 Onur KARAKAYA
 
+
+##INSTALLATION
+Open 2 terminals to run Backend and Frontend at the same time.
+
+#BACKEND SETUP
+1-) Install Python from https://www.python.org/.
+2-) After opening the project in the main directory, type 'cd Backend' in the terminal to access the backend file.
+3-) In order:
+   pip install virtualenv
+   virtualenv myenv
+   myenv/Scripts/activate
+
+   Congratulations we have just set up our virtual environment.
+
+4-) Install the necessary packages with 'pip install -r requerement.txt'.
+5-) Run the project with 'python manage.py runserver' to run the project.
+
+#FRONTEND INSTALLATION
+1-) Install node.js from https://nodejs.org/.
+2-) Open Command Prompt (CMD) and type the following code 'npm install -g @angular/cli' and press enter.
+3-) After opening the project in the main directory, you can access the frontend file by typing 'cd Frontend' in the terminal.
+4-) Type 'npm install' and press enter to install the necessary packages.
+5) Run the project with 'ng serve -o' to run the project.
 
 #Home Page
 <p align=“center”>
