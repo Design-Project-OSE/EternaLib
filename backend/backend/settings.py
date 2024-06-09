@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-c(dq7+jd@t+20q977ssevh6$e0+fveu_ekjho%&@f@xpg=5cy$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+HOST_NAME='mongodb+srv://sinanuygun:BnKJOKx7OTvSWLfD@eternalib.06ijzom.mongodb.net/?retryWrites=true&w=majority&appName=eternaLib'
 
 AUTH_USER_MODEL = 'account.CustomUser'
 
@@ -75,6 +75,18 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+"""
+DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'CLIENT':{
+                'host':HOST_NAME,
+                'name':'eternaLib',
+                'authMechanism':'SCRAM-SHA-1'
+            }
+        }
+}
+"""
 
 DATABASES = {
     'default': {
@@ -82,6 +94,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
