@@ -13,11 +13,15 @@
 1030520931 Onur KARAKAYA
 
 ##KURULUM
+
 Backend ile Frontend aynı anda çalıştırmak için 2 terminal açın.
 
 #BACKEND KURULUM
+
 1-) https://www.python.org/ sitesinden Python kurulumu gerçekleştirin.
+
 2-) Projeyi ana dizinde açtıktan sonra terminal kısmına 'cd Backend' yazarak backend dosyasına ulaşırsınız.
+
 3-) Sırasıyla:
    pip install virtualenv
    virtualenv myenv
@@ -26,13 +30,19 @@ Backend ile Frontend aynı anda çalıştırmak için 2 terminal açın.
    tebrikler az önce sanal ortamımızı kurmuş olduk.
 
 4-) 'pip install -r requerement.txt' kodu ile gerekli paketleri kurun.
+
 5-) Projeyi çalıştırmak için 'python manage.py runserver' ile çalıştırın.
 
 #FRONTEND KURULUM
+
 1-) https://nodejs.org/ siteinden node.js kurulumu gerçekleştirin.
+
 2-) Komut İstemcisi(CMD) açın ve şu kodu yazın 'npm install -g @angular/cli' yazıp entera basın.
+
 3-) Projeyi ana dizinde açtıktan sonra terminal kısmına 'cd Frontend' yazarak frontend dosyasına ulaşırsınız.
+
 4-) Gerekli paketlerin yüklenmesi için 'npm install' yazıp entera basın.
+
 5-)Projeyi çalıştırmak için 'ng serve -o' ile çalıştırın.
 
 #Ana Sayfa
