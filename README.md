@@ -24,7 +24,7 @@
 
 1-) https://www.python.org/ sitesinden Python kurulumu gerçekleştirin.
 
-2-)Database.rar içindeki dosyayı backend dosyası içerisine ekleyin.
+2-)Database.zip içindeki dosyayı backend dosyası içerisine ekleyin.
 
 3-) Projeyi ana dizinde açtıktan sonra terminal kısmına 'cd Backend' yazarak backend dosyasına ulaşırsınız.
 
@@ -113,7 +113,7 @@
 
 1-) Install Python from https://www.python.org/.
 
-2-)Add the file in Database.rar to the backend file.
+2-)Add the file in Database.zip to the backend file.
 
 3-) After opening the project in the main directory, type 'cd Backend' in the terminal to access the backend file.
 
