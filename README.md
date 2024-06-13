@@ -24,18 +24,20 @@
 
 1-) https://www.python.org/ sitesinden Python kurulumu gerçekleştirin.
 
-2-) Projeyi ana dizinde açtıktan sonra terminal kısmına 'cd Backend' yazarak backend dosyasına ulaşırsınız.
+2-)Database.rar içindeki dosyayı backend dosyası içerisine ekleyin.
 
-3-) Sırasıyla:
+3-) Projeyi ana dizinde açtıktan sonra terminal kısmına 'cd Backend' yazarak backend dosyasına ulaşırsınız.
+
+4-) Sırasıyla:
    pip install virtualenv
    virtualenv myenv
    myenv/Scripts/activate
 
    tebrikler az önce sanal ortamımızı kurmuş olduk.
 
-4-) 'pip install -r requerement.txt' kodu ile gerekli paketleri kurun.
+5-) 'pip install -r requerement.txt' kodu ile gerekli paketleri kurun.
 
-5-) Projeyi çalıştırmak için 'python manage.py runserver' ile çalıştırın.
+6-) Projeyi çalıştırmak için 'python manage.py runserver' ile çalıştırın.
 
 ### FRONTEND KURULUM
 
@@ -111,18 +113,20 @@
 
 1-) Install Python from https://www.python.org/.
 
-2-) After opening the project in the main directory, type 'cd Backend' in the terminal to access the backend file.
+2-)Add the file in Database.rar to the backend file.
 
-3-) In order:
+3-) After opening the project in the main directory, type 'cd Backend' in the terminal to access the backend file.
+
+4-) In order:
    pip install virtualenv
    virtualenv myenv
    myenv/Scripts/activate
 
    Congratulations we have just set up our virtual environment.
 
-4-) Install the necessary packages with 'pip install -r requerement.txt'.
+5-) Install the necessary packages with 'pip install -r requerement.txt'.
 
-5-) Run the project with 'python manage.py runserver' to run the project.
+6-) Run the project with 'python manage.py runserver' to run the project.
 
 ### FRONTEND SETUP
 
